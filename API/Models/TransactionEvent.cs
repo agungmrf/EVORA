@@ -2,6 +2,7 @@
 
 namespace API.Models
 {
+    [Table("tb_m_transaction_event")]
     public class TransactionEvent : GeneralAtribute
     {
         [Column("guid_customer")]

@@ -1,7 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using API.Utilities.Enums;
 
 namespace API.Models
 {
+    [Table("tb_m_employee")]
     public class Employee : GeneralAtribute
     {
         [Column("nik", TypeName = "nchar(12)")]
@@ -18,6 +20,9 @@ namespace API.Models
         public string PhoneNumber { get; set; }
         [Column("birth_date")]
         public DateTime BirthDate { get; set; }
+        
+        [Column("gender")] public GenderLevel Gender { get; set; }
+        
         [Column("hiring_date")]
         public DateTime HiringDate { get; set; }
         

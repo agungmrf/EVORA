@@ -2,6 +2,7 @@
 
 namespace API.Models
 {
+    [Table("tb_m_account")]
     public class Account : GeneralAtribute
     {
         [Column("password", TypeName = "nvarchar(100)")]

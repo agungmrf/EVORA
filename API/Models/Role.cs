@@ -2,6 +2,7 @@
 
 namespace API.Models
 {
+    [Table("tb_m_role")]
     public class Role : GeneralAtribute
     {
         [Column("name", TypeName = "nvarchar(100)")]

@@ -2,6 +2,7 @@
 
 namespace API.Models
 {
+    [Table("tb_m_location")]
     public class Location : GeneralAtribute
     {
         [Column("street", TypeName = "nvarchar(100)")]

@@ -2,6 +2,7 @@
 
 namespace API.Models
 {
+    [Table("tb_m_account_roles")]
     public class AccountRole : GeneralAtribute
     {
         [Column("guid_role")]
