@@ -2,7 +2,7 @@
 
 namespace API.Models
 {
-    public class PacketEvent : GeneralAtribute
+    public class PackageEvent : GeneralAtribute
     {
         [Column("name", TypeName = "nvarchar(100)")]
         public string name { get; set; }

@@ -1,6 +1,6 @@
 namespace API.Controllers;
 
-public class PacketEventController
+public class PackageEventController
 {
     
 }
