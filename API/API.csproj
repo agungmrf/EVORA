@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="Contracts\" />
-    <Folder Include="Controllers\" />
     <Folder Include="Data\" />
     <Folder Include="DTOs\" />
     <Folder Include="Models\" />
