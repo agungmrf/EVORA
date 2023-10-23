@@ -6,10 +6,12 @@ namespace API.Models
     public class PackageEvent : GeneralAtribute
     {
         [Column("name", TypeName = "nvarchar(100)")]
-        public string name { get; set; }
+        public string Name { get; set; }
         [Column("capacity", TypeName = "int")]
-        public string capacity { get; set; }
-        [Column("price", TypeName = "decimal")]
-        public string price { get; set; }
+        public string Capacity { get; set; }
+        [Column("description", TypeName = "nvarchar(max)")]
+        public string Desciption { get; set; }
+        [Column("price", TypeName = "money")]
+        public string Price { get; set; }
     }
 }

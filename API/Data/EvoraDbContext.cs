@@ -13,8 +13,6 @@ namespace API.Data
         public DbSet<AccountRole> AccountRoles { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Equipment> Equipments { get; set; }
-        public DbSet<EventEquipment> EventEquipments { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<PackageEvent> PackageEvents { get; set; }
         public DbSet<TransactionEvent> TransactionEvents { get; set; }

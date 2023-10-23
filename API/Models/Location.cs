@@ -5,15 +5,9 @@ namespace API.Models
     [Table("tb_m_location")]
     public class Location : GeneralAtribute
     {
+        [Column("city_guid")]
+        public string CityGuid { get; set; }
         [Column("street", TypeName = "nvarchar(100)")]
         public string Street { get; set; }
-        [Column("village", TypeName = "nvarchar(100)")]
-        public string Village { get; set; } // kelurahan
-        [Column("district ", TypeName = "nvarchar(100)")]
-        public string District { get; set; } // kecamatan
-        [Column("city", TypeName = "nvarchar(100)")]
-        public string City { get; set; } // kota
-        [Column("province", TypeName = "nvarchar(100)")]
-        public string Province { get; set; } // provinsi
     }
 }

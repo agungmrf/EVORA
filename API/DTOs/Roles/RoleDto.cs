@@ -21,8 +21,7 @@ public class RoleDto
         return new Role
         {
             Guid = roleDto.Guid,
-            Name = roleDto.Name,
-            ModifiedDate = DateTime.Now
+            Name = roleDto.Name
         };
     }
 }

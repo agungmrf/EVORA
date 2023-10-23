@@ -62,7 +62,6 @@ public class RoleController : ControllerBase
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
             Role toUpdate = roleDto;
-            toUpdate.CreatedDate = entity.CreatedDate;
 
             _roleRepository.Update(toUpdate);
 

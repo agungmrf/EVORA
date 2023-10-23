@@ -83,8 +83,7 @@ public class EmployeeController : ControllerBase
 
             Employee toUpdate = employeeDto;
             toUpdate.Nik = entity.Nik; // NIK tidak boleh diubah
-            toUpdate.CreatedDate = entity.CreatedDate; // Menyalin CreatedDate dari entity yang diambil dari database.
-
+            
             _employeeRepository.Update(toUpdate);
 
             // Setelah data berhasil diubah, maka akan mengembalikan response 200 OK.

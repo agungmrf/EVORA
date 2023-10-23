@@ -25,9 +25,7 @@ public class CreateEmployeeDto
             Gender = createEmployeeDto.Gender,
             HiringDate = createEmployeeDto.HiringDate,
             Email = createEmployeeDto.Email,
-            PhoneNumber = createEmployeeDto.PhoneNumber,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            PhoneNumber = createEmployeeDto.PhoneNumber
         };
     }
 }

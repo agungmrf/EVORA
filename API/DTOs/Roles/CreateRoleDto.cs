@@ -11,9 +11,7 @@ public class CreateRoleDto
     {
         return new Role
         {
-            Name = createRoleDto.Name,
-            CreatedDate = DateTime.Now,
-            ModifiedDate = DateTime.Now
+            Name = createRoleDto.Name
         };
     }
 }
