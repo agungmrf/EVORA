@@ -16,9 +16,9 @@ public class CustomerDto
     public string PhoneNumber { get; set; }
 
     public static explicit operator
-        CustomerDto(Customer customer)
+        CustomerDto(Customer customer) // Operator explicit untuk mengkonversi Customer menjadi CustomerDto.
     {
-        return new CustomerDto
+        return new CustomerDto // Mengembalikan object CustomerDto dengan data dari property Customer.
         {
             Guid = customer.Guid,
             FirstName = customer.FirstName,
@@ -31,9 +31,9 @@ public class CustomerDto
     }
 
     public static implicit operator
-        Customer(CustomerDto customerDto) 
+        Customer(CustomerDto customerDto) // Operator implicit untuk mengkonversi CustomerDto menjadi Customer.
     {
-        return new Customer 
+        return new Customer // Mengembalikan object Customer dengan data dari property CustomerDto.
         {
             Guid = customerDto.Guid,
             FirstName = customerDto.FirstName,

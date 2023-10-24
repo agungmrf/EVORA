@@ -13,10 +13,9 @@ public class CreateEmployeeDto
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
 
-    public static implicit operator
-        Employee(CreateEmployeeDto createEmployeeDto) // Operator implicit untuk mengkonversi CreateEmployeeDto menjadi Employee.
+    public static implicit operator Employee(CreateEmployeeDto createEmployeeDto) 
     {
-        return new Employee // Mengembalikan object Employee dengan data dari property CreateEmployeeDto.
+        return new Employee
         {
             Guid = new Guid(),
             FirstName = createEmployeeDto.FirstName,

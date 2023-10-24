@@ -1,4 +1,3 @@
-
 using API.Models;
 
 namespace API.Contracts;

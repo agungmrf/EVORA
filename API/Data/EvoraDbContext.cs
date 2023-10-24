@@ -1,4 +1,4 @@
-﻿using API.Models;
+using API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -66,7 +66,7 @@ namespace API.Data
             modelBuilder.Entity<SubDistrict>()
                 .HasOne(sub => sub.District)
                 .WithMany(dis => dis.SubDistricts)
-                .HasForeignKey(dis => dis.DisctrictGuid)
+                .HasForeignKey(dis => dis.DistrictGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One location has many transaction
             modelBuilder.Entity<Location>()

@@ -7,7 +7,7 @@ public class SubDistrict : GeneralAtribute
 {
     [Column("name", TypeName = "nvarchar(50)")]
     public string Name { get; set; }
-    public Guid DisctrictGuid { get; set; }
+    public Guid DistrictGuid { get; set; }
 
     // Cardinality Many To One
     public District? District { get; set; }

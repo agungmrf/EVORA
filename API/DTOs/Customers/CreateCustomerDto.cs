@@ -9,14 +9,13 @@ public class CreateCustomerDto
     public string? LastName { get; set; }
     public DateTime BirthDate { get; set; }
     public GenderLevel Gender { get; set; }
-    public DateTime HiringDate { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
 
     public static implicit operator
-        Customer(CreateCustomerDto createCustomerDto)
+        Customer(CreateCustomerDto createCustomerDto) // Operator implicit untuk mengkonversi CreateCustomerDto menjadi Customer.
     {
-        return new Customer 
+        return new Customer // Mengembalikan object Customer dengan data dari property CreateCustomerDto.
         {
             Guid = new Guid(),
             FirstName = createCustomerDto.FirstName,

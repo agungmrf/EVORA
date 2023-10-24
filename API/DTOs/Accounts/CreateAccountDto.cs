@@ -11,9 +11,9 @@ public class CreateAccountDto
     public DateTime ExpiredDate { get; set; }
 
     public static implicit operator
-        Account(CreateAccountDto createAccountDto) 
+        Account(CreateAccountDto createAccountDto) // Operator implicit untuk mengkonversi CreateAccountDto menjadi Account.
     {
-        return new Account
+        return new Account // Mengembalikan object Account dengan data dari property CreateAccountDto.
         {
             Guid = createAccountDto.Guid,
             Password = createAccountDto.Password,
