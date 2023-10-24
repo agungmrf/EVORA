@@ -3087,19 +3087,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\AhmadYazidMunif\\.nuget\\packages\\": {}
+    "C:\\Users\\User\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\API\\API.csproj",
+      "projectUniqueName": "C:\\Users\\User\\source\\repos\\EVORA\\API\\API.csproj",
       "projectName": "API",
-      "projectPath": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\API\\API.csproj",
-      "packagesPath": "C:\\Users\\AhmadYazidMunif\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\API\\obj\\",
+      "projectPath": "C:\\Users\\User\\source\\repos\\EVORA\\API\\API.csproj",
+      "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\User\\source\\repos\\EVORA\\API\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\AhmadYazidMunif\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3175,7 +3175,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.415\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100-rc.2.23502.2\\RuntimeIdentifierGraph.json"
       }
     }
   }

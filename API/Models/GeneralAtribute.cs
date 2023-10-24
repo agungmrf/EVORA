@@ -6,7 +6,6 @@ namespace API.Models
     
     public class GeneralAtribute
     {
-        [Key, Column("guid", TypeName = "nvarchar(128)")]
-        public Guid Guid { get; set; }
+        [Key] [Column("guid")] public Guid Guid { get; set; } // Primary Key.
     }
 }

@@ -1,6 +1,8 @@
+using API.Models;
+
 namespace API.Contracts;
 
-public interface ILocationRepository
+public interface ILocationRepository : IGeneralRepository<Location>
 {
     
 }
