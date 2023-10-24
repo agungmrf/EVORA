@@ -8,10 +8,12 @@ namespace API.Models
         [Column("name", TypeName = "nvarchar(100)")]
         public string Name { get; set; }
         [Column("capacity", TypeName = "int")]
-        public string Capacity { get; set; }
+        public int Capacity { get; set; }
         [Column("description", TypeName = "nvarchar(max)")]
         public string Desciption { get; set; }
         [Column("price", TypeName = "money")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
+        // Cardinality One To Many
+        public ICollection<TransactionEvent>? TransactionEvents { get; set; }
     }
 }

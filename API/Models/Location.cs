@@ -6,8 +6,12 @@ namespace API.Models
     public class Location : GeneralAtribute
     {
         [Column("city_guid")]
-        public string CityGuid { get; set; }
+        public Guid CityGuid { get; set; }
         [Column("street", TypeName = "nvarchar(100)")]
         public string Street { get; set; }
+        // Cardinality Many To One
+        public City? City { get; set; }
+        // Cardinality One To Many
+        public ICollection<TransactionEvent>? TransactionEvents { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace API.Models
         public DateTime BirthDate { get; set; }
         [Column("hiring_date")]
         public DateTime HiringDate { get; set; }
-        
+        // Cardinality One To One
+        public Account? Account { get; set; }
     }
 }

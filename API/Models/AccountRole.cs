@@ -9,5 +9,8 @@ namespace API.Models
         public Guid RoleGuid { get; set; }
         [Column("account_guid")]
         public Guid AccountGuid { get; set; }
+        // Cardinality Many To One
+        public Role? Role { get; set; }
+        public Account? Account { get; set; }
     }
 }

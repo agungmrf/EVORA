@@ -18,5 +18,9 @@ namespace API.Models
         public string PhoneNumber { get; set; }
         [Column("birth_date")]
         public DateTime BirthDate { get; set; }
+        // Cardinality One To One
+        public Account? Account { get; set; }
+        // Cardinality One To Many
+        public ICollection<TransactionEvent>? TransactionEvents { get; set; }
     }
 }
