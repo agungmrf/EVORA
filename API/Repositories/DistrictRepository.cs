@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class DistrictRepository : GeneralRepository<District>, IDistrictRepository
 {
-    protected DistrictRepository(EvoraDbContext context) : base(context)
+    public DistrictRepository(EvoraDbContext context) : base(context)
     {
     }
 }

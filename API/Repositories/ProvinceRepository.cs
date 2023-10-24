@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class ProvinceRepository : GeneralRepository<Province>, IProvinceRepository
 {
-    protected ProvinceRepository(EvoraDbContext context) : base(context)
+    public ProvinceRepository(EvoraDbContext context) : base(context)
     {
     }
 }

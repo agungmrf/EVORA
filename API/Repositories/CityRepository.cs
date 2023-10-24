@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class CityRepository : GeneralRepository<City>, ICityRepository
 {
-    protected CityRepository(EvoraDbContext context) : base(context)
+    public CityRepository(EvoraDbContext context) : base(context)
     {
     }
 }

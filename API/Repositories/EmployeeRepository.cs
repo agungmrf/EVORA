@@ -6,7 +6,7 @@ namespace API.Repositories
 {
     public class EmployeeRepository : GeneralRepository<Employee>, IEmployeeRepository
     {
-        protected EmployeeRepository(EvoraDbContext context) : base(context)
+        public EmployeeRepository(EvoraDbContext context) : base(context)
         {
         }
         

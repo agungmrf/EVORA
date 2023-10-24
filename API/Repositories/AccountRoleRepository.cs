@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class AccountRoleRepository : GeneralRepository<AccountRole>, IAccountRoleRepository
 {
-    protected AccountRoleRepository(EvoraDbContext context) : base(context)
+    public AccountRoleRepository(EvoraDbContext context) : base(context)
     {
     }
 }

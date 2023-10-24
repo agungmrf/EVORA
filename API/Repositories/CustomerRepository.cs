@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class CustomerRepository : GeneralRepository<Customer>, ICustomerRepository
 {
-    protected CustomerRepository(EvoraDbContext context) : base(context)
+    public CustomerRepository(EvoraDbContext context) : base(context)
     {
     }
 }

@@ -5,11 +5,13 @@ using API.Utilities.Handler;
 using API.Utilities.Handlers;
 using API.Utilities.Validations.Accounts;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
 [ApiController] 
 [Route("api/[controller]")]
+[EnableCors]
 public class AccountController : ControllerBase
 {
     private readonly IAccountRepository _accountRepository;

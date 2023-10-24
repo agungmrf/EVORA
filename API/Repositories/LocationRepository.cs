@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class LocationRepository : GeneralRepository<Location>, ILocationRepository
 {
-    protected LocationRepository(EvoraDbContext context) : base(context)
+    public LocationRepository(EvoraDbContext context) : base(context)
     {
     }
 }
