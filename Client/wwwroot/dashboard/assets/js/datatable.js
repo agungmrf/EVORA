@@ -1,8 +1,8 @@
 
 $('#example').dataTable({
-    dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+    dom: "<'row'<'col-sm-12 col-md-9'B><'col-sm-12 col-md-3'f>>" +
         "<'row'<'col-sm-12'tr>>" +
-        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+        "<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
     buttons: [
         {
             extend: 'excelHtml5',

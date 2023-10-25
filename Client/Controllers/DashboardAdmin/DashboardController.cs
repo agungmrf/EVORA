@@ -17,5 +17,9 @@ namespace Client.Controllers.DashboardAdmin
         {
             return View();
         }
+        public IActionResult Employee()
+        {
+            return View();
+        }
     }
 }
