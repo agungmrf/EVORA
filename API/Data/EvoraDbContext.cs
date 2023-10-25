@@ -88,15 +88,15 @@ namespace API.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // One Account has one Employee
-            modelBuilder.Entity<Employee>()
-                .HasOne(emp => emp.Account)
-                .WithOne(account => account.Employee)
-                .HasForeignKey<Employee>(e => e.AccountGuid);
+            modelBuilder.Entity<Account>()
+                .HasOne(account => account.Employee)
+                .WithOne(emp => emp.Account)
+                .HasForeignKey<Account>(account => account.EmployeeGuid);
             // One Account has one Customer
-            modelBuilder.Entity<Customer>()
-                .HasOne(user => user.Account)
-                .WithOne(account => account.Customer)
-                .HasForeignKey<Customer>(c => c.AccountGuid);
+            modelBuilder.Entity<Account>()
+                .HasOne(account => account.Customer)
+                .WithOne(cus => cus.Account)
+                .HasForeignKey<Account>(account => account.CustomerGuid);
         }
     }
 }
