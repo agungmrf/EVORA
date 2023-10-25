@@ -17,7 +17,7 @@ public class PackageEventDto
             Guid = packageEvent.Guid,
             Name = packageEvent.Name,
             Capacity = packageEvent.Capacity,
-            Description = packageEvent.Desciption,
+            Description = packageEvent.Description,
             Price = packageEvent.Price
         };
     }
@@ -29,7 +29,7 @@ public class PackageEventDto
             Guid = packageEventDto.Guid,
             Name = packageEventDto.Name,
             Capacity = packageEventDto.Capacity,
-            Desciption = packageEventDto.Description,
+            Description = packageEventDto.Description,
             Price = packageEventDto.Price
         };
     }

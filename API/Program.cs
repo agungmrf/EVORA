@@ -55,6 +55,9 @@ builder.Services.AddCors(options =>
     });
 });
 
+//Register TokenHandler
+builder.Services.AddScoped<IGenerateTokenHandler, GenerateTokenHandler>();
+
 // Add repositories to the container.
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();

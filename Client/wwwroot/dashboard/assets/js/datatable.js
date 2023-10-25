@@ -1,8 +1,14 @@
 
 $('#example').dataTable({
+<<<<<<< Updated upstream
     dom: "<'row'<'col-sm-12 col-md-9'B><'col-sm-12 col-md-3'f>>" +
         "<'row'<'col-sm-12'tr>>" +
         "<'row'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>",
+=======
+    dom: "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
+        "<'row'<'col-sm-12'tr>>" +
+        "<'row'<'col-sm-12 col-md-5'i><'col-sm-12 col-md-7'p>>",
+>>>>>>> Stashed changes
     buttons: [
         {
             extend: 'excelHtml5',

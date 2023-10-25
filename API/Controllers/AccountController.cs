@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using API.Contracts;
 using API.DTOs.Accounts;
 using API.Models;
@@ -17,13 +18,19 @@ public class AccountController : ControllerBase
     private readonly IAccountRepository _accountRepository;
     private readonly IEmailHandler _emailHandler;
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly IRoleRepository _roleRepository;
+    private readonly IAccountRoleRepository _accountRoleRepository;
+    private readonly IGenerateTokenHandler _tokenService;
 
 
-    public AccountController(IAccountRepository accountRepository, IEmailHandler emailHandler, IEmployeeRepository employeeRepository)
+    public AccountController(IAccountRepository accountRepository, IEmailHandler emailHandler, IEmployeeRepository employeeRepository, IRoleRepository roleRepository, IAccountRoleRepository accountRoleRepository, IGenerateTokenHandler tokenService)
     {
         _accountRepository = accountRepository;
         _emailHandler = emailHandler;
         _employeeRepository = employeeRepository;
+        _roleRepository = roleRepository;
+        _accountRoleRepository = accountRoleRepository;
+        _tokenService = tokenService;
     }
     
     [HttpGet]
@@ -189,6 +196,46 @@ public class AccountController : ControllerBase
                     new ResponseServerErrorHandler("Failed to update data"));
 
             return Ok(new ResponseOKHandler<string>("Password has been changed successfully"));
+        }
+        catch (ExceptionHandler ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new ResponseServerErrorHandler("Failed to process the request", ex.Message));
+        }
+    }
+    
+    [HttpPost("login")]
+    [AllowAnonymous]
+    public IActionResult Login(LoginDto loginDto)
+    {
+        try
+        {
+            var getEmployee = _employeeRepository.GetByEmail(loginDto.Email);
+
+            if (getEmployee is null)
+                return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+            var getAccount = _accountRepository.GetByGuid(getEmployee.Guid);
+
+            if (!HashingHandler.VerifyPassword(loginDto.Password, getAccount.Password))
+                return BadRequest(new ResponseValidatorHandler("Password is invalid"));
+
+            // Generate token
+            var claims = new List<Claim>();
+            claims.Add(new Claim("Email", getEmployee.Email));
+            claims.Add(new Claim("FullName", string.Concat(getEmployee.FirstName, " ", getEmployee.LastName)));
+
+            // Untuk mendapatkan role dari akun yang sedang login
+            var getRoleNames = from ar in _accountRoleRepository.GetAll()
+                join r in _roleRepository.GetAll() on ar.RoleGuid equals r.Guid
+                where ar.AccountGuid == getEmployee.Guid
+                select r.Name;
+
+            // Jika akun memiliki lebih dari satu role, maka akan ditambahkan ke claims
+            foreach (var roleName in getRoleNames) claims.Add(new Claim(ClaimTypes.Role, roleName));
+
+            var generateToken = _tokenService.Generate(claims);
+
+            return Ok(new ResponseOKHandler<object>("Login success", new { Token = generateToken }));
         }
         catch (ExceptionHandler ex)
         {

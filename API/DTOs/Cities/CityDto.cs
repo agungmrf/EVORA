@@ -16,7 +16,7 @@ public class CityDto
             Guid = city.Guid,
             Name = city.Name,
             ProvinceGuid = city.ProvinceGuid,
-            DistrictGuid = city.DisctrictGuid
+            DistrictGuid = city.DistrictGuid
         };
     }
 
@@ -27,7 +27,7 @@ public class CityDto
             Guid = cityDto.Guid,
             Name = cityDto.Name,
             ProvinceGuid = cityDto.ProvinceGuid,
-            DisctrictGuid = cityDto.DistrictGuid
+            DistrictGuid = cityDto.DistrictGuid
         };
     }
 }

@@ -14,7 +14,12 @@
   <component name="ChangeListManager">
     <list default="true" id="b3d3e1d1-293c-4958-b3da-0a6423176212" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EVORA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EVORA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Utilities/Validations/Provinces/ProvinceValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Utilities/Validations/Provinces/ProvinceValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/API.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/API/API.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/AccountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Customers/CustomerDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/DTOs/Customers/CustomerDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Utilities/Validations/Roles/RoleValidator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Utilities/Validations/Roles/RoleValidator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/obj/Debug/net6.0/Client.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/Client/obj/Debug/net6.0/Client.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +31,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/2cd11b0db1b895cd4eb9531b63f494b8653478743b03831406fda43103932ed/AbstractValidator.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/API/Utilities/Validations/Cities/CityValidator.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/API/Utilities/Validations/Roles/RoleValidator.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -111,7 +118,7 @@
       <workItem from="1698129561588" duration="1294000" />
       <workItem from="1698131803826" duration="10476000" />
       <workItem from="1698145380604" duration="2560000" />
-      <workItem from="1698196362805" duration="10497000" />
+      <workItem from="1698196362805" duration="16038000" />
     </task>
     <servers />
   </component>

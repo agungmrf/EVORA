@@ -60,7 +60,7 @@ namespace API.Data
             modelBuilder.Entity<District>()
                 .HasMany(city => city.Cities)
                 .WithOne(dis => dis.District)
-                .HasForeignKey(city => city.DisctrictGuid)
+                .HasForeignKey(city => city.DistrictGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One District has many Subdistrict
             modelBuilder.Entity<SubDistrict>()
