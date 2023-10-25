@@ -17,12 +17,9 @@ namespace Client.Controllers.DashboardAdmin
         {
             return View();
         }
-<<<<<<< Updated upstream
         public IActionResult Employee()
         {
             return View();
         }
-=======
->>>>>>> Stashed changes
     }
 }

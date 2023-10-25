@@ -87,25 +87,16 @@ namespace API.Data
                 .HasForeignKey(transaction => transaction.CustomerGuid)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Account>()
-                .HasKey(a => a.Guid);
-
-            modelBuilder.Entity<Employee>()
-                .HasKey(e => e.Guid);
-
-            modelBuilder.Entity<Customer>()
-                .HasKey(c => c.Guid);
-
             // One Account has one Employee
-            modelBuilder.Entity<Account>()
-                .HasOne(emp => emp.Employee)
-                .WithOne(account => account.Account)
-                .HasForeignKey<Account>(e => e.Guid);
+            modelBuilder.Entity<Employee>()
+                .HasOne(emp => emp.Account)
+                .WithOne(account => account.Employee)
+                .HasForeignKey<Employee>(e => e.AccountGuid);
             // One Account has one Customer
-            modelBuilder.Entity<Account>()
-                .HasOne(user => user.Customer)
-                .WithOne(account => account.Account)
-                .HasForeignKey<Account>(c => c.Guid);
+            modelBuilder.Entity<Customer>()
+                .HasOne(user => user.Account)
+                .WithOne(account => account.Customer)
+                .HasForeignKey<Customer>(c => c.AccountGuid);
         }
     }
 }

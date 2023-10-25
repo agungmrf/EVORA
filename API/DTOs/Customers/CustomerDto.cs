@@ -12,7 +12,7 @@ public class CustomerDto
     public GenderLevel Gender { get; set; }
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
-
+    public Guid? AccountGuid { get; set; }
     public static explicit operator
         CustomerDto(Customer customer) // Operator explicit untuk mengkonversi Customer menjadi CustomerDto.
     {
@@ -24,7 +24,8 @@ public class CustomerDto
             BirthDate = customer.BirthDate,
             Gender = customer.Gender,
             Email = customer.Email,
-            PhoneNumber = customer.PhoneNumber
+            PhoneNumber = customer.PhoneNumber,
+            AccountGuid = customer.AccountGuid
         };
     }
 
