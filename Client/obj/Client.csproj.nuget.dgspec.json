@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\source\\repos\\EVORA\\Client\\Client.csproj": {}
+    "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\Client\\Client.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\source\\repos\\EVORA\\Client\\Client.csproj": {
+    "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\Client\\Client.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\source\\repos\\EVORA\\Client\\Client.csproj",
+        "projectUniqueName": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\Client\\Client.csproj",
         "projectName": "Client",
-        "projectPath": "C:\\Users\\User\\source\\repos\\EVORA\\Client\\Client.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\source\\repos\\EVORA\\Client\\obj\\",
+        "projectPath": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\Client\\Client.csproj",
+        "packagesPath": "C:\\Users\\AhmadYazidMunif\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\AhmadYazidMunif\\source\\repos\\EVORA\\Client\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\AhmadYazidMunif\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -57,6 +57,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[6.0.23, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[6.0.16, )"
             }
           },
           "imports": [
@@ -78,7 +82,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.415\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
