@@ -13,20 +13,39 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b3d3e1d1-293c-4958-b3da-0a6423176212" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/AccountRoles/AccountRoleValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Accounts/AccountValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Accounts/ChangePasswordValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Accounts/CreateAccountValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Accounts/ForgotPasswordValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Customers/CustomerValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Employees/EmployeeValidator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/API/Utilities/Validations/Roles/RoleValidator.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.EVORA/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.EVORA/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/AccountRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/AccountRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Contracts/IAccountRoleRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Contracts/IAccountRoleRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Contracts/ICustomerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Contracts/ICustomerRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/AccountController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/AccountController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/AccountRoleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/AccountRoleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/CityController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CityController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/CustomerController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/CustomerController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/DistrictController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/DistrictController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/EmployeeController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/EmployeeController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/LocationController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/LocationController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/PackageEventController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/PackageEventController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/ProvinceController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/ProvinceController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/RoleController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/RoleController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/SubDistrictController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/SubDistrictController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/Controllers/TransactionEventController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Controllers/TransactionEventController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/AccountRoles/CreateAccountRoleDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Cities/CreateCityDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Customers/CreateCustomerDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Districts/CreateDistrictDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Employees/CreateEmployeeDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Provinces/CreateProvinceDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/Roles/CreateRoleDto.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/API/DTOs/SubDistricts/CreateSubDistrictDto.cs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Repositories/AccountRoleRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/AccountRoleRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/CityRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/CityRepository.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/API/Repositories/CustomerRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/CustomerRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/DistrictRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/DistrictRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/EmployeeRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/EmployeeRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/LocationRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/LocationRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/PackageEventRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/PackageEventRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/ProvinceRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/ProvinceRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/RoleRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/RoleRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/SubDistrictRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/SubDistrictRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/API/Repositories/TransactionEventRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/API/Repositories/TransactionEventRepository.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +138,8 @@
       <workItem from="1698031234544" duration="24000" />
       <workItem from="1698129561588" duration="1294000" />
       <workItem from="1698131803826" duration="10476000" />
-      <workItem from="1698145380604" duration="1070000" />
+      <workItem from="1698145380604" duration="2560000" />
+      <workItem from="1698196362805" duration="5726000" />
     </task>
     <servers />
   </component>

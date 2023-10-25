@@ -1,5 +1,4 @@
 using API.Contracts;
-using API.DTOs.Cities;
 using API.DTOs.Districts;
 using API.Models;
 using API.Utilities.Handler;
@@ -39,11 +38,11 @@ public class DistrictController  : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Create(CreateDistrictDto createDistrictDto)
+    public IActionResult Create(DistrictDto districtDto)
     {
         try
         {
-            var result = _districtRepository.Create(createDistrictDto);
+            var result = _districtRepository.Create(districtDto);
 
             return Ok(new ResponseOKHandler<DistrictDto>("Data has been created successfully")
                 { Data = (DistrictDto)result });

@@ -1,6 +1,4 @@
 using API.Contracts;
-using API.DTOs.Cities;
-using API.DTOs.Districts;
 using API.DTOs.SubDistricts;
 using API.Models;
 using API.Utilities.Handler;
@@ -19,7 +17,7 @@ public class SubDistrictController : ControllerBase
         _subDistrictRepository = subDistrictRepository;
     }
     
-        [HttpGet]
+    [HttpGet]
     public IActionResult GetAll()
     {
         var result = _subDistrictRepository.GetAll();

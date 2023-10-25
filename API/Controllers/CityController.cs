@@ -38,11 +38,11 @@ public class CityController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Create(CreateCityDto createCityDto)
+    public IActionResult Create(CityDto cityDto)
     {
         try
         {
-            var result = _cityRepository.Create(createCityDto);
+            var result = _cityRepository.Create(cityDto);
 
             return Ok(new ResponseOKHandler<CityDto>("Data has been created successfully")
                 { Data = (CityDto)result });

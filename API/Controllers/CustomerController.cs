@@ -38,11 +38,11 @@ public class CustomerController : ControllerBase
     }
     
     [HttpPost]
-    public IActionResult Create(CreateCustomerDto createCustomerDto)
+    public IActionResult Create(CustomerDto customerDto)
     {
         try
         {
-            Customer toCreate = createCustomerDto;
+            Customer toCreate = customerDto;
 
             var result = _customerRepository.Create(toCreate);
 
