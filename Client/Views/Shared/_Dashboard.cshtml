@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - Client</title>
     <link rel="shortcut icon" type="image/png" href="~/dashboard/assets/images/logos/logo.png" />
-    <link rel="stylesheet" href="~/dashboard/assets/css/styles.min.css" />
+    <link rel="stylesheet" href="~/dashboard/assets/css/styles.css" />
 </head>
 
 <body>
@@ -64,6 +64,32 @@
                                 </span>
                                 <span class="hide-menu">Locations</span>
                             </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link has-arrow" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-arrow-up-left"></i>
+                                </span>
+                                <span class="hide-menu">Location</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse first-level">
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">City</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a href="#" class="sidebar-link">
+                                        <div class="round-16 d-flex align-items-center justify-content-center">
+                                            <i class="ti ti-circle"></i>
+                                        </div>
+                                        <span class="hide-menu">Province</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" asp-action="Packages" asp-controller="Dashboard" aria-expanded="false">

@@ -20473,3 +20473,55 @@ ul {
 .left-sidebar .scroll-sidebar .simplebar-track.simplebar-horizontal {
     visibility: hidden!important
 }
+
+
+.sidebar-nav ul .sidebar-item:hover {
+    cursor: pointer;
+}
+
+.sidebar-nav ul .sidebar-item .first-level:last-child {
+    margin-bottom: 16px;
+}
+
+.sidebar-nav ul .sidebar-item .first-level .sidebar-link .ti {
+    padding-left: 15px;
+    font-size: 10px;
+}
+
+.collapse.in {
+    display: block;
+}
+
+.sidebar-nav .has-arrow::after {
+    position: absolute;
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-width: 1px 0 0 1px;
+    border-style: solid;
+    border-color: #2a3547;
+    margin-left: 10px;
+    -webkit-transform: rotate(135deg) translate(0,-50%);
+    -ms-transform: rotate(135deg) translate(0,-50%);
+    -o-transform: rotate(135deg) translate(0,-50%);
+    transform: rotate(135deg) translate(0,-50%);
+    -webkit-transform-origin: top;
+    -ms-transform-origin: top;
+    -o-transform-origin: top;
+    transform-origin: top;
+    top: 22px;
+    right: 15px;
+    -webkit-transition: all .3s ease-out;
+    -o-transition: all .3s ease-out;
+    transition: all .3s ease-out
+}
+
+.sidebar-nav .has-arrow[aria-expanded=true]::after, .sidebar-nav li.active > .has-arrow::after, .sidebar-nav li > .has-arrow.active::after {
+    top: 18px;
+    margin-top: 1px;
+    border-color: #fff;
+    -webkit-transform: rotate(-135deg) translate(0,-50%);
+    -ms-transform: rotate(-135deg) translate(0,-50%);
+    -o-transform: rotate(-135deg) translate(0,-50%);
+    transform: rotate(-135deg) translate(0,-50%)
+}

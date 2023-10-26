@@ -36,7 +36,14 @@ public class LocationController : ControllerBase
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         return Ok(new ResponseOKHandler<LocationDto>((LocationDto)result));
     }
-    
+    [HttpGet("detail/{guid}")]
+    public IActionResult GetDetailByGuid(Guid guid)
+    {
+        var result = _locationRepository.GetDetailLocation(guid);
+        if (result is null)
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        return Ok(new ResponseOKHandler<DetailLocationDto>(result));
+    }
     [HttpPost]
     public IActionResult Create(LocationDto locationDto)
     {
