@@ -7,7 +7,7 @@ public class CityDto
     public Guid Guid { get; set; }
     public string Name { get; set; }
     public Guid ProvinceGuid { get; set; }
-    public Guid DistrictGuid { get; set; }
+    //public Guid DistrictGuid { get; set; }
     
     public static explicit operator CityDto(City city) 
     {
@@ -15,8 +15,7 @@ public class CityDto
         {
             Guid = city.Guid,
             Name = city.Name,
-            ProvinceGuid = city.ProvinceGuid,
-            DistrictGuid = city.DistrictGuid
+            ProvinceGuid = city.ProvinceGuid
         };
     }
 
@@ -26,8 +25,7 @@ public class CityDto
         {
             Guid = cityDto.Guid,
             Name = cityDto.Name,
-            ProvinceGuid = cityDto.ProvinceGuid,
-            DistrictGuid = cityDto.DistrictGuid
+            ProvinceGuid = cityDto.ProvinceGuid
         };
     }
 }

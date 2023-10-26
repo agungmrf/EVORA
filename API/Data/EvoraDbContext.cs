@@ -44,29 +44,29 @@ namespace API.Data
                 .WithMany(ar => ar.AccountRoles)
                 .HasForeignKey(arole => arole.AccountGuid)
                 .OnDelete(DeleteBehavior.Restrict);
-            // One City has many location
-            modelBuilder.Entity<City>()
-                .HasMany(loc => loc.Location)
-                .WithOne(city => city.City)
-                .HasForeignKey(loc => loc.CityGuid)
-                .OnDelete(DeleteBehavior.Restrict);
             // One Province has many City
             modelBuilder.Entity<Province>()
                 .HasMany(city => city.Cities)
                 .WithOne(prov => prov.Province)
                 .HasForeignKey(city => city.ProvinceGuid)
                 .OnDelete(DeleteBehavior.Restrict);
+            // One City has many location
+            modelBuilder.Entity<City>()
+                .HasMany(dist => dist.Districts)
+                .WithOne(city => city.City)
+                .HasForeignKey(dist => dist.CityGuid)
+                .OnDelete(DeleteBehavior.Restrict);
             // One District has many City
             modelBuilder.Entity<District>()
-                .HasMany(city => city.Cities)
+                .HasMany(sub => sub.SubDistricts)
                 .WithOne(dis => dis.District)
-                .HasForeignKey(city => city.DistrictGuid)
+                .HasForeignKey(sub => sub.DistrictGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One District has many Subdistrict
             modelBuilder.Entity<SubDistrict>()
-                .HasOne(sub => sub.District)
-                .WithMany(dis => dis.SubDistricts)
-                .HasForeignKey(dis => dis.DistrictGuid)
+                .HasMany(loc => loc.Locations)
+                .WithOne(dis => dis.SubDistrict)
+                .HasForeignKey(loc => loc.SubDistrictGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One location has many transaction
             modelBuilder.Entity<Location>()

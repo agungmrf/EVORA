@@ -6,7 +6,7 @@ public class LocationDto
 {
     public Guid Guid { get; set; }
     public string Street { get; set; }
-    public Guid CityGuid { get; set; } 
+    public Guid SubDistrictGuid { get; set; } 
     
     public static explicit operator LocationDto(Location location)
     {
@@ -14,7 +14,7 @@ public class LocationDto
         {
             Guid = location.Guid,
             Street = location.Street,
-            CityGuid = location.CityGuid
+            SubDistrictGuid = location.SubDistrictGuid
         };
     }
 
@@ -24,7 +24,7 @@ public class LocationDto
         {
             Guid = locationDto.Guid,
             Street = locationDto.Street,
-            CityGuid = locationDto.CityGuid
+            SubDistrictGuid = locationDto.SubDistrictGuid
         };
     }
 }

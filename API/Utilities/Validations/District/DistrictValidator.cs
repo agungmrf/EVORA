@@ -20,6 +20,9 @@ public class DistrictValidator : AbstractValidator<DistrictDto>
         RuleFor(p => p.Name)
             .Must(BeUniqueName)
             .WithMessage("District '{PropertyValue}' already exists in the database");
+
+        RuleFor(c => c.CityGuid)
+            .NotEmpty();
     }
 
     private bool BeUniqueName(string name)

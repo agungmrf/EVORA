@@ -12,7 +12,7 @@ public class LocationValidator : AbstractValidator<LocationDto>
             .MaximumLength(100)
             .WithMessage("Name must not exceed 100 characters"); // Validasi Name tidak boleh lebih dari 100 karakter
         
-        RuleFor(l => l.CityGuid)
+        RuleFor(l => l.SubDistrictGuid)
             .NotEmpty();
     }
 }

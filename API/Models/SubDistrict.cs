@@ -10,7 +10,6 @@ public class SubDistrict : GeneralAtribute
     
     [Column("district_guid")] 
     public Guid DistrictGuid { get; set; } // Foreign Key.
-
-    // Cardinality Many To One
-    public District? District { get; set; }
+    public District? District { get; set; } // Cardinality Many To One    
+    public ICollection<Location>? Locations { get; set; } // Cardinality One To Many
 }

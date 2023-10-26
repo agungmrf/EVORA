@@ -24,8 +24,8 @@ public class CityValidator : AbstractValidator<CityDto>
         RuleFor(c => c.ProvinceGuid)
             .NotEmpty();
         
-        RuleFor(c => c.DistrictGuid)
-            .NotEmpty();
+        //RuleFor(c => c.DistrictGuid)
+        //    .NotEmpty();
     }
     
     private bool BeUniqueName(string name)
