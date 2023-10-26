@@ -15,6 +15,7 @@ mono_crash.*
 
 # Build results
 API/Migrations
+Client/obj
 [Bb]in
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -23,7 +24,6 @@ API/Migrations
 [Pp]roperties/
 API/[Pp]roperties/
 API/[Pp]packages/
-[Oo]bj
 x64/
 x86/
 [Ww][Ii][Nn]32/
