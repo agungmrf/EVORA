@@ -49,8 +49,8 @@ public class EmployeeDto
             Gender = employeeDto.Gender,
             HiringDate = employeeDto.HiringDate,
             Email = employeeDto.Email,
-            PhoneNumber = employeeDto.PhoneNumber
-            //AccountGuid = employeeDto.AccountGuid
+            PhoneNumber = employeeDto.PhoneNumber,
+            AccountGuid = employeeDto.AccountGuid
         };
     }
 }

@@ -40,7 +40,8 @@ public class CustomerDto
             BirthDate = customerDto.BirthDate,
             Gender = customerDto.Gender,
             Email = customerDto.Email,
-            PhoneNumber = customerDto.PhoneNumber
+            PhoneNumber = customerDto.PhoneNumber,
+            AccountGuid = customerDto.AccountGuid
         };
     }
 }
