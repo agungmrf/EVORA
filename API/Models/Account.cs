@@ -17,6 +17,10 @@ namespace API.Models
         public DateTime CreatedDate { get; set; }
         [Column("modified_date")]
         public DateTime ModifiedDate { get; set; }
+        [Column("customer_guid")]
+        public Guid? CustomerGuid { get; set; }
+        [Column("employee_guid")]
+        public Guid? EmployeeGuid { get; set; }
         // Cardinality One To One
         public Employee? Employee { get; set; }
         public Customer? Customer { get; set; }

@@ -9,6 +9,8 @@ public class AccountDto
     public int Otp { get; set; }
     public bool IsUsed { get; set; }
     public DateTime ExpiredDate { get; set; }
+    public Guid? EmployeeGuid { get; set; }
+    public Guid? CustomerGuid { get; set; }
 
     public static explicit operator
         AccountDto(Account account) // Operator explicit untuk mengkonversi Account menjadi AccountDto.
@@ -19,6 +21,8 @@ public class AccountDto
             Password = account.Password,
             Otp = account.Otp,
             IsUsed = account.IsUsed,
+            EmployeeGuid = account.EmployeeGuid,
+            CustomerGuid = account.CustomerGuid,
             ExpiredDate = account.ExpiredDate
         };
     }

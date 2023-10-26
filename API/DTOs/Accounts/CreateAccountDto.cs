@@ -9,6 +9,8 @@ public class CreateAccountDto
     public int Otp { get; set; }
     public bool IsUsed { get; set; }
     public DateTime ExpiredDate { get; set; }
+    public Guid? EmployeeGuid { get; set; }
+    public Guid? CustomerGuid { get; set; }
 
     public static implicit operator
         Account(CreateAccountDto createAccountDto) // Operator implicit untuk mengkonversi CreateAccountDto menjadi Account.
@@ -20,6 +22,8 @@ public class CreateAccountDto
             Otp = createAccountDto.Otp,
             IsUsed = createAccountDto.IsUsed,
             ExpiredDate = createAccountDto.ExpiredDate,
+            EmployeeGuid = createAccountDto.EmployeeGuid,
+            CustomerGuid = createAccountDto.CustomerGuid,
             CreatedDate = DateTime.Now,
             ModifiedDate = DateTime.Now
         };
