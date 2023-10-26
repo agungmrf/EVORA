@@ -16,15 +16,5 @@ public class ProvinceValidator : AbstractValidator<ProvinceDto>
             .NotEmpty()
             .MaximumLength(50)
             .WithMessage("Name must not exceed 50 characters");
-
-        RuleFor(p => p.Name)
-            .Must(BeUniqueName)
-            .WithMessage("Province '{PropertyValue}' already exists in the database");
-    }
-
-    private bool BeUniqueName(string name)
-    {
-        // Periksa apakah Name sudah ada dalam database
-        return !_dbContext.Province.Any(p => p.Name == name);
     }
 }

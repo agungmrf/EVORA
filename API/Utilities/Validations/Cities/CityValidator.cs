@@ -17,10 +17,6 @@ public class CityValidator : AbstractValidator<CityDto>
             .MaximumLength(50)
             .WithMessage("Name must not exceed 50 characters"); // Validasi Name tidak boleh lebih dari 50 karakter
         
-        RuleFor(p => p.Name)
-            .Must(BeUniqueName)
-            .WithMessage("City '{PropertyValue}' already exists in the database");
-        
         RuleFor(c => c.ProvinceGuid)
             .NotEmpty();
         
@@ -28,9 +24,4 @@ public class CityValidator : AbstractValidator<CityDto>
         //    .NotEmpty();
     }
     
-    private bool BeUniqueName(string name)
-    {
-        // Periksa apakah Name sudah ada dalam database
-        return !_dbContext.City.Any(p => p.Name == name);
-    }
 }
