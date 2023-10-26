@@ -1,3 +1,5 @@
+using System.Net;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -17,6 +19,27 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Custom Error page
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
+
+    if (response.StatusCode.Equals((int)HttpStatusCode.Unauthorized))
+    {
+        response.Redirect("/unauthorized");
+    }
+    else if (response.StatusCode.Equals((int)HttpStatusCode.NotFound))
+    {
+        response.Redirect("/notfound");
+    }
+    else if (response.StatusCode.Equals((int)HttpStatusCode.Forbidden))
+    {
+        response.Redirect("/forbidden");
+    }
+    //Console.WriteLine("berhasil");
+});
+//app.UseSession();
 
 app.UseAuthorization();
 

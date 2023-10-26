@@ -17,7 +17,23 @@ namespace Client.Controllers.DashboardAdmin
         {
             return View();
         }
-        public IActionResult Employee()
+        public IActionResult Employees()
+        {
+            return View();
+        }
+        public IActionResult Customers()
+        {
+            return View();
+        }
+        public IActionResult Locations()
+        {
+            return View();
+        }
+        public IActionResult Packages()
+        {
+            return View();
+        }
+        public IActionResult Transactions()
         {
             return View();
         }

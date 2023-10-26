@@ -18,7 +18,7 @@
             <!-- Sidebar scroll-->
             <div>
                 <div class="brand-logo d-flex align-items-center justify-content-between">
-                    <a asp-action="Index" asp-controller="Dashboard" class="text-nowrap logo-img">
+                    <a asp-action="Index" asp-controller="User" class="text-nowrap logo-img">
                         <img src="~/dashboard/assets/images/logos/evora2.png" width="120" alt="" />
                         <img style="margin-left: calc(-50px);" src="~/dashboard/assets/images/logos/evora3.png" width="125" alt="" />
                     </a>
@@ -34,53 +34,14 @@
                             <span class="hide-menu">Home</span>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Index" asp-controller="Dashboard" aria-expanded="false">
+                            <a class="sidebar-link" asp-action="Index" asp-controller="User" aria-expanded="false">
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
                                 <span class="hide-menu">Dashboard</span>
                             </a>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Employees" asp-controller="Dashboard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user"></i>
-                                </span>
-                                <span class="hide-menu">Employees</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Customers" asp-controller="Dashboard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-user-plus"></i>
-                                </span>
-                                <span class="hide-menu">Customers</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Locations" asp-controller="Dashboard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-arrow-up-left"></i>
-                                </span>
-                                <span class="hide-menu">Locations</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Packages" asp-controller="Dashboard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-package"></i>
-                                </span>
-                                <span class="hide-menu">Packages (Event)</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Transactions" asp-controller="Dashboard" aria-expanded="false">
-                                <span>
-                                    <i class="ti ti-article"></i>
-                                </span>
-                                <span class="hide-menu">Transactions</span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
