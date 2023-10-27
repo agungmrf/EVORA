@@ -9,4 +9,45 @@ public class TransactionEventRepository : GeneralRepository<TransactionEvent>, I
     protected TransactionEventRepository(EvoraDbContext context) : base(context)
     {
     }
+<<<<<<< Updated upstream
+=======
+
+    public IEnumerable<TransactionDetailDto> GetAllDetailTransaction()
+    {
+        var location = _context.Set<Location>().ToList();
+        var city = _context.Set<City>().ToList();
+        var province = _context.Set<Province>().ToList();
+        var transaction = _context.Set<TransactionEvent>().ToList();
+        var customer = _context.Set<Customer>().ToList();
+        var package = _context.Set<PackageEvent>().ToList();
+
+        var transactionDetails = from loc in location
+                              join c in city on loc.CityGuid equals c.Guid
+                              join provin in province on c.ProvinceGuid equals provin.Guid
+                              join trans in transaction on loc.Guid equals trans.LocationGuid
+                              join cust in customer on trans.CustomerGuid equals cust.Guid
+                              join pack in package on trans.PacketEventGuid equals pack.Guid
+                                 select new TransactionDetailDto
+                              {
+                                  Guid = loc.Guid,
+                                  Email = cust.Email,
+                                  Invoice = trans.Invoice,
+                                  EventDate = trans.EventDate,
+                                  TransactionDate = trans.TransactionDate,
+                                  Status = trans.Status,
+                                  Package = pack.Name,
+                                  City = c.Name,
+                               };
+        return transactionDetails.ToList();
+    }
+
+    public string GetLastTransactionByYear(string year)
+    {
+        var lastInvoiceYear = _context.Set<TransactionEvent>().ToList()
+            .OrderBy(trans => trans.Invoice)
+            .Where(t => t.Invoice.Contains(year)).LastOrDefault()?.Invoice;
+        
+        return lastInvoiceYear;
+    }
+>>>>>>> Stashed changes
 }

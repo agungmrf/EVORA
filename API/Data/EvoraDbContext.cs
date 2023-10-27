@@ -19,8 +19,6 @@ namespace API.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Province> Province { get; set; }
-        public DbSet<District> District { get; set; }
-        public DbSet<SubDistrict> SubDistrict { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -56,6 +54,7 @@ namespace API.Data
                 .WithOne(prov => prov.Province)
                 .HasForeignKey(city => city.ProvinceGuid)
                 .OnDelete(DeleteBehavior.Restrict);
+<<<<<<< Updated upstream
             // One District has many City
             modelBuilder.Entity<District>()
                 .HasMany(city => city.Cities)
@@ -67,6 +66,13 @@ namespace API.Data
                 .HasOne(sub => sub.District)
                 .WithMany(dis => dis.SubDistricts)
                 .HasForeignKey(dis => dis.DisctrictGuid)
+=======
+            // One City has many location
+            modelBuilder.Entity<City>()
+                .HasMany(dist => dist.Location)
+                .WithOne(city => city.City)
+                .HasForeignKey(dist => dist.CityGuid)
+>>>>>>> Stashed changes
                 .OnDelete(DeleteBehavior.Restrict);
             // One location has many transaction
             modelBuilder.Entity<Location>()
@@ -86,10 +92,14 @@ namespace API.Data
                 .WithOne(user => user.Customer)
                 .HasForeignKey(transaction => transaction.CustomerGuid)
                 .OnDelete(DeleteBehavior.Restrict);
+<<<<<<< Updated upstream
 
             modelBuilder.Entity<Account>()
                 .HasKey(a => a.Guid);
 
+=======
+            // One Account has one Employee
+>>>>>>> Stashed changes
             modelBuilder.Entity<Employee>()
                 .HasKey(e => e.Guid);
 

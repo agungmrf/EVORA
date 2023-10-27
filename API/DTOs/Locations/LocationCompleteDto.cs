@@ -1,28 +1,26 @@
+using API.Models;
+
 namespace API.DTOs.Locations;
 
-public class LocationDto
+public class LocationCompleteDto
 {
-<<<<<<< Updated upstream
-    
-=======
     public Guid Guid { get; set; }
     public string Street { get; set; }
     public string District { get; set; }
     public string SubDistrict { get; set; }
-    public Guid? CityGuid { get; set; }
-    public static explicit operator LocationDto(Location location)
+
+    public static explicit operator LocationCompleteDto(Location location)
     {
-        return new LocationDto
+        return new LocationCompleteDto
         {
             Guid = location.Guid,
             Street = location.Street,
             District = location.District,
             SubDistrict = location.SubDistrict,
-            CityGuid = location.CityGuid
         };
     }
 
-    public static implicit operator Location(LocationDto locationDto)
+    public static implicit operator Location(LocationCompleteDto locationDto)
     {
         return new Location
         {
@@ -30,8 +28,6 @@ public class LocationDto
             Street = locationDto.Street,
             District = locationDto.District,
             SubDistrict = locationDto.SubDistrict,
-            CityGuid = locationDto.CityGuid
         };
     }
->>>>>>> Stashed changes
 }
