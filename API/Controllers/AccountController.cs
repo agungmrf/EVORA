@@ -1,6 +1,8 @@
 using System.Security.Claims;
 using API.Contracts;
+using API.Data;
 using API.DTOs.Accounts;
+using API.DTOs.Employees;
 using API.Models;
 using API.Utilities.Handler;
 using API.Utilities.Handlers;
@@ -18,12 +20,14 @@ public class AccountController : ControllerBase
     private readonly IAccountRepository _accountRepository;
     private readonly IEmailHandler _emailHandler;
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly ICustomerRepository _customerRepository;
     private readonly IRoleRepository _roleRepository;
     private readonly IAccountRoleRepository _accountRoleRepository;
     private readonly IGenerateTokenHandler _tokenService;
+    private readonly EvoraDbContext _dbContext;
 
 
-    public AccountController(IAccountRepository accountRepository, IEmailHandler emailHandler, IEmployeeRepository employeeRepository, IRoleRepository roleRepository, IAccountRoleRepository accountRoleRepository, IGenerateTokenHandler tokenService)
+    public AccountController(IAccountRepository accountRepository, IEmailHandler emailHandler, IEmployeeRepository employeeRepository, IRoleRepository roleRepository, IAccountRoleRepository accountRoleRepository, IGenerateTokenHandler tokenService, EvoraDbContext dbContext, ICustomerRepository customerRepository)
     {
         _accountRepository = accountRepository;
         _emailHandler = emailHandler;
@@ -31,6 +35,8 @@ public class AccountController : ControllerBase
         _roleRepository = roleRepository;
         _accountRoleRepository = accountRoleRepository;
         _tokenService = tokenService;
+        _dbContext = dbContext;
+        _customerRepository = customerRepository;
     }
     
     [HttpGet]
@@ -204,6 +210,113 @@ public class AccountController : ControllerBase
         }
     }
     
+    [HttpPost("register-employee")]
+    [AllowAnonymous]
+    public IActionResult RegisterEmp(RegisterEmpDto registerEmpDto)
+    {
+        using var transaction = _dbContext.Database.BeginTransaction();
+
+        try
+        {
+            Account accountToCreate = new AccountDto
+            {
+                IsUsed = true,
+                ExpiredDate = DateTime.Now.AddMinutes(5),
+                Otp = 111111,
+                Password = HashingHandler.HashPassword(registerEmpDto.Password)
+            };
+            
+            _accountRepository.Create(accountToCreate);
+            
+            Employee employeeToCreate = new EmployeeDto
+            {
+                FirstName = registerEmpDto.FirstName,
+                LastName = registerEmpDto.LastName,
+                BirthDate = registerEmpDto.BirthDate,
+                Gender = registerEmpDto.Gender,
+                HiringDate = registerEmpDto.HiringDate,
+                Email = registerEmpDto.Email,
+                PhoneNumber = registerEmpDto.PhoneNumber,
+                AccountGuid = accountToCreate.Guid,
+            };
+            // Generate NIK baru dengan memanggil method Nik dari class GenerateHandler.
+            employeeToCreate.Nik = GenerateHandler.Nik(_employeeRepository.GetLastNik());
+            _employeeRepository.Create(employeeToCreate);
+            
+           
+            var accountRole = _accountRoleRepository.Create(new AccountRole
+            {
+                AccountGuid = accountToCreate.Guid,
+                RoleGuid = _roleRepository.getDefaultRoleEmp() ?? throw new Exception("Default role not found")
+            });
+            
+            // Commit transaksi jika semuanya berhasil
+            transaction.Commit();
+        }
+        catch (ExceptionHandler ex)
+        {
+            // Rollback transaksi jika terjadi kesalahan
+            transaction.Rollback();
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new ResponseServerErrorHandler("Failed to create data", ex.Message));
+        }
+
+        // Jika berhasil, maka akan mengembalikan response 200 OK
+        return Ok(new ResponseOKHandler<RegisterEmpDto>("Data has been created successfully") { Data = registerEmpDto });
+    }
+    
+    [HttpPost("register-customer")]
+    [AllowAnonymous]
+    public IActionResult RegisterCust(RegisterCustDto registerCustDto)
+    {
+        using var transaction = _dbContext.Database.BeginTransaction();
+
+        try
+        {
+            Account accountToCreate = new AccountDto
+            {
+                IsUsed = true,
+                ExpiredDate = DateTime.Now.AddMinutes(5),
+                Otp = 111111,
+                Password = HashingHandler.HashPassword(registerCustDto.Password)
+            };
+            
+            _accountRepository.Create(accountToCreate);
+            
+            Customer customerToCreate = new CustomerDto
+            {
+                FirstName = registerCustDto.FirstName,
+                LastName = registerCustDto.LastName,
+                BirthDate = registerCustDto.BirthDate,
+                Gender = registerCustDto.Gender,
+                Email = registerCustDto.Email,
+                PhoneNumber = registerCustDto.PhoneNumber,
+                AccountGuid = accountToCreate.Guid,
+            };
+            _customerRepository.Create(customerToCreate);
+            
+           
+            var accountRole = _accountRoleRepository.Create(new AccountRole
+            {
+                AccountGuid = accountToCreate.Guid,
+                RoleGuid = _roleRepository.getDefaultRoleCust() ?? throw new Exception("Default role not found")
+            });
+            
+            // Commit transaksi jika semuanya berhasil
+            transaction.Commit();
+        }
+        catch (ExceptionHandler ex)
+        {
+            // Rollback transaksi jika terjadi kesalahan
+            transaction.Rollback();
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new ResponseServerErrorHandler("Failed to create data", ex.Message));
+        }
+
+        // Jika berhasil, maka akan mengembalikan response 200 OK
+        return Ok(new ResponseOKHandler<RegisterCustDto>("Data has been created successfully") { Data = registerCustDto });
+    }
+    
     [HttpPost("login")]
     [AllowAnonymous]
     public IActionResult Login(LoginDto loginDto)
@@ -214,7 +327,7 @@ public class AccountController : ControllerBase
 
             if (getEmployee is null)
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
-            var getAccount = _accountRepository.GetByGuid(getEmployee.Guid);
+            var getAccount = _accountRepository.GetByGuid((Guid)getEmployee.AccountGuid);
 
             if (!HashingHandler.VerifyPassword(loginDto.Password, getAccount.Password))
                 return BadRequest(new ResponseValidatorHandler("Password is invalid"));
