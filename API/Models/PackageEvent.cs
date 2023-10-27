@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Models
 { 
@@ -10,7 +10,7 @@ namespace API.Models
         [Column("capacity", TypeName = "int")]
         public int Capacity { get; set; }
         [Column("description", TypeName = "nvarchar(max)")]
-        public string Desciption { get; set; }
+        public string Description { get; set; }
         [Column("price", TypeName = "money")]
         public decimal Price { get; set; }
         // Cardinality One To Many

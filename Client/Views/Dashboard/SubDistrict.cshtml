@@ -1,0 +1,117 @@
+﻿@{
+    ViewData["Title"] = "Dashboard Admin - Sub district";
+    Layout = "_Dashboard";
+}
+<div class="card-body px-4 py-3">
+    <div class="row align-items-center">
+        <div class="col-9">
+            <h4 class="fw-semibold mb-8">Sub district</h4>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a class="text-muted" asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item" aria-current="page">Sub district</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-3">
+            <div class="text-center mb-n5">
+                <img src="/static/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 d-flex">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <h5 class="card-title fw-semibold mb-4">Table Sub district</h5>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end mb-4">
+                        <button type="button" class="btn btn-primary m-1 btn-input" data-bs-toggle="modal" data-bs-target="#modal-subdistrict">
+                            <span>
+                                <i class="ti ti-plus"></i>
+                            </span>Add New Sub district
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+                        <table id="subdistrict-table" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-subdistrict" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Sub district</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-subdistrict">
+                    <div class="modal-body mt-4 mb-4">
+
+                        <section>
+                            <input type="hidden" class="form-control" name="guid" id="guid">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="wName2">
+                                            Name : <span class="text-danger">*</span>
+                                        </label>
+                                        <input type="text" class="form-control required" id="wName2" name="name">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+
+                                        <label for="wDistrict2">
+                                            District : <span class="text-danger">*</span>
+                                        </label>
+                                        <select class="form-control required" id="wDistrict2" name="district">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="~/dashboard/assets/js/subdistrict.js"></script>
+
+}

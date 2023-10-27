@@ -1,32 +1,25 @@
 using API.Contracts;
-<<<<<<< Updated upstream
-=======
 using API.DTOs.Employees;
 using API.DTOs.TransactionEvents;
 using API.Models;
 using API.Repositories;
 using API.Utilities.Handler;
->>>>>>> Stashed changes
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-<<<<<<< Updated upstream
-=======
-[ApiController]
+[ApiController] 
 [Route("api/[controller]")]
->>>>>>> Stashed changes
 public class TransactionEventController : ControllerBase
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICustomerRepository _customerRepository;
 
     public TransactionEventController(ITransactionRepository transactionRepository)
     {
         _transactionRepository = transactionRepository;
     }
-<<<<<<< Updated upstream
-=======
-
+    
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -59,7 +52,7 @@ public class TransactionEventController : ControllerBase
     }
 
 
-
+    
     [HttpPost]
     public IActionResult Create(TransactionEventDto transactionEventDto)
     {
@@ -73,7 +66,7 @@ public class TransactionEventController : ControllerBase
 
 
             return Ok(new ResponseOKHandler<TransactionEventDto>("Data has been created successfully")
-            { Data = (TransactionEventDto)result });
+                { Data = (TransactionEventDto)result });
         }
         catch (ExceptionHandler ex)
         {
@@ -81,7 +74,7 @@ public class TransactionEventController : ControllerBase
                 new ResponseServerErrorHandler("Failed to create data", ex.Message));
         }
     }
-
+    
     [HttpPut]
     public IActionResult Update(TransactionEventDto transactionEventDto)
     {
@@ -92,11 +85,11 @@ public class TransactionEventController : ControllerBase
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
             TransactionEvent toUpdate = transactionEventDto;
-
+            
             _transactionRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<TransactionEventDto>("Data has been updated successfully")
-            { Data = (TransactionEventDto)toUpdate });
+                { Data = (TransactionEventDto)toUpdate });
         }
         catch (ExceptionHandler ex)
         {
@@ -124,5 +117,4 @@ public class TransactionEventController : ControllerBase
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
         }
     }
->>>>>>> Stashed changes
 }

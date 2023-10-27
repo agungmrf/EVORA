@@ -1,5 +1,6 @@
 using API.Contracts;
 using API.Data;
+using API.DTOs.Locations;
 using API.Models;
 
 namespace API.Repositories;

@@ -6,7 +6,10 @@ $(document).ready(() => {
         ordering: false,
         ajax: {
             url: baseUrl,
-            dataSrc: 'data'
+            dataSrc: 'data',
+            'error': function (jqXHR, textStatus, errorThrown) {
+                $('#employee-table').DataTable().clear().draw();
+            }
         },
         columns: [
             {
@@ -164,7 +167,7 @@ $(document).ready(() => {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const lastElement = e.srcElement[e.srcElement.length - 1];
-        
+
 
         const data = {};
         data.firstName = $("#wfirstName2").val();

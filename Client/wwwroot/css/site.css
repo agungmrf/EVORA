@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+body {
+    background: #f0f0f0;
+    padding: 50px;
+}
+
+.container {
+    background: #fff;
+    border: 1px solid #ccc;
+    padding: 30px;
+}

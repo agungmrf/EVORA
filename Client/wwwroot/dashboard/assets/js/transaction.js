@@ -1,12 +1,15 @@
 
 const baseUrl = "https://localhost:52115/api/TransactionEvent/detail/";
 $(document).ready(() => {
-    
+
     const table = $('#transaction-table').DataTable({
         ordering: false,
         ajax: {
             url: baseUrl,
-            dataSrc: 'data'
+            dataSrc: 'data',
+            'error': function (jqXHR, textStatus, errorThrown) {
+                $('#transaction-table').DataTable().clear().draw();
+            }
         },
         columns: [
             {

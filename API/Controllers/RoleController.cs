@@ -37,11 +37,11 @@ public class RoleController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create(CreateRoleDto createRoleDto)
+    public IActionResult Create(RoleDto roleDto)
     {
         try
         {
-            var result = _roleRepository.Create(createRoleDto);
+            var result = _roleRepository.Create(roleDto);
 
             return Ok(new ResponseOKHandler<RoleDto>("Data has been created successfully") { Data = (RoleDto)result });
         }

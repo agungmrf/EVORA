@@ -1,5 +1,17 @@
+using System.Reflection;
+using System.Text;
+using API.Contracts;
+using API.Controllers;
 using API.Data;
+using API.Repositories;
+using API.Utilities.Handlers;
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -127,6 +139,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

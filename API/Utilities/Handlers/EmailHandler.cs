@@ -5,16 +5,16 @@ namespace API.Utilities.Handlers;
 
 public class EmailHandler : IEmailHandler
 {
-    private readonly string _fromEmailAdress;
+    private readonly string _fromEmailAddress;
     private readonly int _port;
     private readonly string _server;
 
     public EmailHandler(string server, int port,
-        string fromEmailAdress) // Parameter yang dibutuhkan untuk mengirim email
+        string fromEmailAddress) // Parameter yang dibutuhkan untuk mengirim email
     {
         _server = server; // Server email
         _port = port; // Port email
-        _fromEmailAdress = fromEmailAdress; // Email pengirim
+        _fromEmailAddress = fromEmailAddress; // Email pengirim
     }
 
     // Method untuk mengirim email
@@ -22,7 +22,7 @@ public class EmailHandler : IEmailHandler
     {
         var message = new MailMessage() // Membuat objek MailMessage
         {
-            From = new MailAddress(_fromEmailAdress), // Email pengirim
+            From = new MailAddress(_fromEmailAddress), // Email pengirim
             Subject = subject, // Subject email
             Body = body, // Body email
             IsBodyHtml = true // Body email berupa HTML

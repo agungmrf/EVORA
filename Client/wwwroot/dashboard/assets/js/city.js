@@ -7,7 +7,10 @@ $(document).ready(() => {
         ordering: false,
         ajax: {
             url: baseUrl,
-            dataSrc: 'data'
+            dataSrc: 'data',
+            'error': function (jqXHR, textStatus, errorThrown) {
+                $('#city-table').DataTable().clear().draw();
+            }
         },
         columns: [
             {

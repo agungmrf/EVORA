@@ -1,13 +1,13 @@
 using API.Contracts;
+using API.DTOs.AccountRoles;
+using API.Models;
+using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-<<<<<<< Updated upstream
-=======
-[ApiController]
+[ApiController] 
 [Route("api/[controller]")]
->>>>>>> Stashed changes
 public class AccountRoleController : ControllerBase
 {
     private readonly IAccountRoleRepository _accountRoleRepository;
@@ -16,9 +16,7 @@ public class AccountRoleController : ControllerBase
     {
         _accountRoleRepository = accountRoleRepository;
     }
-<<<<<<< Updated upstream
-=======
-
+    
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -47,9 +45,9 @@ public class AccountRoleController : ControllerBase
             var result = _accountRoleRepository.Create(accountRoleDto);
 
             return Ok(new ResponseOKHandler<AccountRoleDto>("Data has been created successfully")
-            { Data = (AccountRoleDto)result });
+                { Data = (AccountRoleDto)result });
         }
-        catch (ExceptionHandler ex)
+        catch (ExceptionHandler ex) 
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to create data", ex.Message));
@@ -70,9 +68,9 @@ public class AccountRoleController : ControllerBase
             _accountRoleRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<AccountRoleDto>("Data has been updated successfully")
-            { Data = (AccountRoleDto)toUpdate });
+                { Data = (AccountRoleDto)toUpdate });
         }
-        catch (ExceptionHandler ex)
+        catch (ExceptionHandler ex) 
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to update data", ex.Message));
@@ -98,5 +96,4 @@ public class AccountRoleController : ControllerBase
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
         }
     }
->>>>>>> Stashed changes
 }

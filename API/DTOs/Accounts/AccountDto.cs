@@ -11,9 +11,9 @@ public class AccountDto
     public DateTime ExpiredDate { get; set; }
 
     public static explicit operator
-        AccountDto(Account account) 
+        AccountDto(Account account) // Operator explicit untuk mengkonversi Account menjadi AccountDto.
     {
-        return new AccountDto
+        return new AccountDto // Mengembalikan object AccountDto dengan data dari property Account.
         {
             Guid = account.Guid,
             Password = account.Password,
@@ -24,9 +24,9 @@ public class AccountDto
     }
 
     public static implicit operator
-        Account(AccountDto accountDto)
+        Account(AccountDto accountDto) // Operator implicit untuk mengkonversi AccountDto menjadi Account.
     {
-        return new Account 
+        return new Account // Mengembalikan object Account dengan data dari property AccountDto.
         {
             Guid = accountDto.Guid,
             Password = accountDto.Password,

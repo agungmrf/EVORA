@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewData["Title"] = "Staff Dashboard";
+    Layout = "_DashboardStaff";
+}
+<div class="row px-4">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">List Packages</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="text-muted" href="#">Overview</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Packages</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 d-flex justify-content-end mb-4">
+            <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <span>
+                    <i class="ti ti-plus"></i>
+                </span>Add New Packages
+            </button>
+        </div>
+        <div class="product-list">
+            <div class="card">
+                <div class="card-body p-3">
+                    <div class="table-responsive border rounded">
+                        <table class="table align-middle text-nowrap mb-0">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Products</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Detail Package</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="ms-3">
+                                                <h6 class="fw-semibold mb-0 fs-4">Birthday Parties</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">1499k</p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <!-- <span class="bg-success p-1 rounded-circle"></span> -->
+                                            <p class="mb-0 ms-2">.....</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick=" ">
+                                            <span>
+                                                <i class="ti ti-pencil"></i>
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn  btn-sm btn-danger" onclick=" ">
+                                            <span>
+                                                <i class="ti ti-trash"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="ms-3">
+                                                <h6 class="fw-semibold mb-0 fs-4">Other Party</h6>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <p class="mb-0">1499k</p>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <!-- <span class="bg-success p-1 rounded-circle"></span> -->
+                                            <p class="mb-0 ms-2">.....</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-sm btn-primary" onclick=" ">
+                                            <span>
+                                                <i class="ti ti-pencil"></i>
+                                            </span>
+                                        </button>
+                                        <button type="button" class="btn  btn-sm btn-danger" onclick=" ">
+                                            <span>
+                                                <i class="ti ti-trash"></i>
+                                            </span>
+                                        </button>
+                                    </td>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="d-flex align-items-center justify-content-end py-1">
+                            <p class="mb-0 fs-2">Rows per page:</p>
+                            <select class="form-select w-auto ms-0 ms-sm-2 me-8 me-sm-4 py-1 pe-7 ps-2 border-0"
+                                    aria-label="Default select example">
+                                <option selected="">5</option>
+                                <option value="1">10</option>
+                                <option value="2">25</option>
+                            </select>
+                            <p class="mb-0 fs-2">1–5 of 12</p>
+                            <nav aria-label="...">
+                                <ul class="pagination justify-content-center mb-0 ms-8 ms-sm-9">
+                                    <li class="page-item p-1">
+                                        <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
+                                           href="#"><i class="ti ti-chevron-left"></i></a>
+                                    </li>
+                                    <li class="page-item p-1">
+                                        <a class="page-link border-0 rounded-circle text-dark fs-6 round-32 d-flex align-items-center justify-content-center"
+                                           href="#"><i class="ti ti-chevron-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                    <div class="pt-3">
+                        <div class="form-check form-switch mb-0">
+                            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                            <label class="form-check-label fw-normal" for="flexSwitchCheckDefault">Dense padding</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

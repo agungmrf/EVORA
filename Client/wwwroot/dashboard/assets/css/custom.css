@@ -1,0 +1,5 @@
+.background-body {
+    background-image: url("../images/snapMed.jpg");
+    background-size: cover; 
+    background-repeat: no-repeat;
+}

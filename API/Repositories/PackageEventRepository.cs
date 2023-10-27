@@ -6,7 +6,7 @@ namespace API.Repositories;
 
 public class PackageEventRepository : GeneralRepository<PackageEvent>, IPackageEventRepository
 {
-    protected PackageEventRepository(EvoraDbContext context) : base(context)
+    public PackageEventRepository(EvoraDbContext context) : base(context)
     {
     }
 }

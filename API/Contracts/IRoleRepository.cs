@@ -6,5 +6,6 @@ public interface IRoleRepository : IGeneralRepository<Role>
 {
     Guid? getDefaultRoleEmp();
 
+    
     Guid? getDefaultRoleCust();
 }

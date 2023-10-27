@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using API.Utilities.Enums;
 
 namespace API.Models
@@ -18,6 +18,9 @@ namespace API.Models
         public string PhoneNumber { get; set; }
         [Column("birth_date")]
         public DateTime BirthDate { get; set; }
+        
+        [Column("account_guid")]
+        public Guid? AccountGuid { get; set; }
         // Cardinality One To One
         public Account? Account { get; set; }
         // Cardinality One To Many

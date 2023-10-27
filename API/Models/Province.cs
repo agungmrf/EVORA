@@ -7,6 +7,6 @@ public class Province : GeneralAtribute
 {
     [Column("name", TypeName = "nvarchar(50)")]
     public string Name { get; set; }
-    // Cardinality One To Many
-    public ICollection<City>? Cities { get; set; }
+    
+    public ICollection<City>? Cities { get; set; } // Cardinality One To Many
 }

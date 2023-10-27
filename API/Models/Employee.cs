@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations.Schema;
 using API.Utilities.Enums;
 
 namespace API.Models
@@ -22,6 +22,10 @@ namespace API.Models
         public DateTime BirthDate { get; set; }
         [Column("hiring_date")]
         public DateTime HiringDate { get; set; }
+
+
+        [Column("account_guid")]
+        public Guid? AccountGuid { get; set; }
         // Cardinality One To One
         public Account? Account { get; set; }
     }

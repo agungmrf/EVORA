@@ -6,7 +6,10 @@ $(document).ready(() => {
         ordering: false,
         ajax: {
             url: baseUrl,
-            dataSrc: 'data'
+            dataSrc: 'data',
+            'error': function (jqXHR, textStatus, errorThrown) {
+                $('#customer-table').DataTable().clear().draw();
+            }
         },
         columns: [
             {
@@ -158,7 +161,7 @@ $(document).ready(() => {
         console.log('hallo');
         e.preventDefault();
         const lastElement = e.srcElement[e.srcElement.length - 1];
-        
+
 
         const data = {};
         data.firstName = $("#wfirstName2").val();
