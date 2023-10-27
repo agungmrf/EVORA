@@ -1,29 +1,38 @@
 
 const baseUrl = "https://localhost:50969/api/Employee/";
-
 $(document).ready(() => {
+    console.log(baseUrl)
     const table = $('#employee-table').DataTable({
         ordering: false,
+        
         ajax: {
             url: baseUrl,
-            dataSrc: 'data'
+            dataSrc: 'data',
+            'error': function (jqXHR, textStatus, errorThrown) {
+                $('#employee-table').DataTable().clear().draw();
+            }  
         },
         columns: [
             {
+                defaultContent: '',
                 data: null,
                 render: function (data, type, row, meta) {
                     return meta.row + 1;
-                }
+                },
             },
             {
+                defaultContent: '',
                 data: 'nik',
+                
             },
             {
+                defaultContent: '',
                 render: (data, type, row) => {
                     return `${row.firstName}  ${row.lastName}`
-                }
+                },
             },
             {
+                defaultContent: '',
                 data: 'gender',
                 render: function (data, type, row) {
                     if (data === 0) {
@@ -31,15 +40,18 @@ $(document).ready(() => {
                     }
                     return "Male";
 
-                }
+                },
             },
             {
+                defaultContent: '',
                 data: 'email',
             },
             {
+                defaultContent: '',
                 data: 'phoneNumber',
             },
             {
+                defaultContent: '',
                 render: (data, type, row) => {
                     return `
                     <button type="button" class="btn btn-sm btn-primary" onclick="edit('${row.guid}')"  data-bs-toggle="modal" data-bs-target="#modal-employee">
@@ -52,7 +64,8 @@ $(document).ready(() => {
                             <i class="ti ti-trash"></i>
                         </span>
                     </button>`
-                }
+                },
+               
             }
         ],
         dom: "<'row'<'col-sm-12 col-md-9'B><'col-sm-12 col-md-3'f>>" +
