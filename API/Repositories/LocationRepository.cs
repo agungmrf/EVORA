@@ -7,11 +7,9 @@ namespace API.Repositories;
 
 public class LocationRepository : GeneralRepository<Location>, ILocationRepository
 {
-    protected LocationRepository(EvoraDbContext context) : base(context)
+    public LocationRepository(EvoraDbContext context) : base(context)
     {
-<<<<<<< Updated upstream
-=======
-      
+
     }
 
     public DetailLocationDto? GetDetailLocation(Guid guid)
@@ -53,6 +51,5 @@ public class LocationRepository : GeneralRepository<Location>, ILocationReposito
                                   Province = provin.Name
                               };
         return employeeDetails.ToList();
->>>>>>> Stashed changes
     }
 }

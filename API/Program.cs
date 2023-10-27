@@ -16,11 +16,6 @@ using Microsoft.OpenApi.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-<<<<<<< Updated upstream
-var connectionStrings = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<EvoraDbContext>(
-    options => options.UseSqlServer(connectionStrings));
-=======
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<EvoraDbContext>(option => option.UseSqlServer(connectionString));
 
@@ -55,7 +50,7 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(policy =>
     {
         policy.AllowAnyOrigin();
-        policy.AllowAnyHeader(); 
+        policy.AllowAnyHeader();
         policy.AllowAnyMethod();
     });
 });
@@ -80,7 +75,6 @@ builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 // Add FluentValidation Services
 builder.Services.AddFluentValidationAutoValidation()
     .AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
->>>>>>> Stashed changes
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -89,7 +83,7 @@ builder.Services.AddSwaggerGen(x => {
     x.SwaggerDoc("v1", new OpenApiInfo
     {
         Version = "v1",
-        Title = "EVORA (Event Organizer",
+        Title = "EVORA (Event Organizer)",
         Description = "ASP.NET Core API 6.0"
     });
     x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -114,18 +108,6 @@ builder.Services.AddSwaggerGen(x => {
             },
             new string[] { }
         }
-    });
-});
-
-// CORS
-builder.Services.AddCors(options =>
-{
-    options.AddDefaultPolicy(policy =>
-    {
-        policy.AllowAnyOrigin();
-        //policy.WithOrigins("https://localhost:7002/");
-        policy.AllowAnyHeader();
-        policy.AllowAnyMethod();
     });
 });
 

@@ -1,13 +1,13 @@
 using API.Contracts;
+using API.DTOs.Locations;
+using API.Models;
+using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-<<<<<<< Updated upstream
-=======
 [ApiController]
 [Route("api/[controller]")]
->>>>>>> Stashed changes
 public class LocationController : ControllerBase
 {
     private readonly ILocationRepository _locationRepository;
@@ -16,8 +16,6 @@ public class LocationController : ControllerBase
     {
         _locationRepository = locationRepository;
     }
-<<<<<<< Updated upstream
-=======
 
     [HttpGet]
     public IActionResult GetAll()
@@ -115,5 +113,4 @@ public class LocationController : ControllerBase
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
         }
     }
->>>>>>> Stashed changes
 }

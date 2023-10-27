@@ -1,10 +1,10 @@
+using API.Models;
+
 namespace API.DTOs.Locations;
 
 public class LocationDto
 {
-<<<<<<< Updated upstream
-    
-=======
+
     public Guid Guid { get; set; }
     public string Street { get; set; }
     public string District { get; set; }
@@ -33,5 +33,5 @@ public class LocationDto
             CityGuid = locationDto.CityGuid
         };
     }
->>>>>>> Stashed changes
+
 }

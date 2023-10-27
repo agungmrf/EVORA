@@ -9,15 +9,7 @@ public class City : GeneralAtribute
     public string Name { get; set; }
     [Column("province_guid")]
     public Guid ProvinceGuid { get; set; }
-<<<<<<< Updated upstream
-    [Column("disctrict_guid")]
-    public Guid DisctrictGuid { get; set; }
-    // Cardinality One To Many
-    public ICollection<Location>? Location { get; set; }
-    // Cardinality Many To One
-    public Province? Province { get; set; }
-    public District? District { get; set; }
-=======
+
     public ICollection<Location>? Location { get; set; } // Cardinality One To Many
     public Province? Province { get; set; } // Cardinality Many To One
 
@@ -25,5 +17,4 @@ public class City : GeneralAtribute
     //[Column("district_guid")] public Guid DistrictGuid { get; set; }
     //public District? District { get; set; }
     //public ICollection<Location>? Location { get; set; }
->>>>>>> Stashed changes
 }

@@ -1,13 +1,15 @@
 using API.Contracts;
 using Microsoft.AspNetCore.Mvc;
+using API.Utilities.Handlers;
+using API.Utilities.Handler;
+using API.DTOs.Cities;
+using API.Models;
 
 namespace API.Controllers;
 
-<<<<<<< Updated upstream
-=======
 [ApiController]
 [Route("api/[controller]")]
->>>>>>> Stashed changes
+
 public class CityController : ControllerBase
 {
     private readonly ICityRepository _cityRepository;
@@ -16,8 +18,6 @@ public class CityController : ControllerBase
     {
         _cityRepository = cityRepository;
     }
-<<<<<<< Updated upstream
-=======
 
     [HttpGet]
     public IActionResult GetAll()
@@ -98,5 +98,4 @@ public class CityController : ControllerBase
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
         }
     }
->>>>>>> Stashed changes
 }

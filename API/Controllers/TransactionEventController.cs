@@ -13,7 +13,7 @@ namespace API.Controllers;
 public class TransactionEventController : ControllerBase
 {
     private readonly ITransactionRepository _transactionRepository;
-    private readonly ICustomerRepository _customerRepository;
+    
 
     public TransactionEventController(ITransactionRepository transactionRepository)
     {
