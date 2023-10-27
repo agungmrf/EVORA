@@ -45,4 +45,13 @@ public class TransactionEventRepository : GeneralRepository<TransactionEvent>, I
                                };
         return transactionDetails.ToList();
     }
+
+    public string GetLastTransactionByYear(string year)
+    {
+        var lastInvoiceYear = _context.Set<TransactionEvent>().ToList()
+            .OrderBy(trans => trans.Invoice)
+            .Where(t => t.Invoice.Contains(year)).LastOrDefault()?.Invoice;
+        
+        return lastInvoiceYear;
+    }
 }

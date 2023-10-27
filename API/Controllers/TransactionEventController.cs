@@ -1,6 +1,8 @@
 using API.Contracts;
+using API.DTOs.Employees;
 using API.DTOs.TransactionEvents;
 using API.Models;
+using API.Repositories;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 
@@ -56,7 +58,12 @@ public class TransactionEventController : ControllerBase
     {
         try
         {
-            var result = _transactionRepository.Create(transactionEventDto);
+            string currentYear = DateTime.Now.Year.ToString();
+            TransactionEvent toCreate = transactionEventDto;
+            toCreate.Invoice = GenerateHandler.Invoice(_transactionRepository.GetLastTransactionByYear(currentYear));
+
+            var result = _transactionRepository.Create(toCreate);
+
 
             return Ok(new ResponseOKHandler<TransactionEventDto>("Data has been created successfully")
                 { Data = (TransactionEventDto)result });

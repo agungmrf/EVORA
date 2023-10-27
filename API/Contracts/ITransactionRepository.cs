@@ -7,4 +7,6 @@ namespace API.Contracts;
 public interface ITransactionRepository : IGeneralRepository<TransactionEvent>
 {
     IEnumerable<TransactionDetailDto> GetAllDetailTransaction();
+
+    string GetLastTransactionByYear(string year);
 }
