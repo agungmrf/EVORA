@@ -24,17 +24,18 @@
                 <h5 class="card-title fw-semibold mb-4">Table Employees</h5>
             </div>
             <div class="col-md-4 d-flex justify-content-end mb-4">
-                <button type="button" class="btn btn-primary m-1" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <button type="button" class="btn btn-primary m-1 btn-input" data-bs-toggle="modal" data-bs-target="#modal-employee">
                     <span>
                         <i class="ti ti-plus"></i>
                     </span>Add New Employee
                 </button>
             </div>
             <div class="col-md-12">
-                <table id="example" class="table table-striped" style="width:100%">
+                <table id="employee-table" class="table table-striped" style="width:100%">
                     <thead>
                         <tr>
                             <th>No.</th>
+                            <th>Nik</th>
                             <th>Fullname</th>
                             <th>Gender</th>
                             <th>Email</th>
@@ -43,46 +44,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Tiger Nixon</td>
-                            <td>Male</td>
-                            <td>aa@mail.com</td>
-                            <td>123123</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" onclick=" ">
-                                    <span>
-                                        <i class="ti ti-pencil"></i>
-                                    </span>
-                                </button>
-                                <button type="button" class="btn  btn-sm btn-danger" onclick=" ">
-                                    <span>
-                                        <i class="ti ti-trash"></i>
-                                    </span>
-                                </button>
-                            </td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Garrett Winters</td>
-                            <td>Male</td>
-                            <td>aa@mail.com</td>
-                            <td>123123</td>
-                            <td>
-                                <button type="button" class="btn btn-sm btn-primary" onclick=" ">
-                                    <span>
-                                        <i class="ti ti-pencil"></i>
-                                    </span>
-                                </button>
-                                <button type="button" class="btn  btn-sm btn-danger" onclick=" ">
-                                    <span>
-                                        <i class="ti ti-trash"></i>
-                                    </span>
-                                </button>
-                            </td>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>
@@ -92,9 +54,10 @@
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-employee" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+            <form id="form-employee">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Add New Employee</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -140,10 +103,10 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="wlocation2">
+                                <label for="wgender2">
                                     Select Gender : <span class="text-danger">*</span>
                                 </label>
-                                <select class="form-select required" id="wlocation2" name="location">
+                                <select class="form-select required" id="wgender2" name="location">
                                     <option value="">Select</option>
                                     <option value="0">Male</option>
                                     <option value="1">Female</option>
@@ -152,14 +115,14 @@
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="wdate2">Date of Birth :</label>
-                                <input type="date" class="form-control" id="wdate2">
+                                <label for="wBirthDate2">Date of Birth :</label>
+                                <input type="date" class="form-control" id="wBirthDate2">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="wdate2">Hiring Date :</label>
-                                <input type="date" class="form-control" id="wdate2">
+                                <label for="wHiringDate2">Hiring Date :</label>
+                                <input type="date" class="form-control" id="wHiringDate2">
                             </div>
                         </div>
                     </div>
@@ -167,8 +130,9 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
             </div>
+            </form>
         </div>
     </div>
 </div>
@@ -182,5 +146,6 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
-    <script src="~/dashboard/assets/js/datatable.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/dashboard/assets/js/employee.js"></script>
 }

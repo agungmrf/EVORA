@@ -11,6 +11,7 @@ namespace API.Controllers;
 public class TransactionEventController : ControllerBase
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICustomerRepository _customerRepository;
 
     public TransactionEventController(ITransactionRepository transactionRepository)
     {
@@ -27,7 +28,18 @@ public class TransactionEventController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<TransactionEventDto>>(data));
     }
-    
+
+    [HttpGet("detail")]
+    public IActionResult GetAllDetail()
+    {
+        var result = _transactionRepository.GetAllDetailTransaction();
+        if (!result.Any())
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        var data = result.Select(x => (TransactionDetailDto)x);
+
+        return Ok(new ResponseOKHandler<IEnumerable<TransactionDetailDto>>(data));
+    }
+
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
@@ -36,6 +48,8 @@ public class TransactionEventController : ControllerBase
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         return Ok(new ResponseOKHandler<TransactionEventDto>((TransactionEventDto)result));
     }
+
+
     
     [HttpPost]
     public IActionResult Create(TransactionEventDto transactionEventDto)

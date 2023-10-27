@@ -21,10 +21,94 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <h5 class="card-title fw-semibold mb-4">Table Locations</h5>
+                        <h5 class="card-title fw-semibold mb-4">Table Event Packages</h5>
                     </div>
-                    <p class="mb-0">This is a sample page </p>
+                    <div class="col-md-4 d-flex justify-content-end mb-4">
+                        <button type="button" class="btn btn-primary m-1 btn-input" data-bs-toggle="modal" data-bs-target="#modal-packages">
+                            <span>
+                                <i class="ti ti-plus"></i>
+                            </span>Add New Event Packages
+                        </button>
+                    </div>
+                    <div class="col-md-12">
+                        <table id="package-table" class="table table-striped" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Capacity</th>
+                                    <th>Price</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-packages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Event Packages</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="form-packages">
+                <div class="modal-body mt-4 mb-4">
+                  
+                    <section>
+                        <input type="hidden" class="form-control" name="guid" id="guid">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="wName2">
+                                        Name : <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="text" class="form-control required" id="wName2" name="name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wCapacity2">
+                                        Capacity : <span class="text-danger">*</span>
+                                    </label>
+                                    <input type="number" class="form-control required" id="wCapacity2" name="capacity">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wPrice2">Price : <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="wPrice2">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                    <label for="wdescription2">
+                                        Description : <span class="text-danger">*</span>
+                                    </label>
+                                    <textarea class="form-control" rows="5" id="wdescription2"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -40,5 +124,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="~/dashboard/assets/js/packages.js"></script>
     
 }

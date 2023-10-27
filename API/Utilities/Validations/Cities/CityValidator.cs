@@ -17,11 +17,10 @@ public class CityValidator : AbstractValidator<CityDto>
             .MaximumLength(50)
             .WithMessage("Name must not exceed 50 characters"); // Validasi Name tidak boleh lebih dari 50 karakter
         
+        
         RuleFor(c => c.ProvinceGuid)
             .NotEmpty();
         
-        //RuleFor(c => c.DistrictGuid)
-        //    .NotEmpty();
     }
     
 }

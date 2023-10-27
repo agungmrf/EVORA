@@ -1,17 +1,22 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard Admin - Locations";
+    ViewData["Title"] = "Dashboard Admin - Provinces";
     Layout = "_Dashboard";
 }
 <div class="card-body px-4 py-3">
     <div class="row align-items-center">
         <div class="col-9">
-            <h4 class="fw-semibold mb-8">Locations</h4>
+            <h4 class="fw-semibold mb-8">Provinces</h4>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a class="text-muted" asp-action="Index" asp-controller="Dashboard">Dashboard</a></li>
-                    <li class="breadcrumb-item" aria-current="page">Locations</li>
+                    <li class="breadcrumb-item" aria-current="page">Provinces</li>
                 </ol>
             </nav>
+        </div>
+        <div class="col-3">
+            <div class="text-center mb-n5">
+                <img src="/static/images/breadcrumb/ChatBc.png" alt="" class="img-fluid mb-n4">
+            </div>
         </div>
     </div>
 </div>
@@ -21,18 +26,21 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-8">
-                        <h5 class="card-title fw-semibold mb-4">Table Locations</h5>
+                        <h5 class="card-title fw-semibold mb-4">Table Provinces</h5>
+                    </div>
+                    <div class="col-md-4 d-flex justify-content-end mb-4">
+                        <button type="button" class="btn btn-primary m-1 btn-input" data-bs-toggle="modal" data-bs-target="#modal-provinces">
+                            <span>
+                                <i class="ti ti-plus"></i>
+                            </span>Add New Provinces
+                        </button>
                     </div>
                     <div class="col-md-12">
-                        <table id="location-table" class="table table-striped" style="width:100%">
+                        <table id="province-table" class="table table-striped" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Email</th>
-                                    <th>Invoice</th>
-                                    <th>City</th>
-                                    <th>District</th>
-                                    <th>Street</th>
+                                    <th>Name</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -46,14 +54,14 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="modal-packages" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal-provinces" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Locations</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Add New Event Provinces</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="form-packages">
+                <form id="form-provinces">
                     <div class="modal-body mt-4 mb-4">
 
                         <section>
@@ -61,42 +69,10 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label for="wStreet2">
-                                            Street : <span class="text-danger">*</span>
+                                        <label for="wName2">
+                                            Name : <span class="text-danger">*</span>
                                         </label>
-                                        <textarea class="form-control" rows="2" id="wstreet2"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="wProvince2">
-                                            Province : <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control required" id="wProvince2" name="province">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="wCity2">City : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="wCity2">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="wDistrict2">
-                                            District : <span class="text-danger">*</span>
-                                        </label>
-                                        <input type="text" class="form-control required" id="wDistrict2" name="district">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="wSubDistrict2">Sub District : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="wSubDistrict2">
+                                        <input type="text" class="form-control required" id="wName2" name="name">
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +89,6 @@
     </div>
 </div>
 
-
 @section Scripts{
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
@@ -125,6 +100,6 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/dashboard/assets/js/location.js"></script>
-    
+    <script src="~/dashboard/assets/js/provinces.js"></script>
+
 }

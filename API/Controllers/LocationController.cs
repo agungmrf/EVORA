@@ -27,7 +27,17 @@ public class LocationController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<LocationDto>>(data));
     }
-    
+    [HttpGet("detail")]
+    public IActionResult GetAllDetail()
+    {
+        var result = _locationRepository.GetAllDetailLocation();
+        if (!result.Any())
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        var data = result.Select(x => (DetailLocationDto)x);
+
+        return Ok(new ResponseOKHandler<IEnumerable<DetailLocationDto>>(data));
+    }
+
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
@@ -60,7 +70,7 @@ public class LocationController : ControllerBase
                 new ResponseServerErrorHandler("Failed to create data", ex.Message));
         }
     }
-    
+
     [HttpPut]
     public IActionResult Update(LocationDto locationDto)
     {
