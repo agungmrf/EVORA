@@ -42,7 +42,7 @@ public class EmployeeDto
 
         return new Employee // Mengembalikan object Employee dengan data dari property EmployeeDto.
         {
-            Guid = new Guid(),
+            Guid = employeeDto.Guid,
             Nik = employeeDto.Nik,
             FirstName = employeeDto.FirstName,
             LastName = employeeDto.LastName,
