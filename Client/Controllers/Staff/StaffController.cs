@@ -17,5 +17,13 @@ namespace Client.Controllers.Staff
         {
             return View();
         }
+        public IActionResult Packages()
+        {
+            return View();
+        }
+        public IActionResult Histories()
+        {
+            return View();
+        }
     }
 }

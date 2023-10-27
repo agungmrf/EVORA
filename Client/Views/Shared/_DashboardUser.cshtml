@@ -38,10 +38,37 @@
                                 <span>
                                     <i class="ti ti-layout-dashboard"></i>
                                 </span>
-                                <span class="hide-menu">Dashboard</span>
+                                <span class="hide-menu">Overview</span>
                             </a>
                         </li>
-                        
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-action="Order" asp-controller="User" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-shopping-cart"></i>
+                                </span>
+                                <span class="hide-menu">Order Now</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-action="Histories" asp-controller="User" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-history"></i>
+                                </span>
+                                <span class="hide-menu">History Transaction</span>
+                            </a>
+                        </li>
+                        <li class="nav-small-cap">
+                            <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                            <span class="hide-menu">Menu Sementara</span>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" asp-action="Index" asp-controller="Dashboard" aria-expanded="false">
+                                <span>
+                                    <i class="ti ti-article"></i>
+                                </span>
+                                <span class="hide-menu">Go to Admin</span>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -114,12 +141,12 @@
                 <!--  Body -->
                 @RenderBody()
                 
-                <div class="py-6 px-6 text-center">
-                    <p class="mb-0 fs-4">
-                        Design and Developed by <a href="https://adminmart.com/" target="_blank"
-                                                   class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
-                    </p> Customise by Evora
-                </div>
+                @* <div class="py-9 px-6 text-center">
+                <p class="mb-0 fs-4">
+                Design and Developed by <a href="https://adminmart.com/" target="_blank"
+                class="pe-1 text-primary text-decoration-underline">AdminMart.com</a> Distributed by <a href="https://themewagon.com">ThemeWagon</a>
+                </p> Customise by Evora
+                </div> *@
             </div>
         </div>
     </div>

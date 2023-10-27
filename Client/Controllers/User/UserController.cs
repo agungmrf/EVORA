@@ -17,5 +17,17 @@ namespace Client.Controllers.User
         {
             return View();
         }
+        public IActionResult Order()
+        {
+            return View();
+        }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
+        public IActionResult Histories()
+        {
+            return View();
+        }
     }
 }
