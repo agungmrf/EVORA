@@ -13,6 +13,7 @@ public class CustomerDto
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public Guid? AccountGuid { get; set; }
+
     public static explicit operator
         CustomerDto(Customer customer) // Operator explicit untuk mengkonversi Customer menjadi CustomerDto.
     {

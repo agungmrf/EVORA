@@ -29,8 +29,8 @@ namespace API.Data
             modelBuilder.Entity<Employee>().HasIndex(e => e.Nik).IsUnique();
             modelBuilder.Entity<Employee>().HasIndex(e => e.Email).IsUnique();
             modelBuilder.Entity<Employee>().HasIndex(e => e.PhoneNumber).IsUnique();
-            modelBuilder.Entity<Customer>().HasIndex(e => e.Email).IsUnique();
-            modelBuilder.Entity<Customer>().HasIndex(e => e.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(c => c.Email).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(c => c.PhoneNumber).IsUnique();
 
             // One Role has many AccountRoles
             modelBuilder.Entity<Role>()

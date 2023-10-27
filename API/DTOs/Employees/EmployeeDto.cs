@@ -16,6 +16,7 @@ public class EmployeeDto
     public string Email { get; set; }
     public string PhoneNumber { get; set; }
     public Guid? AccountGuid { get; set; }
+
     public static explicit operator
         EmployeeDto(Employee employee) // Operator explicit untuk mengkonversi Employee menjadi EmployeeDto.
     {
