@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:52115/api/city/";
+const baseUrl = "https://localhost:60107/api/city/";
 
 $(document).ready(() => {
 
@@ -210,7 +210,7 @@ $(document).ready(() => {
     }
 
     $.ajax({
-        url: "https://localhost:52115/api/province/",
+        url: "https://localhost:60107/api/province/",
     }).done((result) => {
         console.log(result);
         optionProvince = "";

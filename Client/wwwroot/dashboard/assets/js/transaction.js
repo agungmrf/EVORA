@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:52115/api/TransactionEvent/detail/";
+const baseUrl = "https://localhost:60107/api/TransactionEvent/detail/";
 $(document).ready(() => {
 
     const table = $('#transaction-table').DataTable({

@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:52115/api/province/";
+const baseUrl = "https://localhost:60107/api/province/";
 
 $(document).ready(() => {
     const table = $('#province-table').DataTable({

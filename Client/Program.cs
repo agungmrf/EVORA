@@ -1,10 +1,19 @@
+using Client.Contracts;
+using Client.Repositories;
+using Client.Repository;
 using System.Net;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddSession();
+builder.Services.AddHttpContextAccessor();
 
+builder.Services.AddControllersWithViews();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(GeneralRepository<,>));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAddOrderRepos, AddOrderRepository>();
+builder.Services.AddScoped<ILocationRepos, LocationRepository>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

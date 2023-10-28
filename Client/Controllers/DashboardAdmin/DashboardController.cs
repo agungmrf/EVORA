@@ -37,14 +37,6 @@ namespace Client.Controllers.DashboardAdmin
         {
             return View();
         }
-        public IActionResult District()
-        {
-            return View();
-        }
-        public IActionResult SubDistrict()
-        {
-            return View();
-        }
         public IActionResult Packages()
         {
             return View();

@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:52115/api/packageevent/";
+const baseUrl = "https://localhost:60107/api/packageevent/";
 
 $(document).ready(() => {
     const table = $('#package-table').DataTable({

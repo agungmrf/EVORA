@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:52115/api/Employee/";
+const baseUrl = "https://localhost:60107/api/Employee/";
 
 $(document).ready(() => {
     const table = $('#employee-table').DataTable({
