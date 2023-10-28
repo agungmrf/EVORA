@@ -29,7 +29,15 @@ public class CityController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<CityDto>>(data));
     }
-
+    [HttpGet("province/{guid}")]
+    public IActionResult GetByProvinceGuid(Guid guid)
+    {
+        var result = _cityRepository.GetByProvinceGuid(guid);
+        if (!result.Any())
+            return Ok(new ResponseOKHandler<string>("Not Found",null));
+        var data = result.Select(x => (CityDto)x);
+        return Ok(new ResponseOKHandler<IEnumerable<CityDto>>(data));
+    }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
