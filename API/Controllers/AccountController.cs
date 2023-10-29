@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers;
 
-[ApiController] 
+[ApiController]
 [Route("api/[controller]")]
 [EnableCors]
 public class AccountController : ControllerBase
@@ -38,7 +38,7 @@ public class AccountController : ControllerBase
         _dbContext = dbContext;
         _customerRepository = customerRepository;
     }
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -73,9 +73,9 @@ public class AccountController : ControllerBase
             var result = _accountRepository.Create(toCreate);
 
             return Ok(new ResponseOKHandler<AccountDto>("Data has been created successfully")
-                { Data = (AccountDto)result });
+            { Data = (AccountDto)result });
         }
-        catch (ExceptionHandler ex) 
+        catch (ExceptionHandler ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to create data", ex.Message));
@@ -94,14 +94,14 @@ public class AccountController : ControllerBase
             Account toUpdate = accountDto;
             toUpdate.CreatedDate = entity.CreatedDate;
             toUpdate.Password =
-                HashingHandler.HashPassword(accountDto.Password); 
+                HashingHandler.HashPassword(accountDto.Password);
 
             _accountRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<AccountDto>("Data has been updated successfully")
-                { Data = (AccountDto)toUpdate });
+            { Data = (AccountDto)toUpdate });
         }
-        catch (ExceptionHandler ex) 
+        catch (ExceptionHandler ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to update data", ex.Message));
@@ -121,7 +121,7 @@ public class AccountController : ControllerBase
 
             return Ok(new ResponseOKHandler<string>("Data has been deleted successfully"));
         }
-        catch (ExceptionHandler ex) 
+        catch (ExceptionHandler ex)
         {
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
@@ -172,7 +172,7 @@ public class AccountController : ControllerBase
             var accounts = _accountRepository.GetAll();
 
             if (!employees.Any() || !accounts.Any()) return NotFound(new ResponseNotFoundHandler("Data Not Found"));
-            
+
             var getEmployee = employees.FirstOrDefault(emp => emp.Email == changePasswordDto.Email);
 
             var getAccount = accounts.FirstOrDefault(acc => acc.Guid == getEmployee?.Guid);
@@ -209,7 +209,7 @@ public class AccountController : ControllerBase
                 new ResponseServerErrorHandler("Failed to process the request", ex.Message));
         }
     }
-    
+
     [HttpPost("register-employee")]
     [AllowAnonymous]
     public IActionResult RegisterEmp(RegisterEmpDto registerEmpDto)
@@ -225,9 +225,9 @@ public class AccountController : ControllerBase
                 Otp = 111111,
                 Password = HashingHandler.HashPassword(registerEmpDto.Password)
             };
-            
+
             _accountRepository.Create(accountToCreate);
-            
+
             Employee employeeToCreate = new EmployeeDto
             {
                 FirstName = registerEmpDto.FirstName,
@@ -242,14 +242,14 @@ public class AccountController : ControllerBase
             // Generate NIK baru dengan memanggil method Nik dari class GenerateHandler.
             employeeToCreate.Nik = GenerateHandler.Nik(_employeeRepository.GetLastNik());
             _employeeRepository.Create(employeeToCreate);
-            
-           
+
+
             var accountRole = _accountRoleRepository.Create(new AccountRole
             {
                 AccountGuid = accountToCreate.Guid,
                 RoleGuid = _roleRepository.getDefaultRoleEmp() ?? throw new Exception("Default role not found")
             });
-            
+
             // Commit transaksi jika semuanya berhasil
             transaction.Commit();
         }
@@ -264,7 +264,7 @@ public class AccountController : ControllerBase
         // Jika berhasil, maka akan mengembalikan response 200 OK
         return Ok(new ResponseOKHandler<RegisterEmpDto>("Data has been created successfully") { Data = registerEmpDto });
     }
-    
+
     [HttpPost("register-customer")]
     [AllowAnonymous]
     public IActionResult RegisterCust(RegisterCustDto registerCustDto)
@@ -280,9 +280,9 @@ public class AccountController : ControllerBase
                 Otp = 111111,
                 Password = HashingHandler.HashPassword(registerCustDto.Password)
             };
-            
+
             _accountRepository.Create(accountToCreate);
-            
+
             Customer customerToCreate = new CustomerDto
             {
                 FirstName = registerCustDto.FirstName,
@@ -294,14 +294,14 @@ public class AccountController : ControllerBase
                 AccountGuid = accountToCreate.Guid,
             };
             _customerRepository.Create(customerToCreate);
-            
-           
+
+
             var accountRole = _accountRoleRepository.Create(new AccountRole
             {
                 AccountGuid = accountToCreate.Guid,
                 RoleGuid = _roleRepository.getDefaultRoleCust() ?? throw new Exception("Default role not found")
             });
-            
+
             // Commit transaksi jika semuanya berhasil
             transaction.Commit();
         }
@@ -316,35 +316,66 @@ public class AccountController : ControllerBase
         // Jika berhasil, maka akan mengembalikan response 200 OK
         return Ok(new ResponseOKHandler<RegisterCustDto>("Data has been created successfully") { Data = registerCustDto });
     }
-    
+
     [HttpPost("login")]
     [AllowAnonymous]
     public IActionResult Login(LoginDto loginDto)
     {
         try
         {
+            string role = "customer";
+
             var getEmployee = _employeeRepository.GetByEmail(loginDto.Email);
+            var getCustomer = _customerRepository.GetByEmail(loginDto.Email);
 
-            if (getEmployee is null)
+            if (getEmployee is null && getCustomer is null)
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
-            var getAccount = _accountRepository.GetByGuid((Guid)getEmployee.AccountGuid);
 
-            if (!HashingHandler.VerifyPassword(loginDto.Password, getAccount.Password))
-                return BadRequest(new ResponseValidatorHandler("Password is invalid"));
-
-            // Generate token
+            // Untuk Generate token
             var claims = new List<Claim>();
-            claims.Add(new Claim("Email", getEmployee.Email));
-            claims.Add(new Claim("FullName", string.Concat(getEmployee.FirstName, " ", getEmployee.LastName)));
+            IEnumerable<string> getRoleNames;
+            if (getEmployee is not null)
+            {
+                var getAccount = _accountRepository.GetByGuid((Guid)getEmployee.AccountGuid);
 
-            // Untuk mendapatkan role dari akun yang sedang login
-            var getRoleNames = from ar in _accountRoleRepository.GetAll()
-                join r in _roleRepository.GetAll() on ar.RoleGuid equals r.Guid
-                where ar.AccountGuid == getEmployee.Guid
-                select r.Name;
+                if (!HashingHandler.VerifyPassword(loginDto.Password, getAccount.Password))
+                    return BadRequest(new ResponseValidatorHandler("Password is invalid"));
 
-            // Jika akun memiliki lebih dari satu role, maka akan ditambahkan ke claims
-            foreach (var roleName in getRoleNames) claims.Add(new Claim(ClaimTypes.Role, roleName));
+                claims.Add(new Claim(ClaimTypes.Email, getEmployee.Email));
+                claims.Add(new Claim(ClaimTypes.Name, string.Concat(getEmployee.FirstName, " ", getEmployee.LastName)));
+
+                // Untuk mendapatkan role dari akun yang sedang login
+                getRoleNames = from ar in _accountRoleRepository.GetAll()
+                               join r in _roleRepository.GetAll() on ar.RoleGuid equals r.Guid
+                               where ar.AccountGuid == getEmployee.AccountGuid
+                               select r.Name;
+                // Jika akun memiliki lebih dari satu role, maka akan ditambahkan ke claims
+                foreach (var roleName in getRoleNames)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, roleName));
+                }
+            }
+            else if (getCustomer is not null)
+            {
+                var getAccount = _accountRepository.GetByGuid((Guid)getCustomer.AccountGuid);
+
+                if (!HashingHandler.VerifyPassword(loginDto.Password, getAccount.Password))
+                    return BadRequest(new ResponseValidatorHandler("Password is invalid"));
+
+                claims.Add(new Claim(ClaimTypes.Email, getCustomer.Email));
+                claims.Add(new Claim(ClaimTypes.Name, string.Concat(getCustomer.FirstName, " ", getCustomer.LastName)));
+
+                // Untuk mendapatkan role dari akun yang sedang login
+                getRoleNames = from ar in _accountRoleRepository.GetAll()
+                               join r in _roleRepository.GetAll() on ar.RoleGuid equals r.Guid
+                               where ar.AccountGuid == getCustomer.AccountGuid
+                               select r.Name;
+                // Jika akun memiliki lebih dari satu role, maka akan ditambahkan ke claims
+                foreach (var roleName in getRoleNames)
+                {
+                    claims.Add(new Claim(ClaimTypes.Role, roleName));
+                }
+            }
 
             var generateToken = _tokenService.Generate(claims);
 
