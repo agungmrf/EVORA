@@ -26,6 +26,8 @@ namespace Client.Controllers.User
 
         public IActionResult Index()
         {
+            string jwtToken = HttpContext.Session.GetString("JWToken");
+            Console.WriteLine("tokennya : ", jwtToken);
             return View();
         }
         [HttpGet("User/Order")]
@@ -38,7 +40,9 @@ namespace Client.Controllers.User
         }
         public async Task<IActionResult> AddOrder(Guid id)
         {
+            
             Console.WriteLine(id);
+            
             PackageEventDto dataPacket = new PackageEventDto();
             var result = await repository.Get(id);
             if (result != null)

@@ -11,7 +11,7 @@ namespace Client.Repository
     public class AccountRepository : GeneralRepository<AccountDto, Guid>, IAccountRepos
     {
 
-        public AccountRepository(string request = "Account/Login") : base(request)
+        public AccountRepository(string request = "Account/") : base(request)
         {
         }
 

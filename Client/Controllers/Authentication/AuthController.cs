@@ -16,7 +16,7 @@ namespace Client.Controllers.Authentication
             _accountRepository = accountRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
         }
@@ -27,9 +27,12 @@ namespace Client.Controllers.Authentication
 
             if (result.Status == "OK")
             {
-
+                Console.WriteLine("Berhasil Login");
+                Console.WriteLine(result.Data.Token);
                 HttpContext.Session.SetString("JWToken", result.Data.Token);
-                return RedirectToAction("Index", "Home");
+                
+                return RedirectToAction("Index", "User");
+
             }
             return View();
         }
