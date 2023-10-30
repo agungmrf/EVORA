@@ -8,25 +8,31 @@ using Client.Contracts;
 using Client.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Authorization;
+using NuGet.Protocol.Core.Types;
 
 namespace Client.Controllers.User
 {
+    [Authorize(Roles = "user")]
     public class UserController : Controller
     {
         private readonly IUserRepository repository;
         private readonly IAddOrderRepos addOrderRepo;
         private readonly ILocationRepos locationRepository;
+        private readonly IAccountRepos accountRepository;
 
-        public UserController(IUserRepository repository, IAddOrderRepos addOrder, ILocationRepos locationRepository)
+        public UserController(IUserRepository repository, IAddOrderRepos addOrder, ILocationRepos locationRepository, IAccountRepos accountRepository)
         {
             this.repository = repository;
             this.addOrderRepo = addOrder;
             this.locationRepository = locationRepository;
+            this.accountRepository = accountRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             string jwtToken = HttpContext.Session.GetString("JWToken");
+            var dataUser = await accountRepository.GetClaims(jwtToken);
             Console.WriteLine("tokennya : ", jwtToken);
             return View();
         }

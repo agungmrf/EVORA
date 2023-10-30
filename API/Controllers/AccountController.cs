@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Claims;
 using API.Contracts;
 using API.Data;
@@ -10,6 +11,8 @@ using API.Utilities.Validations.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
+
 namespace API.Controllers;
 
 [ApiController]
@@ -126,6 +129,20 @@ public class AccountController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to delete data", ex.Message));
         }
+    }
+
+    [HttpGet("GetClaims/{token}")]
+    [AllowAnonymous]
+    public IActionResult GetClaims(string token)
+    {
+        var claims = _tokenService.ExtractClaimsFromJwt(token);
+        return Ok(new ResponseOKHandler<ClaimsDto>
+        {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Claims has been retrieved",
+            Data = claims
+        });
     }
 
     [HttpPost("forgot-password")]

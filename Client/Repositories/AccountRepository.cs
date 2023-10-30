@@ -15,9 +15,16 @@ namespace Client.Repository
         {
         }
 
-        public Task<ResponseOKHandler<TokenDto>> GetToken(string token)
+        public async Task<ResponseOKHandler<ClaimsDto>> GetClaims(string token)
         {
-            throw new NotImplementedException();
+            ResponseOKHandler<ClaimsDto> entityVM = null;
+            using (var response = await httpClient.GetAsync(request + "GetClaims/" + token))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+
+                entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<ClaimsDto>>(apiResponse);
+            }
+            return entityVM;
         }
 
         public async Task<ResponseOKHandler<TokenDto>> Login(LoginDto login)
@@ -33,5 +40,6 @@ namespace Client.Repository
                 return entityVM;
             }
         }
+
     }
 }

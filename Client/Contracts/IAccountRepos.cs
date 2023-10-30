@@ -9,6 +9,6 @@ namespace Client.Contracts
     public interface IAccountRepos : IRepository<AccountDto, Guid>
     {
         Task<ResponseOKHandler<TokenDto>> Login(LoginDto login);
-        Task<ResponseOKHandler<TokenDto>> GetToken(string token);
+        Task<ResponseOKHandler<ClaimsDto>> GetClaims(string token);
     }
 }
