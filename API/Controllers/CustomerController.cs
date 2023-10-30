@@ -36,7 +36,14 @@ public class CustomerController : ControllerBase
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         return Ok(new ResponseOKHandler<CustomerDto>((CustomerDto)result));
     }
-    
+    [HttpGet("email/{email}")]
+    public IActionResult GetByEmail(string email)
+    {
+        var result = _customerRepository.GetByEmail(email);
+        if (result is null)
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        return Ok(new ResponseOKHandler<CustomerDto>((CustomerDto)result));
+    }
     [HttpPost]
     public IActionResult Create(CustomerDto customerDto)
     {

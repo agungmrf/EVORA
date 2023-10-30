@@ -40,6 +40,18 @@ namespace Client.Repository
                 return entityVM;
             }
         }
+        public async Task<ResponseOKHandler<TokenDto>> GetGuidbyEmail(string email)
+        {
+            string jsonEntity = JsonConvert.SerializeObject(email);
+            StringContent content = new StringContent(jsonEntity, Encoding.UTF8, "application/json");
 
+            using (var response = await httpClient.PostAsync($"{request}login", content))
+            {
+                response.EnsureSuccessStatusCode();
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                var entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<TokenDto>>(apiResponse);
+                return entityVM;
+            }
+        }
     }
 }
