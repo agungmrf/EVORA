@@ -1,4 +1,5 @@
 using API.Contracts;
+using API.DTOs.Accounts;
 using API.DTOs.Employees;
 using API.DTOs.Locations;
 using API.DTOs.TransactionEvents;
@@ -6,10 +7,13 @@ using API.Models;
 using API.Repositories;
 using API.Utilities.Enums;
 using API.Utilities.Handler;
+using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+using System;
 using System.Net;
 using System.Runtime.ConstrainedExecution;
+using static System.Net.WebRequestMethods;
 
 namespace API.Controllers;
 
@@ -19,11 +23,17 @@ public class TransactionEventController : ControllerBase
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly ILocationRepository _locationRepository;
+    private readonly IEmailHandler _emailHandler;
+    private readonly ICustomerRepository _customerRepository;
+    private readonly IPackageEventRepository _packageEventRepository;
 
-    public TransactionEventController(ITransactionRepository transactionRepository, ILocationRepository locationRepository)
+    public TransactionEventController(ITransactionRepository transactionRepository, ILocationRepository locationRepository, IEmailHandler emailHandler, ICustomerRepository customerRepository, IPackageEventRepository packageEventRepository)
     {
         _transactionRepository = transactionRepository;
         _locationRepository = locationRepository;
+        _emailHandler = emailHandler;
+        _customerRepository = customerRepository;
+        _packageEventRepository = packageEventRepository;
     }
 
     [HttpGet]
@@ -65,7 +75,6 @@ public class TransactionEventController : ControllerBase
             string currentYear = DateTime.Now.Year.ToString();
             TransactionEvent toCreate = transactionEventDto;
             toCreate.Invoice = GenerateHandler.Invoice(_transactionRepository.GetLastTransactionByYear(currentYear));
-
             var result = _transactionRepository.Create(toCreate);
 
 
@@ -150,6 +159,47 @@ public class TransactionEventController : ControllerBase
 
             return Ok(new ResponseOKHandler<TransactionEventDto>("Data has been updated successfully")
             { Data = (TransactionEventDto)toUpdate });
+        }
+        catch (ExceptionHandler ex)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError,
+                new ResponseServerErrorHandler("Failed to update data", ex.Message));
+        }
+    }
+
+    [HttpPut("change-status")]
+    public IActionResult ChangeStatus(ChangeTransactionStatusDto changeTransactionDto)
+    {
+        try
+        {
+            var entity = _transactionRepository.GetByGuid(changeTransactionDto.Guid);
+            if (entity is null)
+                return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+
+            TransactionEvent toUpdate = entity;
+            toUpdate.Status = changeTransactionDto.Status;
+
+            _transactionRepository.Update(toUpdate);
+
+            var getStatusKey = Enum.GetName(typeof(StatusTransaction), toUpdate.Status);
+            var getCustomer = _customerRepository.GetByGuid(toUpdate.CustomerGuid);
+            var getPackage = _packageEventRepository.GetByGuid(toUpdate.PacketEventGuid);
+            var bodyEmail = GenerateHandler.EmailTransactionTemplate(new TransactionDetailDto
+            {
+                FirstName = getCustomer.FirstName,
+                LastName = getCustomer.LastName,
+                Email = getCustomer.Email,
+                Invoice = toUpdate.Invoice,
+                EventDate = toUpdate.EventDate,
+                Price = getPackage.Price,
+                Package = getPackage.Name
+            }, "We have change your order to <b>"+ getStatusKey + "</b>. The details of the order are below:");
+            _emailHandler.Send(
+                "Evora - Order Status",
+                bodyEmail,
+                getCustomer.Email);
+
+            return Ok(new ResponseOKHandler<string>("Data has been updated successfully"));
         }
         catch (ExceptionHandler ex)
         {

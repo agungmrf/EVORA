@@ -54,22 +54,21 @@
                 <h5 class="modal-title" id="exampleModalLabel">Change Status Transaction</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="form-provinces">
+            <form id="form-transaction">
                 <div class="modal-body mt-4 mb-4">
-
                     <section>
                         <input type="hidden" class="form-control" name="guid" id="guid">
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="mb-3">
-                                    <label for="wName2">
+                                    <label for="wStatus2">
                                         Status : <span class="text-danger">*</span>
                                     </label>
-                                    <select class="form-select required" id="wgender2" name="location">
+                                    <select class="form-select required" id="wStatus2" name="location">
                                         <option value="">Select</option>
                                         <option value="0">Canceled</option>
                                         <option value="1">Completed</option>
-                                        <option value="1">OnGoing</option>
+                                        <option value="2">Pending</option>
                                     </select>
                                 </div>
                             </div>
@@ -97,6 +96,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/dashboard/assets/js/transaction.js"></script>
     
 }

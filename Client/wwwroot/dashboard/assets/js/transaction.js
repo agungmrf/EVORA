@@ -1,11 +1,11 @@
 
-const baseUrl = "https://localhost:60107/api/TransactionEvent/detail/";
+const baseUrl = "https://localhost:50969/api/transactionevent/";
 $(document).ready(() => {
 
     const table = $('#transaction-table').DataTable({
         ordering: false,
         ajax: {
-            url: baseUrl,
+            url: baseUrl + "detail/",
             dataSrc: 'data',
             'error': function (jqXHR, textStatus, errorThrown) {
                 $('#transaction-table').DataTable().clear().draw();
@@ -96,6 +96,57 @@ $(document).ready(() => {
     let element3 = document.getElementById('colvis-btn');
     element3.classList.remove('dt-button', 'buttons-colvis');
 
+    edit = function (id) {
+        console.log(id);
+        $.ajax({
+            url: baseUrl + id,
+            type: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).done((result) => {
+
+            $("#guid").val(result.data.guid);
+            $("#wStatus2").val(result.data.status).change();
+            console.log(result.data.status);
+
+            $("#modal-packages .modal-title").html("Edit Event Packages");
+
+            $("#modal-packages button[type=submit]").addClass("btn-edit");
+        }).fail((error) => {
+            console.log(error);
+        })
+    }
+
+
+    const form = document.querySelector('#form-transaction');
+    form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+        const data = {};
+        data.guid = $("#guid").val();
+        data.status = parseInt($("#wStatus2").val());
+        console.log(data);
+
+        const stringData = JSON.stringify(data);
+        $.ajax({
+            url: baseUrl + "change-status",
+            type: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            data: stringData
+        }).done((result) => {
+            $('#form-transaction')[0].reset();
+            $('#transaction-modal').modal('hide');
+            messageSuccess("Data berhasil Diupdate");
+            table.ajax.reload();
+        }).fail((error) => {
+            messageFail("Data gagal diupdate");
+            console.log(error, 'ini error');
+        });
+    });
+
     printBadge = function (id) {
         let badge = "";
         switch (id) {
@@ -106,9 +157,29 @@ $(document).ready(() => {
                 badge = '<span class="badge bg-success">Complete</span>';
                 break;
             case 2:
-                badge = '<span class="badge bg-warning text-dark">OnGoing</span>';
+                badge = '<span class="badge bg-warning text-dark">Pending</span>';
                 break;
         }
         return badge
+    }
+
+    messageSuccess = function (msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+    messageFail = function (msg) {
+        Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: msg,
+            showConfirmButton: false,
+            timer: 1500
+        })
     }
 })
