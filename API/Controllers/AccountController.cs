@@ -1,3 +1,4 @@
+using System.Net;
 using System.Security.Claims;
 using API.Contracts;
 using API.Data;
@@ -355,5 +356,18 @@ public class AccountController : ControllerBase
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to process the request", ex.Message));
         }
+    }
+    
+    [Authorize]
+    [HttpGet("GetClaims/{token}")]
+    public IActionResult GetClaims(string token)
+    {
+        var claims = _tokenService.ExtractClaimsFromJwt(token);
+        return Ok(new ResponseOKHandler<ClaimsDto> {
+            Code = StatusCodes.Status200OK,
+            Status = HttpStatusCode.OK.ToString(),
+            Message = "Claims has been retrieved",
+            Data = claims
+        });
     }
 }
