@@ -12,5 +12,7 @@ namespace Client.Contracts
         Task<ResponseOKHandler<TransactionDetaillAllDto>> DetailbyGuid(Guid guid);
         Task<ResponseOKHandler<TransactionEventDto>> TransactionbyGuid(Guid guid);
         Task<ResponseOKHandler<TransactionEventDto>> ApprovePayment(Guid guid, TransactionEventDto eventDto);
+        Task<ResponseOKHandler<IEnumerable<TransactionDetailDto>>> DetailAll();
+        Task<ResponseOKHandler<ChangeTransactionStatusDto>> ChangeStatus(ChangeTransactionStatusDto eventDto);
     }
 }

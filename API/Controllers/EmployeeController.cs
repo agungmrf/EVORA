@@ -1,6 +1,7 @@
 using API.Contracts;
 using API.DTOs.Employees;
 using API.Models;
+using API.Repositories;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,7 +37,14 @@ public class EmployeeController : ControllerBase
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         return Ok(new ResponseOKHandler<EmployeeDto>((EmployeeDto)result));
     }
-
+    [HttpGet("email/{email}")]
+    public IActionResult GetByEmail(string email)
+    {
+        var result = _employeeRepository.GetByEmail(email);
+        if (result is null)
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        return Ok(new ResponseOKHandler<EmployeeDto>((EmployeeDto)result));
+    }
     [HttpPost]
     public IActionResult Create(EmployeeDto employeeDto)
     {

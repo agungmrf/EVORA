@@ -24,7 +24,7 @@ namespace Client.Repositories
         {
             ResponseOKHandler<IEnumerable<TransactionDetailDto>> entityVM = null;
 
-            using (var response = await httpClient.GetAsync($"{request}GetByCustomer/"+ guid))
+            using (var response = await httpClient.GetAsync($"{request}GetByCustomer/" + guid))
             {
                 response.EnsureSuccessStatusCode();
                 string apiResponse = await response.Content.ReadAsStringAsync();
@@ -57,7 +57,7 @@ namespace Client.Repositories
             }
         }
 
-        public async Task<ResponseOKHandler<TransactionEventDto>> ApprovePayment(Guid guid,TransactionEventDto eventDto)
+        public async Task<ResponseOKHandler<TransactionEventDto>> ApprovePayment(Guid guid, TransactionEventDto eventDto)
         {
             ResponseOKHandler<TransactionEventDto> entityVM = null;
             StringContent content = new StringContent(JsonConvert.SerializeObject(eventDto), Encoding.UTF8, "application/json");
@@ -65,6 +65,29 @@ namespace Client.Repositories
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<TransactionEventDto>>(apiResponse);
+            }
+            return entityVM;
+        }
+
+        public async Task<ResponseOKHandler<IEnumerable<TransactionDetailDto>>> DetailAll()
+        {
+            ResponseOKHandler<IEnumerable<TransactionDetailDto>> entityVM = null;
+            using (var response = await httpClient.GetAsync($"{request}detail/"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<IEnumerable<TransactionDetailDto>>>(apiResponse);
+            }
+            return entityVM;
+        }
+
+        public async Task<ResponseOKHandler<ChangeTransactionStatusDto>> ChangeStatus(ChangeTransactionStatusDto eventDto)
+        {
+            ResponseOKHandler<ChangeTransactionStatusDto> entityVM = null;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(eventDto), Encoding.UTF8, "application/json");
+            using (var response = httpClient.PutAsync($"{request}change-status/", content).Result)
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entityVM = JsonConvert.DeserializeObject<ResponseOKHandler<ChangeTransactionStatusDto>>(apiResponse);
             }
             return entityVM;
         }

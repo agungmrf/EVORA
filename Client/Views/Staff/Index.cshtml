@@ -1,6 +1,7 @@
-﻿
+﻿@model IEnumerable<API.DTOs.TransactionEvents.TransactionDetailDto>
+
 @{
-    ViewData["Title"] = "Staff Dashboard";
+    ViewData["Title"] = "Overview";
     Layout = "_DashboardStaff";
 }
 <div class="row">
@@ -42,100 +43,62 @@
                     <div class="tab-pane active" id="home" role="tabpanel">
                         <div class="table-responsive">
                             <table class="table align-middle mb-0 text-nowrap">
+                                <thead>
+                                    <tr>
+                                        <td>Customer</td>
+                                        <td>Event Date</td>
+                                        <td>Package</td>
+                                        <td>Price</td>
+                                        <td class="text-center">Status</td>
+                                        <td class="text-center">Respon Action</td>
+                                    </tr>
+                                </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div>
-                                                    <h6 class="mb-0 fw-semibold">Ahmad</h6>
-                                                    <span class="fs-2">ahmad@gmail.com</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <span>31-10-2023</span>
-                                        </td>
-                                        <td class="ps-0">
-                                            <span>Birthday Parties</span>
-                                        </td>
-                                        <td class="ps-0">
-                                            <h6 class="mb-0">1499k</h6>
-                                        </td>
-                                        <td class="text-end ps-0">
-                                            <span class="badge bg-light-warning text-warning rounded-pill">
-                                                <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
-                                            </span>
-                                        </td>
-                                        <td class="text-end ps-0">
-                                            <button type="button"
-                                                    class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-primary">
-                                                Details
-                                            </button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="ps-0">
-                                            <div class="d-flex align-items-center gap-3">
-                                                <div>
-                                                    <h6 class="mb-0 fw-semibold">Yazid</h6>
-                                                    <span class="fs-2">yazid@gmail.com</span>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="ps-0">
-                                            <span>31-10-2023</span>
-                                        </td>
-                                        <td class="ps-0">
-                                            <span>Birthday Parties</span>
-                                        </td>
-                                        <td class="ps-0">
-                                            <h6 class="mb-0">1499k</h6>
-                                        </td>
-                                        <td class="text-end ps-0">
-                                            <span class="badge bg-light-warning text-warning rounded-pill">
-                                                <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
-                                            </span>
-                                        </td>
-                                        <td class="text-end ps-0">
-                                            <button type="button"
-                                                    class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-primary"
-                                                    data-bs-toggle="modal" data-bs-target="#info-header-modal">
-                                                Details
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    @foreach (var item in Model)
+                                    {
+                                        if (item.Status.ToString() == "Pending")
+                                        {
+                                            <tr>
+                                                <td class="ps-0">
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <div>
+                                                            <h6 class="mb-0 fw-semibold">@Html.DisplayFor(modelItem => item.FirstName)&nbsp;@Html.DisplayFor(modelItem => item.LastName)</h6>
+                                                            <span class="fs-2">@Html.DisplayFor(modelItem => item.Email)</span>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="ps-0">
+                                                    @{
+                                                        string customFormattedDate = item.EventDate.ToString("dd MMMM yyyy");
+                                                    }
+                                                    <span>@customFormattedDate</span>
+                                                </td>
+                                                <td class="ps-0">
+                                                    <span>@Html.DisplayFor(modelItem => item.Package)</span>
+                                                </td>
+                                                <td class="ps-0">
+                                                    <h6 class="mb-0">@Html.DisplayFor(modelItem => item.Price)</h6>
+                                                </td>
+                                                <td class="text-end ps-0">
+                                                    <span class="badge bg-light-warning text-warning rounded-pill">
+                                                        <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
+                                                    </span>
+                                                </td>
+                                                <td class="text-end ps-0">
+                                                    <a asp-action="StatusApprove" asp-controller="Staff" asp-route-id=@item.Guid type="button"
+                                                            class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-success">
+                                                        Approve
+                                                    </a>
+                                                    <a asp-action="StatusDecline" asp-controller="Staff" asp-route-id=@item.Guid type="button"
+                                                            class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-warning">
+                                                        Decline
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
-                            <div class="modal fade" id="info-header-modal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                 aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header modal-colored-header bg-info text-white">
-                                            <h4 class="modal-title" id="info-header-modalLabel">
-                                                Detail Order
-                                            </h4>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                    aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Packages
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">
-                                                Close
-                                            </button>
-                                            <button type="button" class="btn btn-light-info text-info font-medium">
-                                                Approve
-                                            </button>
-                                            <button type="button" class="btn btn-light-danger text-danger font-medium">
-                                                Reject
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                            </div>
                         </div>
                     </div>
                 </div>
