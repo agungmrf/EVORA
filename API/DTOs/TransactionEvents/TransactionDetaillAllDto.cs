@@ -2,7 +2,7 @@
 
 namespace API.DTOs.TransactionEvents
 {
-    public class TransactionDetailDto
+    public class TransactionDetaillAllDto
     {
         // customer
         public string? FirstName { get; set; }
@@ -19,18 +19,18 @@ namespace API.DTOs.TransactionEvents
         public decimal? Price { get; set; }
         //Location
         public string? Street { get; set; }
-        //public string? SubDistrict { get; set; }
-        //public string? District { get; set; }
+        public string? SubDistrict { get; set; }
+        public string? District { get; set; }
         public string? City { get; set; }
-        //public string? Province { get; set; }
+        public string? Province { get; set; }
         // Transaction
         public Guid? Guid { get; set; }
         public string Invoice { get; set; }
         public DateTime EventDate { get; set; }
         public StatusTransaction Status { get; set; }
-        //public DateTime TransactionDate { get; set; }
+        public DateTime TransactionDate { get; set; }
         public Guid CustomerGuid { get; set; }
-        //public Guid PackageGuid { get; set; }
-        //public Guid LocationGuid { get; set; }
+        public Guid PackageGuid { get; set; }
+        public Guid LocationGuid { get; set; }
     }
 }

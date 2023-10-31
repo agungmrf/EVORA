@@ -26,14 +26,16 @@ public class TransactionEventController : ControllerBase
     private readonly IEmailHandler _emailHandler;
     private readonly ICustomerRepository _customerRepository;
     private readonly IPackageEventRepository _packageEventRepository;
-
-    public TransactionEventController(ITransactionRepository transactionRepository, ILocationRepository locationRepository, IEmailHandler emailHandler, ICustomerRepository customerRepository, IPackageEventRepository packageEventRepository)
+    private readonly ICityRepository _cityRepository;
+    public TransactionEventController(ITransactionRepository transactionRepository, ILocationRepository locationRepository, IEmailHandler emailHandler, ICustomerRepository customerRepository, 
+        IPackageEventRepository packageEventRepository, ICityRepository cityRepository)
     {
         _transactionRepository = transactionRepository;
         _locationRepository = locationRepository;
         _emailHandler = emailHandler;
         _customerRepository = customerRepository;
         _packageEventRepository = packageEventRepository;
+        _cityRepository = cityRepository;
     }
 
     [HttpGet]
@@ -67,6 +69,25 @@ public class TransactionEventController : ControllerBase
         return Ok(new ResponseOKHandler<TransactionEventDto>((TransactionEventDto)result));
     }
 
+    [HttpGet("detailByGuid/{guid}")]
+    public IActionResult DetailByGuidCustomer(Guid guid)
+    {
+        var result = _transactionRepository.DetailByGuid(guid);
+        if (result is null)
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        return Ok(new ResponseOKHandler<TransactionDetaillAllDto>(result));
+    }
+
+    [HttpGet("GetByCustomer/{guid}")]
+    public IActionResult GetByCustomer(Guid guid)
+    {
+        var result = _transactionRepository.GetByCustomer(guid);
+        if (result is null)
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        return Ok(new ResponseOKHandler<IEnumerable<TransactionDetailDto>>(result));
+    }
+
+
     [HttpPost]
     public IActionResult Create(TransactionEventDto transactionEventDto)
     {
@@ -99,7 +120,7 @@ public class TransactionEventController : ControllerBase
             {
                 Guid = Guid.NewGuid(),
                 Street = createOrder.Street,
-                District = createOrder.Street,
+                District = createOrder.Disctrict,
                 SubDistrict = createOrder.SubDistrict,
                 CityGuid = createOrder.CityGuid
             };
@@ -184,6 +205,8 @@ public class TransactionEventController : ControllerBase
             var getStatusKey = Enum.GetName(typeof(StatusTransaction), toUpdate.Status);
             var getCustomer = _customerRepository.GetByGuid(toUpdate.CustomerGuid);
             var getPackage = _packageEventRepository.GetByGuid(toUpdate.PacketEventGuid);
+            var getLocation = _locationRepository.GetByGuid(toUpdate.LocationGuid);
+            var getCity = _cityRepository.GetByGuid((Guid)getLocation.CityGuid);
             var bodyEmail = GenerateHandler.EmailTransactionTemplate(new TransactionDetailDto
             {
                 FirstName = getCustomer.FirstName,
@@ -192,7 +215,9 @@ public class TransactionEventController : ControllerBase
                 Invoice = toUpdate.Invoice,
                 EventDate = toUpdate.EventDate,
                 Price = getPackage.Price,
-                Package = getPackage.Name
+                Package = getPackage.Name,
+                Street = getLocation.Street,
+                City = getCity.Name
             }, "We have change your order to <b>"+ getStatusKey + "</b>. The details of the order are below:");
             _emailHandler.Send(
                 "Evora - Order Status",

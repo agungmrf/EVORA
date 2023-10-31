@@ -113,8 +113,11 @@
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item">
                                 <a style="font-size: small;" class="nav-link" id="todaydate" aria-disabled="true">
-                                    Wednesday, 25
-                                    October 2023
+                                    @{
+                                        DateTime sekarang = DateTime.Now;
+                                        string tanggalDiformat = sekarang.ToString("dddd, dd MMMM yyyy");
+                                    }
+                                    @tanggalDiformat
                                 </a>
                             </li>
                             <li class="nav-item dropdown">

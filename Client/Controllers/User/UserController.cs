@@ -13,6 +13,7 @@ using NuGet.Protocol.Core.Types;
 using NuGet.Common;
 using System.Data;
 using Newtonsoft.Json.Linq;
+using API.Utilities.Enums;
 
 namespace Client.Controllers.User
 {
@@ -24,14 +25,17 @@ namespace Client.Controllers.User
         private readonly ILocationRepos locationRepository;
         private readonly IAccountRepos accountRepository;
         private readonly IGetCustomerRepository getcustomerRepository;
+        private readonly ITransactionRepos transactionRepository;
         public UserController(IUserRepository repository, IAddOrderRepos addOrder,
-            ILocationRepos locationRepository, IAccountRepos accountRepository, IGetCustomerRepository getcustomerRepository)
+            ILocationRepos locationRepository, IAccountRepos accountRepository, 
+            IGetCustomerRepository getcustomerRepository, ITransactionRepos transactionRepository)
         {
             this.repository = repository;
             this.addOrderRepo = addOrder;
             this.locationRepository = locationRepository;
             this.accountRepository = accountRepository;
             this.getcustomerRepository = getcustomerRepository;
+            this.transactionRepository = transactionRepository;
         }
 
         public async Task<IActionResult> Index()
@@ -41,8 +45,17 @@ namespace Client.Controllers.User
             if (dataUser != null)
             {
                 HttpContext.Session.SetString("Name", dataUser.Data.Name);
+                var email = dataUser.Data.Email;
                 ViewBag.Name = dataUser.Data.Name;
-                ViewBag.Email = dataUser.Data.Email;
+                ViewBag.Email = email;
+                var getCust = getcustomerRepository.GetbyEmail(email);
+                var customerGuid = getCust.Result.Data.Guid;
+                var getTransaction = transactionRepository.GetbyGuid(customerGuid);
+                if (getTransaction != null)
+                {
+                    var data = getTransaction.Result.Data;
+                    return View(data);
+                }
             }
             return View();
         }
@@ -104,12 +117,56 @@ namespace Client.Controllers.User
                 return View();
             }
         }
-        public IActionResult Checkout()
+        public async Task<IActionResult> Checkout(Guid id)
         {
+            var getTransaction = await transactionRepository.DetailbyGuid(id);
+            if (getTransaction != null)
+            {
+                var data = getTransaction.Data;
+                return View(data);
+            }
             return View();
         }
-        public IActionResult Histories()
+        public async Task<IActionResult> Checkouts(Guid id)
         {
+            var getTransaction = await transactionRepository.TransactionbyGuid(id);
+            var datatransaction = getTransaction.Data;
+            datatransaction.Status = (StatusTransaction)1;
+            var toUpdateTransaction = await transactionRepository.ApprovePayment(id, datatransaction);
+            if (toUpdateTransaction != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+        public async Task<IActionResult> CancelPayment(Guid id)
+        {
+            var getTransaction = await transactionRepository.TransactionbyGuid(id);
+            var datatransaction = getTransaction.Data;
+            datatransaction.Status = (StatusTransaction)0;
+            var toUpdateTransaction = await transactionRepository.ApprovePayment(id, datatransaction);
+            if (toUpdateTransaction != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            return View();
+        }
+        public async Task<IActionResult> Histories()
+        {
+            string jwtToken = HttpContext.Session.GetString("JWToken");
+            var dataUser = await accountRepository.GetClaims(jwtToken);
+            if (dataUser != null)
+            {
+                var email = dataUser.Data.Email;
+                var getCust = getcustomerRepository.GetbyEmail(email);
+                var customerGuid = getCust.Result.Data.Guid;
+                var getTransaction = transactionRepository.GetbyGuid(customerGuid);
+                if(getTransaction  != null)
+                {
+                    var data = getTransaction.Result.Data;
+                    return View(data);
+                }
+            }
             return View();
         }
     }

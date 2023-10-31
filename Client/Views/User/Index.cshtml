@@ -1,105 +1,111 @@
-﻿
+﻿@model IEnumerable<API.DTOs.TransactionEvents.TransactionDetailDto>
 @{
     ViewData["Title"] = "Dashboard";
     Layout = "_DashboardUser";
+    var intLength = @Model.Count();
+}
+@foreach (var item in Model)
+{
+    if (item.Status.ToString() == "Complete" || item.Status.ToString() == "Canceled")
+    {
+        intLength = intLength - 1;
+    }
+}
+@if (intLength > 0)
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+                <div class="card-body py-3">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-6">
+                            <h5 class="fw-semibold mb-9 fs-5">Welcome back Kafka!</h5>
+                            <p class="mb-9">Here is your order status.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div class="col-lg-12">
+            <div class="card">
+                <h5 class="card-header">Status Order</h5>
+                <div class="card-body">
+                    @foreach (var item in Model)
+                    {
+                        <div class="card-header bg-body-secondary">
+                            <div class="row">
+                                @if (item.Status.ToString() == "Pending")
+                                {
+                                    <div class="col-6">
+                                        <span class="badge bg-light-warning text-warning rounded-pill">
+                                            <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
+                                        </span>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <button disabled class="btn btn-primary fs-2">Waiting..</button>
+                                    </div>
+                                }
+                                @if (item.Status.ToString() == "Approved")
+                                {
+                                    <div class="col-6">
+                                        <span class="badge bg-light-secondary text-success rounded-pill">
+                                            <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
+                                        </span>
+                                    </div>
+                                    <div class="col-6 d-flex justify-content-end">
+                                        <a asp-action="Checkout" asp-controller="User" asp-route-id="@item.Guid" class="btn btn-danger fs-2">Check Out</a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-6">
+                                    <h5 class="card-title" style="font-size: 30px;">@Html.DisplayFor(modelItem => item.Package)</h5>
+                                    <h5 class="card-title">@Html.DisplayFor(modelItem => item.Price)</h5>
+                                </div>
+                                @{
+                                    string customFormattedDate = item.EventDate.ToString("dd MMMM yyyy");
+                                }
+                                <div class="col-6">
+                                    <h5 class="card-title" style="font-size: 13px;">Location:</h5>
+                                    <h4 class="fw-bold">@Html.DisplayFor(modelItem => item.Street), @Html.DisplayFor(modelItem => item.City)</h4>
+                                    <h5 class="card-title" style="font-size: 13px;">Date Event:</h5>
+                                    <h4 class="fw-bold">@customFormattedDate</h4>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="card-body px-4">
+            <div class="row align-items-center">
+                <div class="col-9">
+                    <h4 class="fw-semibold mb-3">Overview</h4>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="card w-100 bg-light-info overflow-hidden shadow-none">
+                <div class="card-body">
+                    <div class="row justify-content-between align-items-center">
+                        <div class="col-sm-6">
+                            <h5 class="fw-semibold mb-9 fs-5">Welcome back Kafka!</h5>
+                            <p class="mb-9">You haven't ordered anything yet.</p>
+                            <a asp-action="Order" asp-controller="User" class="btn btn-primary fs-2">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 }
 
-<div class="row">
-    <div class="card-body px-4">
-        <div class="row align-items-center">
-            <div class="col-9">
-                <h4 class="fw-semibold mb-3">Overview</h4>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-12">
-        <div class="card w-100 bg-light-info overflow-hidden shadow-none">
-            <div class="card-body">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-sm-6">
-                        <h5 class="fw-semibold mb-9 fs-5">Welcome back Kafka!</h5>
-                        <p class="mb-9">You haven't ordered anything yet.</p>
-                        <a asp-action="Order" asp-controller="User" class="btn btn-primary fs-2">Order Now</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-lg-12">
-        <div class="card w-100 bg-light-info overflow-hidden shadow-none">
-            <div class="card-body py-3">
-                <div class="row justify-content-between align-items-center">
-                    <div class="col-sm-6">
-                        <h5 class="fw-semibold mb-9 fs-5">Welcome back Kafka!</h5>
-                        <p class="mb-9">Here is your order status.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row ">
-    <div class="col-lg-12">
-        <div class="card">
-            <h5 class="card-header">Status Order</h5>
-            <div class="card-body">
-                <div class="card-header bg-body-secondary">
-                    <div class="row">
-                        <div class="col-6">
-                            <span class="badge bg-light-warning text-warning rounded-pill">
-                                <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
-                            </span>
-                            <!-- <h5 class="card-title fw-semibold">Order Status</h5> -->
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <button disabled class="btn btn-primary fs-2">Waiting..</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <h5 class="card-title" style="font-size: 30px;">Birthday Parties</h5>
-                            <h5 class="card-title">Rp.1499k</h5>
-                        </div>
-                        <div class="col-6">
-                            <h5 class="card-title" style="font-size: 13px;">Location:</h5>
-                            <h4 class="fw-bold">Tenggumung, Surabaya</h4>
-                            <h5 class="card-title" style="font-size: 13px;">Date Event:</h5>
-                            <h4 class="fw-bold">31-10-2023</h4>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-header bg-body-secondary">
-                    <div class="row">
-                        <div class="col-6">
-                            <span class="badge bg-light-secondary text-success rounded-pill">
-                                <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
-                            </span>
-                            <!-- <h5 class="card-title fw-semibold">Order Status</h5> -->
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <a asp-action="Checkout" asp-controller="User" class="btn btn-danger fs-2">Check Out</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-6">
-                            <h5 class="card-title" style="font-size: 30px;">Birthday Parties</h5>
-                            <h5 class="card-title">Rp.1499k</h5>
-                        </div>
-                        <div class="col-6">
-                            <h5 class="card-title" style="font-size: 13px;">Location:</h5>
-                            <h4 class="fw-bold">Tenggumung, Surabaya</h4>
-                            <h5 class="card-title" style="font-size: 13px;">Date Event:</h5>
-                            <h4 class="fw-bold">31-10-2023</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

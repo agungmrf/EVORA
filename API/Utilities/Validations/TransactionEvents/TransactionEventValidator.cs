@@ -28,7 +28,7 @@ public class TransactionEventValidator : AbstractValidator<TransactionEventDto>
             .IsInEnum(); // Validasi apakah Status berada di dalam enum
 
         RuleFor(te => te.TransactionDate)
-            .NotEmpty() 
-            .GreaterThanOrEqualTo(DateTime.Now); // Validasi apakah TransactionDate lebih besar atau sama dengan DateTime.Now
+            .NotEmpty();
+            //.GreaterThanOrEqualTo(DateTime.Now); // Validasi apakah TransactionDate lebih besar atau sama dengan DateTime.Now
     }
 }

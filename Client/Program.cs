@@ -19,6 +19,7 @@ builder.Services.AddScoped<IAddOrderRepos, AddOrderRepository>();
 builder.Services.AddScoped<ILocationRepos, LocationRepository>();
 builder.Services.AddScoped<IAccountRepos, AccountRepository>();
 builder.Services.AddScoped<IGetCustomerRepository, GetCustomerRepository>();
+builder.Services.AddScoped<ITransactionRepos, TransactionRepos>();
 
 //builder JWT yang berfungsi sebagai authenticaion pada saat pengguna ingin mengakses method method yang ada pada program
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

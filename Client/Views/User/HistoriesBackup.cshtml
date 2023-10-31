@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_DashboardUser";
+}
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-8">
+                <h5 class="card-title fw-semibold mb-4">Table Employee</h5>
+            </div>
+            <div class="col-md-12">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Package</th>
+                            <th>Date Event</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Parties</td>
+                            <td>31-10-2023</td>
+                            <td>Complete</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Parties</td>
+                            <td>31-10-2023</td>
+                            <td>Canceled</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}
