@@ -41,7 +41,8 @@ namespace API.Data
                 .HasOne(arole => arole.Account)
                 .WithMany(ar => ar.AccountRoles)
                 .HasForeignKey(arole => arole.AccountGuid)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .OnDelete(DeleteBehavior.Cascade);
             // One City has many location
             modelBuilder.Entity<City>()
                 .HasMany(loc => loc.Location)
@@ -89,15 +90,17 @@ namespace API.Data
                 .HasKey(c => c.Guid);
 
             // One Account has one Employee
-            modelBuilder.Entity<Account>()
-                .HasOne(emp => emp.Employee)
-                .WithOne(account => account.Account)
-                .HasForeignKey<Account>(e => e.Guid);
+            modelBuilder.Entity<Employee>()
+                .HasOne(emp => emp.Account)
+                .WithOne(account => account.Employee)
+                .HasForeignKey<Employee>(e => e.AccountGuid)
+                .OnDelete(DeleteBehavior.Cascade);
             // One Account has one Customer
-            modelBuilder.Entity<Account>()
-                .HasOne(user => user.Customer)
-                .WithOne(account => account.Account)
-                .HasForeignKey<Account>(c => c.Guid);
+            modelBuilder.Entity<Customer>()
+                .HasOne(user => user.Account)
+                .WithOne(account => account.Customer)
+                .HasForeignKey<Customer>(c => c.AccountGuid)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

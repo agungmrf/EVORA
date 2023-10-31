@@ -47,7 +47,7 @@ $(document).ready(() => {
                             <i class="ti ti-pencil"></i>
                        </span>
                     </button>
-                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.guid}')">
+                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.accountGuid}')">
                         <span>
                             <i class="ti ti-trash"></i>
                         </span>
@@ -96,6 +96,7 @@ $(document).ready(() => {
         $("#modal-customer .modal-title").html("Add New Customer");
 
         $("#modal-customer button[type=submit]").removeClass("btn-edit");
+        $("#form-password").show();
     });
 
     edit = function (id) {
@@ -123,6 +124,7 @@ $(document).ready(() => {
             $("#modal-customer .modal-title").html("Edit Customer");
 
             $("#modal-customer button[type=submit]").addClass("btn-edit");
+            $("#form-password").hide();
         }).fail((error) => {
             console.log(error);
         })
@@ -139,7 +141,7 @@ $(document).ready(() => {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: baseUrl + "?guid=" + id,
+                    url: "https://localhost:60107/api/Account?guid=" + id,
                     type: "DELETE",
                     headers: {
                         'Content-Type': 'application/json'
@@ -199,10 +201,11 @@ $(document).ready(() => {
             });
 
         } else {
-
+            data.password = $("#wPassword2").val();
+            data.confirmPassword = $("#wConfirmPassword2").val();
             const stringData = JSON.stringify(data);
             $.ajax({
-                url: baseUrl,
+                url: "https://localhost:60107/api/Account/register-customer",
                 type: "POST",
                 headers: {
                     'Content-Type': 'application/json'

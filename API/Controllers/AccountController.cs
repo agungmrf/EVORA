@@ -264,7 +264,7 @@ public class AccountController : ControllerBase
             var accountRole = _accountRoleRepository.Create(new AccountRole
             {
                 AccountGuid = accountToCreate.Guid,
-                RoleGuid = _roleRepository.getDefaultRoleEmp() ?? throw new Exception("Default role not found")
+                RoleGuid = _roleRepository.getDefaultRoleEmp(registerEmpDto.Role) ?? throw new Exception("Default role not found")
             });
 
             // Commit transaksi jika semuanya berhasil

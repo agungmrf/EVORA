@@ -54,4 +54,21 @@ public class EmployeeDto
             AccountGuid = employeeDto.AccountGuid
         };
     }
+
+    public static explicit operator EmployeeDto(UpdateEmployeeDto employee)
+    {
+        return new EmployeeDto // Mengembalikan object EmployeeDto dengan data dari property Employee.
+        {
+            Guid = employee.Guid,
+            Nik = employee.Nik,
+            FirstName = employee.FirstName,
+            LastName = employee.LastName,
+            BirthDate = employee.BirthDate,
+            Gender = employee.Gender,
+            HiringDate = employee.HiringDate,
+            Email = employee.Email,
+            PhoneNumber = employee.PhoneNumber,
+            AccountGuid = employee.AccountGuid
+        };
+    }
 }

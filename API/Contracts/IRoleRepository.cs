@@ -4,8 +4,7 @@ namespace API.Contracts;
 
 public interface IRoleRepository : IGeneralRepository<Role>
 {
-    Guid? getDefaultRoleEmp();
+    Guid? getDefaultRoleEmp(string role);
 
-    
     Guid? getDefaultRoleCust();
 }

@@ -50,7 +50,7 @@ $(document).ready(() => {
                             <i class="ti ti-pencil"></i>
                        </span>
                     </button>
-                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.guid}')">
+                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.accountGuid}')">
                         <span>
                             <i class="ti ti-trash"></i>
                         </span>
@@ -101,7 +101,43 @@ $(document).ready(() => {
         $("#wHiringDate2").val(today);
 
         $("#modal-employee button[type=submit]").removeClass("btn-edit");
+        $("#form-password").show();
     });
+
+    getRole = function (id) {
+        $.ajax({
+            url: "https://localhost:60107/api/Role?guid=" + id,
+            type: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).done((result) => {
+            $.each(result.data, function (index, value) {
+                console.log(value.guid, 'xx', id, 'xxx', value.name)
+                if (value.guid === id) {
+                    $("#wRole2").val(value.name).change();
+                }
+            });
+        }).fail((error) => {
+            console.log(error);
+        })
+    }
+
+    getAccountRole = function (id) {
+        $.ajax({
+            url: "https://localhost:60107/api/AccountRole?guid=" + id,
+            type: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).done((result) => {
+            $.each(result.data, function (index, value) {
+                if (value.accountGuid === id) return getRole(value.roleGuid);
+            });
+        }).fail((error) => {
+            console.log(error);
+        })
+    }
 
     edit = function (id) {
         console.log(id);
@@ -127,7 +163,13 @@ $(document).ready(() => {
             $("#wBirthDate2").val(inputBirthDate);
             $("#wHiringDate2").val(inputHiringDate);
 
+            $("#wRole2").val(result.data.role).change();
+
             $("#modal-employee .modal-title").html("Edit Employee");
+
+            getAccountRole(result.data.accountGuid);
+
+            $("#form-password").hide();
 
             $("#modal-employee button[type=submit]").addClass("btn-edit");
         }).fail((error) => {
@@ -146,7 +188,7 @@ $(document).ready(() => {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: baseUrl + "?guid=" + id,
+                    url: "https://localhost:60107/api/Account?guid=" + id,
                     type: "DELETE",
                     headers: {
                         'Content-Type': 'application/json'
@@ -177,6 +219,7 @@ $(document).ready(() => {
         data.gender = parseInt($("#wgender2").val());
         data.birthDate = $("#wBirthDate2").val();
         data.hiringDate = $("#wHiringDate2").val();
+        data.Role = $("#wRole2").val();
 
         console.log(data);
 
@@ -206,10 +249,13 @@ $(document).ready(() => {
             });
 
         } else {
+            data.password = $("#wPassword2").val();
+            data.confirmPassword = $("#wConfirmPassword2").val();
 
+            console.log(data)
             const stringData = JSON.stringify(data);
             $.ajax({
-                url: baseUrl,
+                url: "https://localhost:60107/api/Account/register-employee",
                 type: "POST",
                 headers: {
                     'Content-Type': 'application/json'

@@ -85,7 +85,7 @@
 
     const navHeight = $('.nav-container').outerHeight(true);
     console.log(navHeight);
-    $('#about').css("margin-top", "-" + (navHeight-25) + "px");
+    $('#about').css("margin-top", "-" + (navHeight - 25) + "px");
     $('#why').css("margin-top", "-" + navHeight + "px");
     $('#gallery').css("margin-top", "-" + navHeight + "px");
     $('#pricing').css("margin-top", "-" + navHeight + "px");
@@ -135,19 +135,25 @@
         } else {
             packageEl = `
             <div class="col-lg-12 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
-                <h4 class="text-center">Data Tidak Ada</h4>
+                <h4 class="text-center">Data Not Found</h4>
             </div>
             `
         }
-        
+
 
         $('#package-container').html(packageEl);
         $('.price-list').each(function (index, element) {
             $(this).find("li").slice(4).hide();
         });
-        
-        
+
+
     }).fail((error) => {
+        let packageEl = `
+            <div class="col-lg-12 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                <h4 class="text-center">Data Not Found</h4>
+            </div>
+            `;
+        $('#package-container').html(packageEl);
         console.log(error);
     })
 

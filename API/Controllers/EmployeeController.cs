@@ -1,9 +1,12 @@
 using API.Contracts;
+using API.Data;
 using API.DTOs.Employees;
 using API.Models;
 using API.Repositories;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace API.Controllers;
 
@@ -12,10 +15,18 @@ namespace API.Controllers;
 public class EmployeeController : ControllerBase
 {
     private readonly IEmployeeRepository _employeeRepository;
+    private readonly EvoraDbContext _dbContext;
+    private readonly IAccountRepository _accountRepository;
+    private readonly IAccountRoleRepository _accountRoleRepository;
+    private readonly IRoleRepository _roleRepository;
 
-    public EmployeeController(IEmployeeRepository employeeRepository)
+    public EmployeeController(IEmployeeRepository employeeRepository, EvoraDbContext dbContext, IAccountRepository accountRepository, IAccountRoleRepository accountRoleRepository, IRoleRepository roleRepository)
     {
         _employeeRepository = employeeRepository;
+        _dbContext = dbContext;
+        _accountRepository = accountRepository;
+        _accountRoleRepository = accountRoleRepository;
+        _roleRepository = roleRepository;
     }
     
     [HttpGet]
@@ -66,23 +77,38 @@ public class EmployeeController : ControllerBase
     }
 
     [HttpPut]
-    public IActionResult Update(EmployeeDto employeeDto)
+    public IActionResult Update(UpdateEmployeeDto employeeDto)
     {
+        using var transaction = _dbContext.Database.BeginTransaction();
         try
         {
             var entity = _employeeRepository.GetByGuid(employeeDto.Guid);
-            if (entity is null)
+            var RoleGuid = _roleRepository.getDefaultRoleEmp(employeeDto.Role);
+
+            var accountRole = _accountRoleRepository.GetRoleGuidsByAccountGuid(entity.AccountGuid);
+            if (entity is null || !accountRole.Any())
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
-            Employee toUpdate = employeeDto;
+            var firstAccountRole = accountRole.FirstOrDefault();
+
+            Employee toUpdate = (EmployeeDto)employeeDto;
             toUpdate.Nik = entity.Nik;
-            
+            toUpdate.AccountGuid = entity.AccountGuid;
+
+            AccountRole toUpdateRole = firstAccountRole;
+            toUpdateRole.RoleGuid = (Guid)RoleGuid;
+
             _employeeRepository.Update(toUpdate);
+
+            _accountRoleRepository.Update(toUpdateRole);
+
+            transaction.Commit();
 
             return Ok(new ResponseOKHandler<string>("Data has been updated successfully"));
         }
         catch (ExceptionHandler ex)
         {
+            transaction.Rollback();
             return StatusCode(StatusCodes.Status500InternalServerError,
                 new ResponseServerErrorHandler("Failed to update data", ex.Message));
         }
