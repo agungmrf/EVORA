@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace Client.Controllers.Staff
 {
-    [Authorize(Roles = "Staff,staff,Admin,admin")]
+    [Authorize(Roles = "Staff,Admin")]
     public class StaffController : Controller
     {
         private readonly ITransactionRepos transactionRepository;
