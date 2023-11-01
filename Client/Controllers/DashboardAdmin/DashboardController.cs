@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 namespace Client.Controllers.DashboardAdmin
 {
-    [Authorize(Roles = "Admin,admin")]
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly ILogger<DashboardController> _logger;
