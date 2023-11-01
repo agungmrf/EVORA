@@ -1,4 +1,6 @@
-﻿@{
+﻿@model API.DTOs.Accounts.RegisterCustDto
+
+@{
     ViewData["Title"] = "Evora - SignUp";
     Layout = "_LoginPage";
 }
@@ -21,54 +23,67 @@
                             <b style="font-size: xx-large;">Welcome to EVORA</b>
                         </a>
                         <p class="text-center" style="font-size: 15px;">Register Account</p>
-                        <form>
+                        <form asp-action="Signup">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="fNameRegis" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="inputnameRegis">
+                                        <label asp-for="FirstName" class="control-label"></label>
+                                        <input asp-for="FirstName" class="form-control"/>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col">
-                                        <label for="lNameRegis" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="inputnameRegis">
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input asp-for="LastName" class="form-control"/>
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-1">
-                                <label for="EmailRegis" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="inputEmailRegis">
+                                <label asp-for="BirthDate" class="control-label"></label>
+                                <input asp-for="BirthDate" class="form-control" type="date" data-date-format="dd/MM/yyyy"/>
+                                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                            </div>
+                            <div class="mb-1">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" class="form-control"/>
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
                                         <label for="Gender" class="form-label">Gender</label>
-                                        <!-- <input type="text" class="form-control" id="Gender"> -->
-                                        <select class="custom-select form-select" id="Gender">
+                                        <select asp-for="Gender" class="form-control">
                                             <option selected>Choose One</option>
                                             <option value="1">Male</option>
                                             <option value="0">Female</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="phoneNumberRegis" class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" id="phoneNumberRegis">
+                                        <label asp-for="PhoneNumber" class="control-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control"/>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="mb-1">
-                                <label for="PasswordRegis" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="PasswordRegis">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" type="password" class="form-control"/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPasswordRegis" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="inputPasswordRegis">
+                                <label asp-for="ConfirmPassword" class="control-label"></label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control"/>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
-                            <a asp-action="/" class="btn btn-primary w-100 py-8 fs-4 mb-2 rounded-2">Sign Up</a>
+                            <div class="form-group">
+                                <input type="submit" value="Sign Up" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"/>
+                            </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <p class="fs-4 mb-0 ">Already have an Account?</p>
                                 <a class="text-primary fw-bold ms-2" style="font-size: 18px;"
-                                   asp-action="Index" asp-controller="Auth">Login</a>
+                                   asp-action="Login" asp-controller="Auth">Login</a>
                             </div>
                         </form>
                     </div>

@@ -53,5 +53,19 @@ namespace Client.Repository
                 return entityVM;
             }
         }
+        
+        public async Task<ResponseOKHandler<RegisterCustDto>> RegisterUser(RegisterCustDto registerCustDto)
+        {
+            string jsonEntity = JsonConvert.SerializeObject(registerCustDto);
+            StringContent content = new StringContent(jsonEntity, Encoding.UTF8, "application/json");
+
+            using (var response = await httpClient.PostAsync($"{request}register-customer", content))
+            {
+                response.EnsureSuccessStatusCode();
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseOKHandler<RegisterCustDto>>(apiResponse);
+                return responseDto;
+            }
+        }
     }
 }

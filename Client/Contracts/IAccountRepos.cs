@@ -10,5 +10,7 @@ namespace Client.Contracts
     {
         Task<ResponseOKHandler<TokenDto>> Login(LoginDto login);
         Task<ResponseOKHandler<ClaimsDto>> GetClaims(string token);
+        
+        Task<ResponseOKHandler<RegisterCustDto>> RegisterUser(RegisterCustDto user);
     }
 }

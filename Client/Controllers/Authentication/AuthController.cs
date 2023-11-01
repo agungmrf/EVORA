@@ -52,16 +52,32 @@ namespace Client.Controllers.Authentication
             }
             return View();
         }
-        public IActionResult Signup()
-        {
-            return View();
-        }
         [HttpGet("Logout/")]
         [Authorize]
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
             return RedirectToAction("Index", "Home");
+        }
+        
+        public IActionResult Signup()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Signup(RegisterCustDto registerCustDto)
+        {
+            var result = await _accountRepository.RegisterUser(registerCustDto);
+
+            if (result.Status == "OK")
+            {
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                return View();
+            }
         }
     }
 }
