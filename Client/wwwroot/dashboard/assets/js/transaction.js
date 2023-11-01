@@ -52,11 +52,12 @@ $(document).ready(() => {
                             <i class="ti ti-pencil"></i>
                        </span>
                     </button>
-                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.guid}')">
-                        <span>
-                            <i class="ti ti-trash"></i>
-                        </span>
-                    </button>`
+                    <button type="button" class="btn btn-sm btn-primary" onclick="detail('${row.guid}')"  data-bs-toggle="modal" data-bs-target="#modal-detail">
+                       <span>
+                            <i class="ti ti-help"></i>
+                       </span>
+                    </button>
+                    `
                 }
             }
         ],
@@ -95,6 +96,55 @@ $(document).ready(() => {
     element2.classList.remove('dt-button', 'buttons-pdf', 'buttons-html5');
     let element3 = document.getElementById('colvis-btn');
     element3.classList.remove('dt-button', 'buttons-colvis');
+
+    detail = function (id) {
+        console.log(id);
+        $.ajax({
+            url: baseUrl + "detailByGuid/"+id,
+            type: "GET",
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).done((result) => {
+            const street = result.data.street;
+            const subDistrict = result.data.subDistrict;
+            const district = result.data.district;
+            const city = result.data.city;
+            const province = result.data.province;
+            const inputEventDate = new Date(result.data.eventDate).toLocaleDateString('en-CA');
+            const status = changeStatus(result.data.status);
+
+            $('#wInvoice2').val(result.data.invoice);
+            $('#wFullName2').val(result.data.firstName + " " + result.data.lastName);
+            $('#wEmail2').val(result.data.email);
+            $('#wLocation2').val(`${street}, ${subDistrict}, ${district}, Kota ${city}, Provinsi ${province}.`);
+            $('#wPackage2').val(result.data.package);
+            $('#wPrice2').val(result.data.price);
+            $('#wEventDate2').val(inputEventDate);
+            $('#wStatusInput2').val(status);
+
+        }).fail((error) => {
+            console.log(error);
+        })
+    }
+
+    changeStatus = function (id) {
+        let status = "";
+        switch (id) {
+            case 0:
+                status = `Canceled`;
+                break;
+            case 1:
+                status = `Complete`;
+                break;
+            case 2:
+                status = `Pending`;
+                break;
+            case 2:
+                status = `Approve`;
+        }
+        return status;
+    } 
 
     edit = function (id) {
         console.log(id);
@@ -151,16 +201,32 @@ $(document).ready(() => {
         let badge = "";
         switch (id) {
             case 0:
-                badge = '<span class="badge bg-danger">Canceled</span>';
+                badge = `<span class="badge bg-light-danger text-danger rounded-pill">
+        <span class="round-8 bg-danger rounded-circle d-inline-block me-1"></span>canceled
+    </span>`;
                 break;
             case 1:
-                badge = '<span class="badge bg-success">Complete</span>';
+                badge = `
+                    <span class="badge bg-light-success text-success rounded-pill">
+        <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>complete
+    </span>
+                `;
                 break;
             case 2:
-                badge = '<span class="badge bg-warning text-dark">Pending</span>';
+                badge = `
+                <span class="badge bg-light-warning text-warning rounded-pill">
+        <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
+    </span>
+                `;
                 break;
+            case 2:
+                badge = `
+                <span class="badge bg-light-success text-success rounded-pill">
+        <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
+    </span>
+                `;
         }
-        return badge
+        return badge;
     }
 
     messageSuccess = function (msg) {

@@ -93,7 +93,7 @@
 
 
     $.ajax({
-        url: "https://localhost:50969/api/packageevent/best-deal",
+        url: "https://localhost:60107/api/packageevent/best-deal",
         type: "GET",
         headers: {
             'Content-Type': 'application/json'

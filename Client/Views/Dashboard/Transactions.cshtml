@@ -85,7 +85,97 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modal-detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Transaction</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body mt-4 mb-4">
+                    <section>
+                        <div class="row">
+                            <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="wInvoice2">
+                                    Invoice :
+                                </label>
+                                <input readonly type="text" class="form-control required" id="wInvoice2">
+                            </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wfirstName2">
+                                        Full Name :
+                                    </label>
+                                    <input readonly type="text" class="form-control required" id="wFullName2">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wEmail2">
+                                        Email :
+                                    </label>
+                                    <input type="text" readonly class="form-control required" id="wEmail2" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-3">
+                                <label for="wLocation2">
+                                        Location : 
+                                    </label>
+                                    <textarea readonly rows="3" class="form-control required" id="wLocation2" name="location"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wPackage">
+                                        Package : 
+                                        <input type="text" readonly class="form-control required" id="wPackage2" name="email">
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wPrice2">
+                                        Price : 
+                                    </label>
+                                    <input type="text" readonly class="form-control required" id="wPrice2" name="email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="wEventDate2">
+                                        Event Date :
+                                    </label>
+                                    <input type="date" readonly class="form-control required" id="wEventDate2" name="email">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                <label for="wStatusInput2">Status :</label>
+                                    <input type="text" readonly class="form-control" id="wStatusInput2" >
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts{
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>

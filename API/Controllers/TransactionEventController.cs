@@ -52,7 +52,7 @@ public class TransactionEventController : ControllerBase
     [HttpGet("detail")]
     public IActionResult GetAllDetail()
     {
-        var result = _transactionRepository.GetAllDetailTransaction();
+        var result = _transactionRepository.GetAllDetailTransaction().OrderByDescending(t => t.Invoice);
         if (!result.Any())
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         var data = result.Select(x => (TransactionDetailDto)x);

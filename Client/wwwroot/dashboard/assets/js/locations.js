@@ -35,7 +35,7 @@ $(document).ready(() => {
                     return `
                     <button type="button" class="btn btn-sm btn-primary" onclick="edit('${row.guid}')"  data-bs-toggle="modal" data-bs-target="#modal-packages">
                        <span>
-                            <i class="ti ti-pencil"></i>
+                            <i class="ti ti-help"></i>
                        </span>
                     </button>`
                 }
@@ -79,7 +79,7 @@ $(document).ready(() => {
 
     $(".btn-input").on("click", function () {
         $('#form-packages')[0].reset();
-        $("#modal-packages .modal-title").html("Add New Event Packages");
+        //$("#modal-packages .modal-title").html("Add New Event Packages");
 
         $("#modal-packages button[type=submit]").removeClass("btn-edit");
     });
@@ -99,7 +99,7 @@ $(document).ready(() => {
             $("#wDistrict2").val(result.data.district);
             $("#wSubDistrict2").val(result.data.subDistrict);
 
-            $("#modal-packages .modal-title").html("Edit Event Packages");
+            //$("#modal-packages .modal-title").html("Edit Event Packages");
 
             //$("#modal-packages button[type=submit]").addClass("btn-edit");
         }).fail((error) => {

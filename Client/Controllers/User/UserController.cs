@@ -14,6 +14,7 @@ using NuGet.Common;
 using System.Data;
 using Newtonsoft.Json.Linq;
 using API.Utilities.Enums;
+using System.IO.Pipelines;
 
 namespace Client.Controllers.User
 {
@@ -82,7 +83,10 @@ namespace Client.Controllers.User
             ViewBag.Name = dataPacket.Name;
             ViewBag.Capacity = dataPacket.Capacity;
             ViewBag.Description = dataPacket.Description;
-            ViewBag.Price = dataPacket.Price;
+            var price = dataPacket.Price;
+            var priceFormat = price.ToString("C", new System.Globalization.CultureInfo("id-ID"));
+            ViewBag.Price = priceFormat;
+            ;
 
             return View();
         }
