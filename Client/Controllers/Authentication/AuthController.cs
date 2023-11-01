@@ -20,8 +20,27 @@ namespace Client.Controllers.Authentication
             this.getcustomerRepository = getcustomerRepository;
         }
 
-        public IActionResult Login()
+        public async Task<IActionResult> Login()
         {
+            ViewBag.MessageErr = "";
+            string jwtToken = HttpContext.Session.GetString("JWToken");
+            if (jwtToken != null)
+            {
+                var dataUser = await _accountRepository.GetClaims(jwtToken);
+                var role = dataUser.Data.Role;
+                if (role[0] == "user")
+                {
+                    return RedirectToAction("Index", "User");
+                }
+                else if (role[0] == "Staff")
+                {
+                    return RedirectToAction("Index", "Staff");
+                }
+                else if (role[0] == "Admin")
+                {
+                    return RedirectToAction("Index", "Dashboard");
+                }
+            }
             return View();
         }
         [HttpPost]
