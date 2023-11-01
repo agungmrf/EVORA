@@ -5,6 +5,7 @@ using Client.Models;
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
+using API.Utilities.Validations.Accounts;
 
 namespace Client.Repository
 {
@@ -64,6 +65,34 @@ namespace Client.Repository
                 response.EnsureSuccessStatusCode();
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 var responseDto = JsonConvert.DeserializeObject<ResponseOKHandler<RegisterCustDto>>(apiResponse);
+                return responseDto;
+            }
+        }
+        
+        public async Task<ResponseOKHandler<ForgotPasswordDto>> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
+        {
+            string jsonEntity = JsonConvert.SerializeObject(forgotPasswordDto);
+            StringContent content = new StringContent(jsonEntity, Encoding.UTF8, "application/json");
+
+            using (var response = await httpClient.PostAsync($"{request}forgot-password", content))
+            {
+                response.EnsureSuccessStatusCode();
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseOKHandler<ForgotPasswordDto>>(apiResponse);
+                return responseDto;
+            }
+        }
+        
+        public async Task<ResponseOKHandler<ChangePasswordDto>> ChangePassword(ChangePasswordDto changePasswordDto)
+        {
+            string jsonEntity = JsonConvert.SerializeObject(changePasswordDto);
+            StringContent content = new StringContent(jsonEntity, Encoding.UTF8, "application/json");
+
+            using (var response = await httpClient.PostAsync($"{request}change-password", content))
+            {
+                response.EnsureSuccessStatusCode();
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                var responseDto = JsonConvert.DeserializeObject<ResponseOKHandler<ChangePasswordDto>>(apiResponse);
                 return responseDto;
             }
         }

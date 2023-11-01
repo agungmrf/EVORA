@@ -20,7 +20,7 @@ namespace Client.Repository
             this.request = request;
             httpClient = new HttpClient
             {
-                BaseAddress = new Uri("https://localhost:60107/api/")
+                BaseAddress = new Uri("https://localhost:7061/api/")
             };
             //contextAccessor = new HttpContextAccessor();
             // Ini yg bawah skip dulu

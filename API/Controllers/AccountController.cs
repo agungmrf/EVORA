@@ -11,7 +11,6 @@ using API.Utilities.Validations.Accounts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
 
 namespace API.Controllers;
 
@@ -145,88 +144,131 @@ public class AccountController : ControllerBase
         });
     }
 
-    [HttpPost("forgot-password")]
-    [AllowAnonymous]
-    public IActionResult ForgotPassword(ForgotPasswordDto forgotPasswordDto)
-    {
-        try
-        {
-            var employee = _employeeRepository.GetByEmail(forgotPasswordDto.Email);
+    [HttpPost("forgot-password")] 
+    [AllowAnonymous] 
+    public IActionResult ForgotPassword(ForgotPasswordDto forgotPasswordDto) 
+    { 
+        try 
+        { 
+            var employee = _employeeRepository.GetByEmail(forgotPasswordDto.Email); 
+            var customer = _customerRepository.GetByEmail(forgotPasswordDto.Email); 
+            
+            if (employee is null && customer is null) 
+                return NotFound(new ResponseNotFoundHandler("Email is invalid!")); 
+            
+            string fullName = "";
+            
+            // Memeriksa apakah alamat email ada dalam database sebelum melanjutkan
+            if (employee is not null) 
+            { 
+                var account = _accountRepository.GetByGuid((Guid)employee.AccountGuid); 
+                
+                if (account is null) 
+                    return NotFound(new ResponseNotFoundHandler("Guid is invalid!")); 
+                
+                var otp = new Random().Next(111111, 999999); 
+                account.ExpiredDate = DateTime.Now.AddMinutes(3); 
+                account.IsUsed = false; 
+                account.Otp = otp;
+                fullName = $"{employee.FirstName} {employee.LastName}";
+                
+                _accountRepository.Update(account); 
+                
+                _emailHandler.SendForgotPasswordEmail(fullName, otp, forgotPasswordDto.Email);
+                
+                return Ok(new ResponseOKHandler<object>("OTP has been sent to your email")); 
+            }
+            
+            else if (customer is not null) 
+            { 
+                var account = _accountRepository.GetByGuid((Guid)customer.AccountGuid); 
+                if (account is null) 
+                    return NotFound(new ResponseNotFoundHandler("Guid is invalid!")); 
+                
+                var otp = new Random().Next(111111, 999999); 
+                account.ExpiredDate = DateTime.Now.AddMinutes(3); 
+                account.IsUsed = false; 
+                account.Otp = otp; 
+                fullName = $"{customer.FirstName} {customer.LastName}";
+                
+                _accountRepository.Update(account); 
+                
+                _emailHandler.SendForgotPasswordEmail(fullName, otp, forgotPasswordDto.Email);
 
-            if (employee is null)
-                return NotFound(new ResponseNotFoundHandler("Email is invalid!"));
-            var account = _accountRepository.GetByGuid(employee.Guid);
-
-            if (account is null)
-                return NotFound(new ResponseNotFoundHandler("Email is invalid!"));
-
-            var otp = new Random().Next(111111, 999999);
-            account.ExpiredDate = DateTime.Now.AddMinutes(5);
-            account.IsUsed = false;
-            account.Otp = otp;
-
-            _accountRepository.Update(account);
-
-            _emailHandler.Send("Forgot Password", $"Your OTP is {otp}",
-                forgotPasswordDto.Email);
-
-            return Ok(new ResponseOKHandler<object>("OTP has been sent to your email"));
+                return Ok(new ResponseOKHandler<object>("OTP has been sent to your email")); 
+            }
+            else 
+            { 
+                return NotFound(new ResponseNotFoundHandler("Email is invalid!")); 
+            } 
         }
-        catch (ExceptionHandler ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                new ResponseServerErrorHandler("Failed to create OTP", ex.Message));
-        }
+        catch (ExceptionHandler ex) 
+        { 
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                new ResponseServerErrorHandler("Failed to create OTP", ex.Message)); 
+        } 
     }
 
-    [HttpPut("change-password")]
-    [AllowAnonymous]
-    public IActionResult ChangePassword(ChangePasswordDto changePasswordDto)
-    {
-        try
-        {
-            var employees = _employeeRepository.GetAll();
-            var accounts = _accountRepository.GetAll();
-
-            if (!employees.Any() || !accounts.Any()) return NotFound(new ResponseNotFoundHandler("Data Not Found"));
-
-            var getEmployee = employees.FirstOrDefault(emp => emp.Email == changePasswordDto.Email);
-
-            var getAccount = accounts.FirstOrDefault(acc => acc.Guid == getEmployee?.Guid);
-
-            if (getEmployee == null || getAccount == null)
-                return NotFound(new ResponseNotFoundHandler("Employee or account data not found"));
-
-            if (getAccount.Otp != changePasswordDto.Otp)
-                return BadRequest(new ResponseValidatorHandler("OTP is invalid"));
-
-            if (getAccount.IsUsed) return BadRequest(new ResponseValidatorHandler("OTP has not been used yet"));
-
-            if (getAccount.ExpiredDate < DateTime.Now)
-                return BadRequest(new ResponseValidatorHandler("OTP has expired"));
-
-            if (changePasswordDto.NewPassword != changePasswordDto.ConfirmPassword)
-                return BadRequest(new ResponseValidatorHandler("NewPassword and ConfirmPassword do not match"));
-
-            getAccount.Password = HashingHandler.HashPassword(changePasswordDto.NewPassword);
-            getAccount.IsUsed = true;
-            getAccount.ModifiedDate = DateTime.Now;
-
-            var updateResult = _accountRepository.Update(getAccount);
+    [HttpPut("change-password")] 
+    [AllowAnonymous] 
+    public IActionResult ChangePassword(ChangePasswordDto changePasswordDto) 
+    { 
+        try 
+        { 
+            // Check if the email exists in employees or customers
+            var employee = _employeeRepository.GetByEmail(changePasswordDto.Email); 
+            var customer = _customerRepository.GetByEmail(changePasswordDto.Email); 
+            
+            if (employee is null && customer is null) 
+                return NotFound(new ResponseNotFoundHandler("Email is invalid!")); 
+            
+            Account account = null; 
+            string fullName = ""; 
+            
+            if (employee is not null) 
+            { 
+                account = _accountRepository.GetByGuid((Guid)employee.AccountGuid); 
+                fullName = $"{employee.FirstName} {employee.LastName}"; 
+            }
+            else if (customer is not null) 
+            { 
+                account = _accountRepository.GetByGuid((Guid)customer.AccountGuid); 
+                fullName = $"{customer.FirstName} {customer.LastName}"; 
+            } 
+            
+            if (account == null) 
+                return NotFound(new ResponseNotFoundHandler("Guid is invalid!")); 
+            
+            if (account.Otp != changePasswordDto.Otp) 
+                return BadRequest(new ResponseValidatorHandler("OTP is invalid")); 
+            
+            if (account.IsUsed) 
+                return BadRequest(new ResponseValidatorHandler("OTP has already been used")); 
+            
+            if (account.ExpiredDate < DateTime.Now) 
+                return BadRequest(new ResponseValidatorHandler("OTP has expired")); 
+            
+            if (changePasswordDto.NewPassword != changePasswordDto.ConfirmPassword) 
+                return BadRequest(new ResponseValidatorHandler("NewPassword and ConfirmPassword do not match")); 
+            
+            // Hash the new password
+            account.Password = HashingHandler.HashPassword(changePasswordDto.NewPassword); 
+            account.IsUsed = true; 
+            account.ModifiedDate = DateTime.Now; 
+            
+            var updateResult = _accountRepository.Update(account);
 
             if (!updateResult)
-                return StatusCode(StatusCodes.Status500InternalServerError,
-                    new ResponseServerErrorHandler("Failed to update data"));
+                return StatusCode(StatusCodes.Status500InternalServerError, new ResponseServerErrorHandler("Failed to update data"));
 
-            return Ok(new ResponseOKHandler<string>("Password has been changed successfully"));
+            return Ok(new ResponseOKHandler<string>("Password has been changed successfully")); 
         }
-        catch (ExceptionHandler ex)
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError,
-                new ResponseServerErrorHandler("Failed to process the request", ex.Message));
-        }
+        catch (ExceptionHandler ex) 
+        { 
+            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseServerErrorHandler("Failed to process the request", ex.Message)); 
+        } 
     }
-
+    
     [HttpPost("register-employee")]
     [AllowAnonymous]
     public IActionResult RegisterEmp(RegisterEmpDto registerEmpDto)
