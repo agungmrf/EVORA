@@ -1,5 +1,6 @@
 ﻿using API.Contracts;
 using API.DTOs.Accounts;
+using API.Utilities.Validations.Accounts;
 using Client.Contracts;
 using Client.Models;
 using Client.Repositories;
@@ -78,6 +79,29 @@ namespace Client.Controllers.Authentication
             {
                 return View();
             }
+        }
+        public IActionResult ForgotPassword()
+        {
+            ViewBag.Email = "";
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgot)
+        {
+            var email = forgot.Email;
+            ViewBag.Email = email;
+            return RedirectToAction("ResetPassword");
+        }
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(ChangePasswordDto forgot)
+        {
+            return View();
         }
     }
 }
