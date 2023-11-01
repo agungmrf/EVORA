@@ -3,11 +3,14 @@ using API.DTOs.TransactionEvents;
 using API.Utilities.Enums;
 using Client.Contracts;
 using Client.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
 namespace Client.Controllers.Staff
 {
+    [Authorize(Roles = "Staff,staff,Admin,admin")]
     public class StaffController : Controller
     {
         private readonly ITransactionRepos transactionRepository;
@@ -49,6 +52,24 @@ namespace Client.Controllers.Staff
             var updateTransaction = await transactionRepository.ChangeStatus(updateStatusDec);
             var cekData = updateTransaction.Data;
             return RedirectToAction(nameof(Index));
+        }
+        public IActionResult ListEvent()
+        {
+            return View();
+        }
+        [Route("events/get")]
+        public async Task<IActionResult> GetEvents()
+        {
+            var getTransaction = await transactionRepository.DetailAll();
+            var cekData = getTransaction.Data;
+            var eventList = cekData.Select(e => new
+            {
+                id = e.Guid,
+                title = e.Package+"-"+e.FirstName,
+                start = e.EventDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+            // end = e.EventDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+        });
+            return new JsonResult(eventList);
         }
         public IActionResult Packages()
         {

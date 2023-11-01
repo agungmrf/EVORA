@@ -57,7 +57,7 @@
                                 <span class="hide-menu">History Transaction</span>
                             </a>
                         </li>
-                        <li class="nav-small-cap">
+                        @* <li class="nav-small-cap">
                             <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
                             <span class="hide-menu">Menu Sementara</span>
                         </li>
@@ -68,7 +68,7 @@
                                 </span>
                                 <span class="hide-menu">Go to Admin</span>
                             </a>
-                        </li>
+                        </li> *@
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->
@@ -82,7 +82,7 @@
                         <div class="john-title">
                             <h6 class="mb-0 fs-4 fw-semibold">@Context.Session.GetString("Name")</h6>
                         </div>
-                        <a href="/" class="border-0 bg-transparent text-primary ms-auto" tabindex="0"
+                        <a asp-action="Logout" asp-controller="Auth" class="border-0 bg-transparent text-primary ms-auto" tabindex="0"
                            type="submit" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top"
                            data-bs-title="logout">
                             <i class="ti ti-power fs-6"></i>
@@ -128,7 +128,7 @@
                                             <i class="ti ti-user fs-6"></i>
                                             <p class="mb-0 fs-3">My Profile</p>
                                         </a>
-                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                        <a asp-action="Logout" asp-controller="Auth" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                                     </div>
                                 </div>
                             </li>
