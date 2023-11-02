@@ -64,7 +64,7 @@
                                         <input asp-for="PhoneNumber" class="form-control" placeholder="Masukkan nomor telepon genggam" required pattern="^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$"/>
                                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="mb-1">
@@ -77,6 +77,26 @@
                                 <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Masukan ulang kata sandi" autocomplete="off" required/>
                                 <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
+                            <script>
+                            document.getElementById("Password").addEventListener("input", function () {
+                                var password = this.value;
+                                var isValid = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).{8,}$/.test(password);
+                                if (!isValid) {
+                                    this.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.");
+                                } else {
+                                    this.setCustomValidity("");
+                                }
+                            });
+                            document.getElementById("ConfirmPassword").addEventListener("input", function () {
+                                var confirmPassword = this.value;
+                                var password = document.getElementById("Password").value;
+                                if (password !== confirmPassword) {
+                                    this.setCustomValidity("The password and confirmation password do not match.");
+                                } else {
+                                    this.setCustomValidity("");
+                                }
+                            });
+                            </script>
                             <div class="form-group">
                                 <input type="submit" value="Sign Up" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"/>
                             </div>
