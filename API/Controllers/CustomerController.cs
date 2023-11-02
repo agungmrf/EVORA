@@ -73,7 +73,8 @@ public class CustomerController : ControllerBase
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
             Customer toUpdate = customerDto;
-            
+            toUpdate.AccountGuid = entity.AccountGuid;
+
             _customerRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<string>("Data has been updated successfully"));

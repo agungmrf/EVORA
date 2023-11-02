@@ -29,7 +29,7 @@ public class GenerateTokenHandler : IGenerateTokenHandler
             _configuration["JWTService:Issuer"], // Penerbit token (dalam hal ini, server)
             _configuration["JWTService:Audience"], // Penerima token (dalam hal ini, aplikasi yang menggunakan token)
             claims, // Data claims yang akan disertakan dalam token
-            expires: DateTime.Now.AddMinutes(10), // Token akan kedaluwarsa dalam 10 menit
+            expires: DateTime.Now.AddMinutes(50), // Token akan kedaluwarsa dalam 10 menit
             signingCredentials: sigingCredentials); // Kunci untuk penerbit token
 
         // Encode token JWT ke dalam string yang dapat dikirimkan sebagai respons
