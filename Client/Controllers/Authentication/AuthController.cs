@@ -45,6 +45,7 @@ namespace Client.Controllers.Authentication
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto login)
         {
+            ViewBag.MessageErr = "";
             var email = login.Email;
             var result = await _accountRepository.Login(login);
 
@@ -68,6 +69,12 @@ namespace Client.Controllers.Authentication
                 {
                     return RedirectToAction("Index", "Dashboard");
                 }
+            }
+            else
+            {
+                ViewBag.MessageErr = "Password atau Email Salah";
+                Console.WriteLine("Gagal Login");
+                return View();
             }
 
             return View();
@@ -110,6 +117,7 @@ namespace Client.Controllers.Authentication
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDto forgotPasswordDto)
         {
+            ViewBag.Email = "";
             var result = await _accountRepository.ForgotPassword(forgotPasswordDto);
 
             if (result.Status == "OK")
@@ -119,7 +127,8 @@ namespace Client.Controllers.Authentication
             }
             else
             {
-                ViewBag.Email = "";
+                
+                ViewBag.MessageErr = "Email Tidak Ditemukan";
                 return View();
             }
         }

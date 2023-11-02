@@ -29,31 +29,31 @@
                                 <div class="row">
                                     <div class="col">
                                         <label asp-for="FirstName" class="control-label"></label>
-                                        <input asp-for="FirstName" class="form-control"/>
+                                        <input asp-for="FirstName" class="form-control" required/>
                                         <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col">
                                         <label asp-for="LastName" class="control-label"></label>
-                                        <input asp-for="LastName" class="form-control"/>
+                                        <input asp-for="LastName" class="form-control" required />
                                         <span asp-validation-for="LastName" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-1">
                                 <label asp-for="BirthDate" class="control-label"></label>
-                                <input asp-for="BirthDate" class="form-control" type="date" data-date-format="dd/MM/yyyy"/>
+                                <input asp-for="BirthDate" class="form-control" type="date" data-date-format="dd/MM/yyyy" required />
                                 <span asp-validation-for="BirthDate" class="text-danger"></span>
                             </div>
                             <div class="mb-1">
                                 <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control"/>
+                                <input asp-for="Email" type="email" class="form-control" required />
                                 <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label asp-for="Gender" class="form-label">Gender</label>
-                                        <select asp-for="Gender" class="form-control">
+                                        <label asp-for="Gender" class="form-label" >Gender</label>
+                                        <select asp-for="Gender" class="form-control" required>
                                             <option selected>Choose One</option>
                                             <option value="1">Male</option>
                                             <option value="0">Female</option>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="col">
                                         <label asp-for="PhoneNumber" class="control-label"></label>
-                                        <input asp-for="PhoneNumber" class="form-control"/>
+                                        <input asp-for="PhoneNumber" class="form-control" required />
                                         <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
                                 </div>
