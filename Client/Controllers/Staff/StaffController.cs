@@ -1,12 +1,8 @@
-﻿using API.Contracts;
-using API.DTOs.TransactionEvents;
+﻿using API.DTOs.TransactionEvents;
 using API.Utilities.Enums;
 using Client.Contracts;
-using Client.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Diagnostics;
 
 namespace Client.Controllers.Staff
 {

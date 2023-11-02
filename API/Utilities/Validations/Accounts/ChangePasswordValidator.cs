@@ -1,3 +1,4 @@
+using API.DTOs.Accounts;
 using FluentValidation;
 
 namespace API.Utilities.Validations.Accounts;

@@ -3,9 +3,7 @@ using API.Utilities.Handler;
 using Client.Contracts;
 using Client.Models;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Text;
-using API.Utilities.Validations.Accounts;
 
 namespace Client.Repository
 {

@@ -1,57 +1,46 @@
-﻿using API.Contracts;
-using API.DTOs.Employees;
-using API.DTOs.PackageEvents;
+﻿using API.DTOs.PackageEvents;
 using API.DTOs.TransactionEvents;
-using API.DTOs.Locations;
-using API.Models;
 using Client.Contracts;
-using Client.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
-using NuGet.Protocol.Core.Types;
-using NuGet.Common;
-using System.Data;
-using Newtonsoft.Json.Linq;
 using API.Utilities.Enums;
-using System.IO.Pipelines;
 
 namespace Client.Controllers.User
 {
     [Authorize(Roles = "user")]
     public class UserController : Controller
     {
-        private readonly IUserRepository repository;
-        private readonly IAddOrderRepos addOrderRepo;
-        private readonly ILocationRepos locationRepository;
-        private readonly IAccountRepos accountRepository;
-        private readonly IGetCustomerRepository getcustomerRepository;
-        private readonly ITransactionRepos transactionRepository;
+        private readonly IUserRepository _repository;
+        private readonly IAddOrderRepos _addOrderRepo;
+        private readonly ILocationRepos _locationRepository;
+        private readonly IAccountRepos _accountRepository;
+        private readonly IGetCustomerRepository _getcustomerRepository;
+        private readonly ITransactionRepos _transactionRepository;
         public UserController(IUserRepository repository, IAddOrderRepos addOrder,
             ILocationRepos locationRepository, IAccountRepos accountRepository, 
             IGetCustomerRepository getcustomerRepository, ITransactionRepos transactionRepository)
         {
-            this.repository = repository;
-            this.addOrderRepo = addOrder;
-            this.locationRepository = locationRepository;
-            this.accountRepository = accountRepository;
-            this.getcustomerRepository = getcustomerRepository;
-            this.transactionRepository = transactionRepository;
+            this._repository = repository;
+            this._addOrderRepo = addOrder;
+            this._locationRepository = locationRepository;
+            this._accountRepository = accountRepository;
+            this._getcustomerRepository = getcustomerRepository;
+            this._transactionRepository = transactionRepository;
         }
 
         public async Task<IActionResult> Index()
         {
             string jwtToken = HttpContext.Session.GetString("JWToken");
-            var dataUser = await accountRepository.GetClaims(jwtToken);
+            var dataUser = await _accountRepository.GetClaims(jwtToken);
             if (dataUser != null)
             {
                 HttpContext.Session.SetString("Name", dataUser.Data.Name);
                 var email = dataUser.Data.Email;
                 ViewBag.Name = dataUser.Data.Name;
                 ViewBag.Email = email;
-                var getCust = getcustomerRepository.GetbyEmail(email);
+                var getCust = _getcustomerRepository.GetbyEmail(email);
                 var customerGuid = getCust.Result.Data.Guid;
-                var getTransaction = transactionRepository.GetbyGuid(customerGuid);
+                var getTransaction = _transactionRepository.GetbyGuid(customerGuid);
                 if (getTransaction != null)
                 {
                     var data = getTransaction.Result.Data;
@@ -63,7 +52,7 @@ namespace Client.Controllers.User
         [HttpGet("User/Order")]
         public async Task<IActionResult> Order()
         {
-            var result = await repository.Get();
+            var result = await _repository.Get();
             var cek = result.Data.ToList();
             Console.WriteLine("hasil : ", cek);
             return View(cek);
@@ -74,7 +63,7 @@ namespace Client.Controllers.User
             Console.WriteLine(id);
 
             PackageEventDto dataPacket = new PackageEventDto();
-            var result = await repository.Get(id);
+            var result = await _repository.Get(id);
             if (result != null)
             {
                 dataPacket = result.Data;
@@ -95,15 +84,15 @@ namespace Client.Controllers.User
         {
             Console.WriteLine("Cek Order Packet");
             string jwtToken = HttpContext.Session.GetString("JWToken");
-            var dataUser = await accountRepository.GetClaims(jwtToken);
+            var dataUser = await _accountRepository.GetClaims(jwtToken);
             if (dataUser != null)
             {
                 var email = dataUser.Data.Email;
-                var getCust = getcustomerRepository.GetbyEmail(email);
+                var getCust = _getcustomerRepository.GetbyEmail(email);
                 transactionDto.GuidCustomer = getCust.Result.Data.Guid;
             }
             
-            var result = await addOrderRepo.Post(transactionDto);
+            var result = await _addOrderRepo.Post(transactionDto);
 
             if (result != null)
             {
@@ -123,7 +112,7 @@ namespace Client.Controllers.User
         }
         public async Task<IActionResult> Checkout(Guid id)
         {
-            var getTransaction = await transactionRepository.DetailbyGuid(id);
+            var getTransaction = await _transactionRepository.DetailbyGuid(id);
             if (getTransaction != null)
             {
                 var data = getTransaction.Data;
@@ -133,10 +122,10 @@ namespace Client.Controllers.User
         }
         public async Task<IActionResult> Checkouts(Guid id)
         {
-            var getTransaction = await transactionRepository.TransactionbyGuid(id);
+            var getTransaction = await _transactionRepository.TransactionbyGuid(id);
             var datatransaction = getTransaction.Data;
             datatransaction.Status = (StatusTransaction)1;
-            var toUpdateTransaction = await transactionRepository.ApprovePayment(id, datatransaction);
+            var toUpdateTransaction = await _transactionRepository.ApprovePayment(id, datatransaction);
             if (toUpdateTransaction != null)
             {
                 return RedirectToAction(nameof(Index));
@@ -145,10 +134,10 @@ namespace Client.Controllers.User
         }
         public async Task<IActionResult> CancelPayment(Guid id)
         {
-            var getTransaction = await transactionRepository.TransactionbyGuid(id);
+            var getTransaction = await _transactionRepository.TransactionbyGuid(id);
             var datatransaction = getTransaction.Data;
             datatransaction.Status = (StatusTransaction)0;
-            var toUpdateTransaction = await transactionRepository.ApprovePayment(id, datatransaction);
+            var toUpdateTransaction = await _transactionRepository.ApprovePayment(id, datatransaction);
             if (toUpdateTransaction != null)
             {
                 return RedirectToAction(nameof(Index));
@@ -158,13 +147,13 @@ namespace Client.Controllers.User
         public async Task<IActionResult> Histories()
         {
             string jwtToken = HttpContext.Session.GetString("JWToken");
-            var dataUser = await accountRepository.GetClaims(jwtToken);
+            var dataUser = await _accountRepository.GetClaims(jwtToken);
             if (dataUser != null)
             {
                 var email = dataUser.Data.Email;
-                var getCust = getcustomerRepository.GetbyEmail(email);
+                var getCust = _getcustomerRepository.GetbyEmail(email);
                 var customerGuid = getCust.Result.Data.Guid;
-                var getTransaction = transactionRepository.GetbyGuid(customerGuid);
+                var getTransaction = _transactionRepository.GetbyGuid(customerGuid);
                 if(getTransaction  != null)
                 {
                     var data = getTransaction.Result.Data;

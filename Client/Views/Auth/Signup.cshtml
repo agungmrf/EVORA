@@ -19,7 +19,7 @@
             <div class="col-lg-6 col-xl-4 border-start">
                 <div class="card mb-0 shadow-none rounded-0 min-vh-100 h-100">
                     <div class="card-body">
-                        <a asp-action="/" class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
+                        <a class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
                             <b style="font-size: xx-large;">Welcome to EVORA</b>
                         </a>
                         <p class="text-center" style="font-size: 15px;">Register Account</p>
@@ -52,7 +52,7 @@
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="Gender" class="form-label">Gender</label>
+                                        <label asp-for="Gender" class="form-label">Gender</label>
                                         <select asp-for="Gender" class="form-control">
                                             <option selected>Choose One</option>
                                             <option value="1">Male</option>

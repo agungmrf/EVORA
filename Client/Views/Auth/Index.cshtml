@@ -19,7 +19,7 @@
             <div class="col-lg-6 col-xl-4 border-start">
                 <div class="card mb-0 shadow-none rounded-0 min-vh-100 h-100">
                     <div class="card-body">
-                        <a asp-action="/" class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
+                        <a class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
                             <b style="font-size: xx-large;">Welcome to EVORA</b>
                         </a>
                         <p class="text-center">Please Sign In</p>
@@ -33,9 +33,9 @@
                                 <input type="password" class="form-control" id="inputPassword">
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
-                                <a class="text-primary fw-bold" asp-action="/">Forgot Password ?</a>
+                                <a class="text-primary fw-bold" asp-action="ForgotPassword">Forgot Password ?</a>
                             </div>
-                            <a asp-action="/" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
+                            <a asp-action="Login" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a>
                             <div class="d-flex align-items-center justify-content-center">
                                 <p class="fs-4 mb-0 fw-bold">New Member?</p>
                                 <a class="text-primary fw-bold ms-2" asp-action="Signup" asp-controller="Auth">Create an account</a>
