@@ -128,7 +128,7 @@ $(document).ready(() => {
     </span>
                 `;
                 break;
-            case 2:
+            case 3:
                 badge = `
                 <span class="badge bg-light-success text-success rounded-pill">
         <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
