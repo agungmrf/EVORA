@@ -25,14 +25,23 @@
                         <p class="text-center">Please Sign In</p>
                         <form asp-action="Login">
                             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            @if (!string.IsNullOrEmpty(ViewBag.MessageErr))
+                            {
+                                <div id="message">
+                                    <div class="alert alert-danger alert-dismissible text-error" role="alert">
+                                        Kombinasi alamat surel dan kata sandi tidak tepat
+                                        <button type="button" class="btn-sm btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                </div>
+                            }
                             <div class="mb-3">
                                 <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger">@ViewBag.MessageErr</span>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Masukan alamat surel Anda" required />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="mb-4">
                                 <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" />
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Masukan kata sandi Anda" required />
                                 <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="d-flex align-items-center justify-content-between mb-4">
@@ -41,28 +50,13 @@
                             <div class="form-group">
                                 <input type="submit" value="Sign In" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" />
                             </div>
-                            @* <a asp-action="/" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">Sign In</a> *@
                             <div class="d-flex align-items-center justify-content-center">
-                                <p class="fs-4 mb-0 fw-bold">New Member?</p>
+                                <p class="fs-3 mb-0 fw-bold">New Member?</p>
                                 <a class="text-primary fw-bold ms-2" asp-action="Signup" asp-controller="Auth">Create an account</a>
                             </div>
                             <div class="d-flex align-items-center justify-content-center">
                                 <a class="text-primary fw-bold ms-2" asp-action="Index" asp-controller="Dashboard">Go To Dashboard</a>
                             </div>
-                            
-                            @* <div class="form-group">
-                                <label asp-for="Email" class="control-label"></label>
-                                <input asp-for="Email" class="form-control" />
-                                <span asp-validation-for="Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Password" class="control-label"></label>
-                                <input asp-for="Password" class="form-control" />
-                                <span asp-validation-for="Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" value="Create" class="btn btn-primary" />
-                            </div> *@
                         </form>
                     </div>
                 </div>

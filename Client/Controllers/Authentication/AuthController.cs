@@ -72,7 +72,7 @@ namespace Client.Controllers.Authentication
             }
             else
             {
-                ViewBag.MessageErr = "Password atau Email Salah";
+                ViewBag.MessageErr = "Kombinasi alamat surel dan kata sandi tidak tepat";
                 Console.WriteLine("Gagal Login");
                 return View();
             }
@@ -122,12 +122,12 @@ namespace Client.Controllers.Authentication
 
             if (result.Status == "OK")
             {
+                TempData["SuccessMessage"] = "Selamat! Kode OTP atur ulang kata sandi telah dikirimkan";
                 ViewBag.Email = forgotPasswordDto.Email;
-                return RedirectToAction("ResetPassword");
+                return RedirectToAction("ResetPassword", new { email = forgotPasswordDto.Email });
             }
             else
             {
-                
                 ViewBag.MessageErr = "Email Tidak Ditemukan";
                 return View();
             }
