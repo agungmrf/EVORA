@@ -62,11 +62,11 @@
                             <label class="fw-semibold mt-2">Pick Date Event</label>
                             <!-- <label class="fw-semibold mt-1">Pick Date Event</label> -->
                             <div class="form-group">
-                                <input asp-for="EventDate" type="date" class="form-control" placeholder="2023-12-12"/>
+                                <input asp-for="EventDate" type="date" class="form-control" placeholder="2023-12-12" required/>
                             </div>
                             <label class="fw-semibold mt-2">Street</label>
                             <div class="col-md-12">
-                                <input asp-for="Street" class="form-control mt-2" placeholder="Masukan alamat"/>
+                                <input asp-for="Street" class="form-control mt-2" placeholder="Masukan alamat" required/>
                             </div>
                         </div>
                     </div>
@@ -74,11 +74,11 @@
                         <div class="shop-content">
                             <label class="fw-semibold">District</label>
                             <div class="col-md-10">
-                                <input asp-for="Disctrict" class="form-control mt-2" placeholder="Masukan kecamatan">
+                                <input asp-for="Disctrict" class="form-control mt-2" placeholder="Masukan kecamatan" required/>
                             </div>
                             <label class="fw-semibold mt-2">Sub District</label>
                             <div class="col-md-10">
-                                <input asp-for="SubDistrict" class="form-control mt-2" placeholder="Masukan kelurahan"/>
+                                <input asp-for="SubDistrict" class="form-control mt-2" placeholder="Masukan kelurahan" required/>
                             </div>
                         </div>
                     </div>
@@ -86,13 +86,13 @@
                         <div class="shop-content">
                             <label class="fw-semibold mt-1">Province</label>
                             <div class="form-group">
-                                <select asp-for="ProvinceGuid" id="province" class="form-select mr-sm-2">
+                                <select asp-for="ProvinceGuid" id="province" class="form-select mr-sm-2" required>
                                     <option value="" disabled selected>Silakan pilih region/propinsi</option>
                                 </select>
                             </div>
                             <label class="fw-semibold mt-2">City</label>
                             <div class="form-group mt-2">
-                                <select asp-for="CityGuid" id="city" class="form-select mr-sm-2" disabled>
+                                <select asp-for="CityGuid" id="city" class="form-select mr-sm-2" disabled required>
                                     <option value="" disabled selected>Silakan pilih kota/kabupaten</option>
                                 </select>
                             </div>
