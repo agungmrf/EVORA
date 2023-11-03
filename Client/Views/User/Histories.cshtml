@@ -21,52 +21,54 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @{
-                            int count = 1;
-                        }
-                        @foreach (var item in Model)
+                        @if (Model.Count() > 0)
                         {
-                            <tr>
-                                <td>
-                                    @count
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Package)
-                                </td>
-                                <td>
-                                    @{
-                                        string customFormattedDate = item.EventDate.ToString("dd MMMM yyyy");
-                                    }
-                                    @customFormattedDate
-                                </td>
-                                <td>
-                                    @if (item.Status.ToString()=="Pending")
-                                    {
-                                        <span class="badge bg-light-warning text-warning rounded-pill">
-                                            <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
-                                        </span>
-                                    }
-                                    @if (item.Status.ToString() == "Approved")
-                                    {
-                                        <span class="badge bg-light-success text-success rounded-pill">
-                                            <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
-                                        </span>
-                                    }
-                                    @if (item.Status.ToString() == "Canceled")
-                                    {
-                                        <span class="badge bg-light-danger text-danger rounded-pill">
-                                            <span class="round-8 bg-danger rounded-circle d-inline-block me-1"></span>canceled
-                                        </span>
-                                    }
-                                    @if (item.Status.ToString() == "Complete")
-                                    {
-                                        <span class="badge bg-light-success text-success rounded-pill">
-                                            <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>complete
-                                        </span>
-                                    }
-                                </td>
-                            </tr>
-                            count++;
+                            int count = 1;
+
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @count
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Package)
+                                    </td>
+                                    <td>
+                                        @{
+                                            string customFormattedDate = item.EventDate.ToString("dd MMMM yyyy");
+                                        }
+                                        @customFormattedDate
+                                    </td>
+                                    <td>
+                                        @if (item.Status.ToString() == "Pending")
+                                        {
+                                            <span class="badge bg-light-warning text-warning rounded-pill">
+                                                <span class="round-8 bg-warning rounded-circle d-inline-block me-1"></span>pending
+                                            </span>
+                                        }
+                                        @if (item.Status.ToString() == "Approved")
+                                        {
+                                            <span class="badge bg-light-success text-success rounded-pill">
+                                                <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>approve
+                                            </span>
+                                        }
+                                        @if (item.Status.ToString() == "Canceled")
+                                        {
+                                            <span class="badge bg-light-danger text-danger rounded-pill">
+                                                <span class="round-8 bg-danger rounded-circle d-inline-block me-1"></span>canceled
+                                            </span>
+                                        }
+                                        @if (item.Status.ToString() == "Complete")
+                                        {
+                                            <span class="badge bg-light-success text-success rounded-pill">
+                                                <span class="round-8 bg-success rounded-circle d-inline-block me-1"></span>complete
+                                            </span>
+                                        }
+                                    </td>
+                                </tr>
+                                count++;
+                            }
                         }
                     </tbody>
                 </table>

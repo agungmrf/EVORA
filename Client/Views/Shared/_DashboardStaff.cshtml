@@ -94,14 +94,43 @@
                     </ul>
                     <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-                            <li class="nav-item">
-                                <a style="font-size: small;" class="nav-link" id="todaydate" aria-disabled="true">
-                                    @{
-                                        DateTime sekarang = DateTime.Now;
-                                        string tanggalDiformat = sekarang.ToString("dddd, dd MMMM yyyy");
-                                    }
-                                    @tanggalDiformat
+                            @* <li class="nav-item">
+                            <a style="font-size: small;" class="nav-link" id="todaydate" aria-disabled="true">
+                            @{
+                            DateTime sekarang = DateTime.Now;
+                            string tanggalDiformat = sekarang.ToString("dddd, dd MMMM yyyy");
+                            }
+                            @tanggalDiformat
+                            </a>
+                            </li> *@
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="ti ti-bell-ringing"></i>
+                                    <div class="notification bg-primary rounded-circle"></div>
                                 </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                                    <div class="message-body">
+                                        <div class="py-3 px-7 pb-0">
+                                            <h5 class="mb-0 fs-5 fw-semibold">Notification</h5>
+                                        </div>
+                                        <div class="d-flex align-items-center py-1 mx-7 border-bottom">
+                                            <div>
+                                                <a class="py-6 px-7 d-flex align-items-center dropdown-item">
+                                                    <span class="me-2">
+                                                        <i class="ti ti-calendar fs-8"></i>
+                                                    </span>
+                                                    <div class="w-75 d-inline-block v-middle">
+                                                        <h6 class="mb-1 fw-semibold">
+                                                            Reminder Event Tomorrow
+                                                        </h6>
+                                                        <span class="d-block">Birthday Parties</span>
+                                                        <span class="d-block">Location</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
@@ -110,11 +139,21 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                                     <div class="message-body">
-                                         <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
-                                            <i class="ti ti-user fs-6"></i>
-                                             <p class="mb-0 fs-3">Staff</p>
-                                        </a> 
-                                        <a asp-action="Logout" asp-controller="Auth" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                        <div class="py-3 px-7 pb-0">
+                                            <h5 class="mb-0 fs-5 fw-semibold">User Profile</h5>
+                                        </div>
+                                        <div class="d-flex align-items-center py-9 mx-7 border-bottom">
+                                            <img src="~/dashboard/assets/images/profile/user-1.jpg" class="rounded-circle" width="80" height="80" alt="">
+                                            <div class="ms-3">
+                                                <h5 class="mb-1 fs-3">Nama Staff</h5>
+                                                <span class="mb-1 d-block text-dark">Staff</span>
+                                                <p class="mb-0 d-flex text-dark align-items-center gap-2">
+                                                    <i class="ti ti-mail fs-4"></i>
+                                                    info@evora.com
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <a asp-action="Logout" asp-controller="Auth" class="btn btn-outline-primary ms-2 me-2 mt-2 d-block">Logout</a>
                                     </div>
                                 </div>
                             </li>

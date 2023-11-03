@@ -20,11 +20,14 @@ namespace Client.Controllers.Staff
         {
             var getTransaction = await transactionRepository.DetailAll();
             var cekData = getTransaction.Data;
-            if (cekData != null)
+            if (getTransaction.Status == "OK" && cekData != null)
             {
                 return View(cekData);
             }
-            return View();
+            else
+            {
+                return View();
+            }
         }
 
         public async Task<IActionResult> StatusApprove(Guid id)
