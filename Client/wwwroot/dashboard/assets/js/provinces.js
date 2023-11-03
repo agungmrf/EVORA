@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:50969/api/province/";
+const baseUrl = "https://localhost:60107/api/province/";
 
 $(document).ready(() => {
     const table = $('#province-table').DataTable({
@@ -9,7 +9,7 @@ $(document).ready(() => {
             dataSrc: 'data',
             'error': function (jqXHR, textStatus, errorThrown) {
                 $('#province-table').DataTable().clear().draw();
-            } 
+            }
         },
         columns: [
             {

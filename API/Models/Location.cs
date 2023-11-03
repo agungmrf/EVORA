@@ -7,14 +7,14 @@ namespace API.Models
     {
         [Column("street", TypeName = "nvarchar(100)")]
         public string Street { get; set; }
-        
-        [Column("sub_district_guid")]
-        public Guid SubDistrictGuid { get; set; }
+        [Column("district", TypeName = "nvarchar(100)")]
+        public string District { get; set; }
+        [Column("sub_district", TypeName = "nvarchar(100)")]
+        public string SubDistrict { get; set; }
 
-        public SubDistrict? SubDistrict { get; set; } // Cardinality Many To One
+        [Column("city_guid")]
+        public Guid? CityGuid { get; set; }
+        public City? City { get; set; } // Cardinality Many To One
         public ICollection<TransactionEvent>? TransactionEvents { get; set; } // Cardinality One To Many
-
-        //[Column("city_guid")] public Guid CityGuid { get; set; }
-        //public City? City { get; set; }
     }
 }

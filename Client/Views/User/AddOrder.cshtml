@@ -1,0 +1,112 @@
+﻿@model API.DTOs.TransactionEvents.InsertOrderTransactionDto
+
+@{
+    ViewData["Title"] = "AddOrder";
+    Layout = "_DashboardUser";
+}
+<div class="row px-4">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">Order Now</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="text-muted" href="#">Overview</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Order Now</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="card ">
+        <div class="card-body p-4 ">
+            <form asp-action="AddTransaction">
+                <div class="row">
+                    <div class="col-lg-4">
+                        <img src="/dashboard/assets/images/family.jpg" alt="" class="img-fluid" style="width: 480px;">
+                    </div>
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input asp-for="PackageGuid" type="hidden" value="@ViewBag.Guid" />
+                    <div class="col-lg-4">
+                        <div class="shop-content">
+                            <div class="d-flex align-items-center gap-2 mb-2">
+                                <span class="fs-3">Package</span>
+                            </div>
+                            
+                            <h2 class="fw-semibold">@ViewBag.Name</h2>
+                            <h4 class="fw-semibold mb-3">@ViewBag.Price</h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="fs-3">Details Packages</span>
+                        </div>
+                        <ul class="list-unstyled">
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <div class="text-dark">@ViewBag.Description</div>
+                            </li>
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <div class="text-dark">@ViewBag.Capacity Capacity</div>
+                            </li>
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <div class="text-dark">Photo</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="shop-content">
+                            <label class="fw-semibold mt-2">Pick Date Event</label>
+                            <!-- <label class="fw-semibold mt-1">Pick Date Event</label> -->
+                            <div class="form-group">
+                                <input asp-for="EventDate" type="date" class="form-control" placeholder="2023-12-12" required/>
+                            </div>
+                            <label class="fw-semibold mt-2">Street</label>
+                            <div class="col-md-12">
+                                <input asp-for="Street" class="form-control mt-2" placeholder="Masukan alamat" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="shop-content">
+                            <label class="fw-semibold">District</label>
+                            <div class="col-md-10">
+                                <input asp-for="Disctrict" class="form-control mt-2" placeholder="Masukan kecamatan" required/>
+                            </div>
+                            <label class="fw-semibold mt-2">Sub District</label>
+                            <div class="col-md-10">
+                                <input asp-for="SubDistrict" class="form-control mt-2" placeholder="Masukan kelurahan" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="shop-content">
+                            <label class="fw-semibold mt-1">Province</label>
+                            <div class="form-group">
+                                <select asp-for="ProvinceGuid" id="province" class="form-select mr-sm-2" required>
+                                    <option value="" disabled selected>Silakan pilih region/propinsi</option>
+                                </select>
+                            </div>
+                            <label class="fw-semibold mt-2">City</label>
+                            <div class="form-group mt-2">
+                                <select asp-for="CityGuid" id="city" class="form-select mr-sm-2" disabled required>
+                                    <option value="" disabled selected>Silakan pilih kota/kabupaten</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-3 d-sm-flex align-items-center pt-8 mb-7">
+                        <input type="submit" value="Order Now" class="btn d-block btn-primary py-8 mb-2" />
+                        <a asp-action="Order" asp-controller="User" class="btn d-block btn-danger py-8 mb-2 ms-2">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script src="~/js/order.js" asp-append-version="true"></script>
+}

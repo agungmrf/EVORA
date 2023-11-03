@@ -1,21 +1,71 @@
-﻿using Client.Models;
+﻿using API.DTOs.TransactionEvents;
+using API.Utilities.Enums;
+using Client.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 
 namespace Client.Controllers.Staff
 {
+    [Authorize(Roles = "Staff,Admin")]
     public class StaffController : Controller
     {
-        private readonly ILogger<StaffController> _logger;
+        private readonly ITransactionRepos transactionRepository;
 
-        public StaffController(ILogger<StaffController> logger)
+        public StaffController(ITransactionRepos transactionRepository)
         {
-            _logger = logger;
+            this.transactionRepository = transactionRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
+        {
+            var getTransaction = await transactionRepository.DetailAll();
+            var cekData = getTransaction.Data;
+            if (cekData != null)
+            {
+                return View(cekData);
+            }
+            return View();
+        }
+
+        public async Task<IActionResult> StatusApprove(Guid id)
+        {
+            var updateStatus = new ChangeTransactionStatusDto
+            {
+                Status = (StatusTransaction)3,
+                Guid = id
+            };
+            var updateTransaction = await transactionRepository.ChangeStatus(updateStatus);
+            var cekData = updateTransaction.Data;
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> StatusDecline(Guid id)
+        {
+            var updateStatusDec = new ChangeTransactionStatusDto
+            {
+                Status = 0,
+                Guid = id
+            };
+            var updateTransaction = await transactionRepository.ChangeStatus(updateStatusDec);
+            var cekData = updateTransaction.Data;
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult ListEvent()
         {
             return View();
+        }
+        [Route("events/get")]
+        public async Task<IActionResult> GetEvents()
+        {
+            var getTransaction = await transactionRepository.DetailAll();
+            var cekData = getTransaction.Data;
+            var eventList = cekData.Select(e => new
+            {
+                id = e.Guid,
+                title = e.Package+"-"+e.FirstName,
+                start = e.EventDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+            // end = e.EventDate.ToString("yyyy-MM-ddTHH:mm:ss"),
+        });
+            return new JsonResult(eventList);
         }
         public IActionResult Packages()
         {

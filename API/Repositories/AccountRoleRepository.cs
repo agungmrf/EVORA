@@ -9,10 +9,11 @@ public class AccountRoleRepository : GeneralRepository<AccountRole>, IAccountRol
     public AccountRoleRepository(EvoraDbContext context) : base(context)
     {
     }
-    
-    public IEnumerable<Guid> GetRoleGuidsByAccountGuid(Guid accountGuid)
+
+    public IEnumerable<AccountRole> GetRoleGuidsByAccountGuid(Guid? accountGuid)
     {
         // Mengambil account role berdasarkan account guid.
-        return _context.Set<AccountRole>().Where(ar => ar.AccountGuid == accountGuid).Select(ar => ar.RoleGuid);
+        var entity = _context.Set<AccountRole>().Where(ar => ar.AccountGuid == accountGuid).ToList();
+        return entity;
     }
 }

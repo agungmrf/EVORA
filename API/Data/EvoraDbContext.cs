@@ -1,4 +1,4 @@
-using API.Models;
+﻿using API.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Data
@@ -19,8 +19,6 @@ namespace API.Data
         public DbSet<Location> Locations { get; set; }
         public DbSet<City> City { get; set; }
         public DbSet<Province> Province { get; set; }
-        public DbSet<District> District { get; set; }
-        public DbSet<SubDistrict> SubDistrict { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,8 +27,8 @@ namespace API.Data
             modelBuilder.Entity<Employee>().HasIndex(e => e.Nik).IsUnique();
             modelBuilder.Entity<Employee>().HasIndex(e => e.Email).IsUnique();
             modelBuilder.Entity<Employee>().HasIndex(e => e.PhoneNumber).IsUnique();
-            modelBuilder.Entity<Customer>().HasIndex(c => c.Email).IsUnique();
-            modelBuilder.Entity<Customer>().HasIndex(c => c.PhoneNumber).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(e => e.Email).IsUnique();
+            modelBuilder.Entity<Customer>().HasIndex(e => e.PhoneNumber).IsUnique();
 
             // One Role has many AccountRoles
             modelBuilder.Entity<Role>()
@@ -43,6 +41,13 @@ namespace API.Data
                 .HasOne(arole => arole.Account)
                 .WithMany(ar => ar.AccountRoles)
                 .HasForeignKey(arole => arole.AccountGuid)
+                .OnDelete(DeleteBehavior.Restrict)
+                .OnDelete(DeleteBehavior.Cascade);
+            // One City has many location
+            modelBuilder.Entity<City>()
+                .HasMany(loc => loc.Location)
+                .WithOne(city => city.City)
+                .HasForeignKey(loc => loc.CityGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One Province has many City
             modelBuilder.Entity<Province>()
@@ -52,21 +57,9 @@ namespace API.Data
                 .OnDelete(DeleteBehavior.Restrict);
             // One City has many location
             modelBuilder.Entity<City>()
-                .HasMany(dist => dist.Districts)
+                .HasMany(dist => dist.Location)
                 .WithOne(city => city.City)
                 .HasForeignKey(dist => dist.CityGuid)
-                .OnDelete(DeleteBehavior.Restrict);
-            // One District has many City
-            modelBuilder.Entity<District>()
-                .HasMany(sub => sub.SubDistricts)
-                .WithOne(dis => dis.District)
-                .HasForeignKey(sub => sub.DistrictGuid)
-                .OnDelete(DeleteBehavior.Restrict);
-            // One District has many Subdistrict
-            modelBuilder.Entity<SubDistrict>()
-                .HasMany(loc => loc.Locations)
-                .WithOne(dis => dis.SubDistrict)
-                .HasForeignKey(loc => loc.SubDistrictGuid)
                 .OnDelete(DeleteBehavior.Restrict);
             // One location has many transaction
             modelBuilder.Entity<Location>()
@@ -87,16 +80,27 @@ namespace API.Data
                 .HasForeignKey(transaction => transaction.CustomerGuid)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Account>()
+                .HasKey(a => a.Guid);
+
+            modelBuilder.Entity<Employee>()
+                .HasKey(e => e.Guid);
+
+            modelBuilder.Entity<Customer>()
+                .HasKey(c => c.Guid);
+
             // One Account has one Employee
             modelBuilder.Entity<Employee>()
                 .HasOne(emp => emp.Account)
                 .WithOne(account => account.Employee)
-                .HasForeignKey<Employee>(e => e.AccountGuid);
+                .HasForeignKey<Employee>(e => e.AccountGuid)
+                .OnDelete(DeleteBehavior.Cascade);
             // One Account has one Customer
             modelBuilder.Entity<Customer>()
                 .HasOne(user => user.Account)
                 .WithOne(account => account.Customer)
-                .HasForeignKey<Customer>(c => c.AccountGuid);
+                .HasForeignKey<Customer>(c => c.AccountGuid)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

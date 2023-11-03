@@ -12,7 +12,10 @@ public class GeneralRepository<TEntity> : IGeneralRepository<TEntity> where TEnt
     {
         _context = context;
     }
-
+    public EvoraDbContext GetContext()
+    {
+        return _context;
+    }
     public IEnumerable<TEntity> GetAll()
     {
         return _context.Set<TEntity>().ToList();

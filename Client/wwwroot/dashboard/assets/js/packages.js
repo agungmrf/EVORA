@@ -1,7 +1,9 @@
 
-const baseUrl = "https://localhost:50969/api/packageevent/";
-
+const baseUrl = `https://localhost:60107/api/packageevent/`;
 $(document).ready(() => {
+
+    
+
     const table = $('#package-table').DataTable({
         ordering: false,
         ajax: {
@@ -9,7 +11,7 @@ $(document).ready(() => {
             dataSrc: 'data',
             'error': function (jqXHR, textStatus, errorThrown) {
                 $('#package-table').DataTable().clear().draw();
-            } 
+            }
         },
         columns: [
             {
@@ -29,6 +31,9 @@ $(document).ready(() => {
             },
             {
                 data: 'description',
+                render: (data, type, row) => {
+                    return data.slice(0, 40) + "...";
+                }
             },
             {
                 render: (data, type, row) => {
@@ -87,10 +92,11 @@ $(document).ready(() => {
         $("#modal-packages .modal-title").html("Add New Event Packages");
 
         $("#modal-packages button[type=submit]").removeClass("btn-edit");
+
+        $('#wdescription2').empty();
     });
 
     edit = function (id) {
-        console.log(id);
         $.ajax({
             url: baseUrl + id,
             type: "GET",
@@ -103,7 +109,18 @@ $(document).ready(() => {
             $("#wName2").val(result.data.name);
             $("#wCapacity2").val(result.data.capacity);
             $("#wPrice2").val(result.data.price);
-            $("#wdescription2").val(result.data.description);
+
+            const descArray = result.data.description.split(", ");
+
+            $('#wdescription2').select2({
+                theme: "bootstrap-5",
+                data: descArray,
+                tags: true,
+                maximumSelectionLength: 3
+            });
+
+
+            $('#wdescription2').val(descArray).trigger('change');
 
             $("#modal-packages .modal-title").html("Edit Event Packages");
 
@@ -149,10 +166,10 @@ $(document).ready(() => {
         const data = {};
         data.name = $("#wName2").val();
         data.capacity = $("#wCapacity2").val();
-        data.description = $("#wdescription2").val();
+        data.description = $("#wdescription2").val().join(", ");
         data.price = $("#wPrice2").val();
 
-        console.log(lastElement);
+        console.log(data);
         if ($(lastElement).hasClass('btn-edit')) {
             data.guid = $("#guid").val();
             const stringData = JSON.stringify(data);
@@ -218,5 +235,15 @@ $(document).ready(() => {
             timer: 1500
         })
     }
+
+    
+    $('#wdescription2').select2({
+        tags: true,
+        theme: "bootstrap-5",
+        allowClear: true,
+        dropdownParent: $("#modal-packages"),
+        maximumSelectionLength: 3
+    });
+
 
 });

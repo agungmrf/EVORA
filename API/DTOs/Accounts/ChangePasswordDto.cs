@@ -1,4 +1,4 @@
-namespace API.Utilities.Validations.Accounts;
+namespace API.DTOs.Accounts;
 
 public class ChangePasswordDto
 {

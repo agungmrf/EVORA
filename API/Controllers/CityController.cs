@@ -1,13 +1,15 @@
 using API.Contracts;
+using Microsoft.AspNetCore.Mvc;
+using API.Utilities.Handlers;
+using API.Utilities.Handler;
 using API.DTOs.Cities;
 using API.Models;
-using API.Utilities.Handler;
-using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[ApiController] 
+[ApiController]
 [Route("api/[controller]")]
+
 public class CityController : ControllerBase
 {
     private readonly ICityRepository _cityRepository;
@@ -16,7 +18,7 @@ public class CityController : ControllerBase
     {
         _cityRepository = cityRepository;
     }
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -27,7 +29,15 @@ public class CityController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<CityDto>>(data));
     }
-    
+    [HttpGet("province/{guid}")]
+    public IActionResult GetByProvinceGuid(Guid guid)
+    {
+        var result = _cityRepository.GetByProvinceGuid(guid);
+        if (!result.Any())
+            return Ok(new ResponseOKHandler<string>("Not Found",null));
+        var data = result.Select(x => (CityDto)x);
+        return Ok(new ResponseOKHandler<IEnumerable<CityDto>>(data));
+    }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {
@@ -36,7 +46,7 @@ public class CityController : ControllerBase
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
         return Ok(new ResponseOKHandler<CityDto>((CityDto)result));
     }
-    
+
     [HttpPost]
     public IActionResult Create(CityDto cityDto)
     {
@@ -45,7 +55,7 @@ public class CityController : ControllerBase
             var result = _cityRepository.Create(cityDto);
 
             return Ok(new ResponseOKHandler<CityDto>("Data has been created successfully")
-                { Data = (CityDto)result });
+            { Data = (CityDto)result });
         }
         catch (ExceptionHandler ex)
         {
@@ -53,7 +63,7 @@ public class CityController : ControllerBase
                 new ResponseServerErrorHandler("Failed to create data", ex.Message));
         }
     }
-    
+
     [HttpPut]
     public IActionResult Update(CityDto cityDto)
     {
@@ -64,11 +74,11 @@ public class CityController : ControllerBase
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
             City toUpdate = cityDto;
-            
+
             _cityRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<CityDto>("Data has been updated successfully")
-                { Data = (CityDto)toUpdate });
+            { Data = (CityDto)toUpdate });
         }
         catch (ExceptionHandler ex)
         {

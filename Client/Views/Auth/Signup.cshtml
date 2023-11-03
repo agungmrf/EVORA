@@ -1,4 +1,6 @@
-﻿@{
+﻿@model API.DTOs.Accounts.RegisterCustDto
+
+@{
     ViewData["Title"] = "Evora - SignUp";
     Layout = "_LoginPage";
 }
@@ -17,58 +19,90 @@
             <div class="col-lg-6 col-xl-4 border-start">
                 <div class="card mb-0 shadow-none rounded-0 min-vh-100 h-100">
                     <div class="card-body">
-                        <a asp-action="/" class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
+                        <a class="text-nowrap logo-img text-center d-block py-9 mt-5 w-100">
                             <b style="font-size: xx-large;">Welcome to EVORA</b>
                         </a>
                         <p class="text-center" style="font-size: 15px;">Register Account</p>
-                        <form>
+                        <form asp-action="Signup">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="fNameRegis" class="form-label">First Name</label>
-                                        <input type="text" class="form-control" id="inputnameRegis">
+                                        <label asp-for="FirstName" class="control-label"></label>
+                                        <input asp-for="FirstName" class="form-control" placeholder="Masukan nama depan" required/>
+                                        <span asp-validation-for="FirstName" class="text-danger"></span>
                                     </div>
                                     <div class="col">
-                                        <label for="lNameRegis" class="form-label">Last Name</label>
-                                        <input type="text" class="form-control" id="inputnameRegis">
+                                        <label asp-for="LastName" class="control-label"></label>
+                                        <input asp-for="LastName" class="form-control" placeholder="Masukan nama belakang" required />
+                                        <span asp-validation-for="LastName" class="text-danger"></span>
                                     </div>
                                 </div>
                             </div>
                             <div class="mb-1">
-                                <label for="EmailRegis" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="inputEmailRegis">
+                                <label asp-for="BirthDate" class="control-label"></label>
+                                <input asp-for="BirthDate" class="form-control" type="date" data-date-format="dd/MM/yyyy" required />
+                                <span asp-validation-for="BirthDate" class="text-danger"></span>
+                            </div>
+                            <div class="mb-1">
+                                <label asp-for="Email" class="control-label"></label>
+                                <input asp-for="Email" type="email" class="form-control" placeholder="Masukan alamat surel Anda" required />
+                                <span asp-validation-for="Email" class="text-danger"></span>
                             </div>
                             <div class="mb-1">
                                 <div class="row">
                                     <div class="col">
-                                        <label for="Gender" class="form-label">Gender</label>
-                                        <!-- <input type="text" class="form-control" id="Gender"> -->
-                                        <select class="custom-select form-select" id="Gender">
-                                            <option selected>Choose One</option>
+                                        <label asp-for="Gender" class="control-label"></label>
+                                        <select asp-for="Gender" class="form-control" required>
+                                            <option selected>Pilih satu</option>
                                             <option value="1">Male</option>
                                             <option value="0">Female</option>
                                         </select>
                                     </div>
                                     <div class="col">
-                                        <label for="phoneNumberRegis" class="form-label">Phone Number</label>
-                                        <input type="text" class="form-control" id="phoneNumberRegis">
+                                        <label asp-for="PhoneNumber" class="control-label"></label>
+                                        <input asp-for="PhoneNumber" class="form-control" placeholder="Masukkan nomor telepon genggam" required pattern="^(^\+62|62|^08)(\d{3,4}-?){2}\d{3,4}$"/>
+                                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
                                     </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="mb-1">
-                                <label for="PasswordRegis" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="PasswordRegis">
+                                <label asp-for="Password" class="control-label"></label>
+                                <input asp-for="Password" type="password" class="form-control" placeholder="Masukan kata sandi" autocomplete="off" required/>
+                                <span asp-validation-for="Password" class="text-danger"></span>
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPasswordRegis" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="inputPasswordRegis">
+                                <label asp-for="ConfirmPassword" class="control-label"></label>
+                                <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Masukan ulang kata sandi" autocomplete="off" required/>
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
                             </div>
-                            <a asp-action="/" class="btn btn-primary w-100 py-8 fs-4 mb-2 rounded-2">Sign Up</a>
+                            <script>
+                            document.getElementById("Password").addEventListener("input", function () {
+                                var password = this.value;
+                                var isValid = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*\W).{8,}$/.test(password);
+                                if (!isValid) {
+                                    this.setCustomValidity("Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.");
+                                } else {
+                                    this.setCustomValidity("");
+                                }
+                            });
+                            document.getElementById("ConfirmPassword").addEventListener("input", function () {
+                                var confirmPassword = this.value;
+                                var password = document.getElementById("Password").value;
+                                if (password !== confirmPassword) {
+                                    this.setCustomValidity("The password and confirmation password do not match.");
+                                } else {
+                                    this.setCustomValidity("");
+                                }
+                            });
+                            </script>
+                            <div class="form-group">
+                                <input type="submit" value="Sign Up" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"/>
+                            </div>
                             <div class="d-flex align-items-center justify-content-center">
-                                <p class="fs-4 mb-0 ">Already have an Account?</p>
-                                <a class="text-primary fw-bold ms-2" style="font-size: 18px;"
-                                   asp-action="Index" asp-controller="Auth">Login</a>
+                                <p class="fs-3 mb-0 fw-bold">Already have an Account?</p>
+                                <a class="text-primary fw-bold ms-2" asp-action="Login" asp-controller="Auth">Login</a>
                             </div>
                         </form>
                     </div>

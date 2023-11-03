@@ -1,16 +1,15 @@
 
-const baseUrl = "https://localhost:50969/api/district/";
+const baseUrl = "https://localhost:60107/api/Location/detail/";
 
 $(document).ready(() => {
-
-    const table = $('#district-table').DataTable({
+    const table = $('#location-table').DataTable({
         ordering: false,
         ajax: {
             url: baseUrl,
             dataSrc: 'data',
-            'error': function (jqXHR, textStatus, errorThrown) {
-                $('#district-table').DataTable().clear().draw();
-            } 
+            //'error': function (jqXHR, textStatus, errorThrown) {
+            //    $('#location-table').DataTable().clear().draw();
+            //} 
         },
         columns: [
             {
@@ -20,20 +19,24 @@ $(document).ready(() => {
                 }
             },
             {
-                data: 'name',
+                data: 'subDistrict',
+            },
+            {
+                data: 'district',
+            },
+            {
+                data: 'city',
+            },
+            {
+                data: 'province',
             },
             {
                 render: (data, type, row) => {
                     return `
-                    <button type="button" class="btn btn-sm btn-primary" onclick="edit('${row.guid}')"  data-bs-toggle="modal" data-bs-target="#modal-district">
+                    <button type="button" class="btn btn-sm btn-primary" onclick="edit('${row.guid}')"  data-bs-toggle="modal" data-bs-target="#modal-packages">
                        <span>
-                            <i class="ti ti-pencil"></i>
+                            <i class="ti ti-help"></i>
                        </span>
-                    </button>
-                    <button type="button" class="btn  btn-sm btn-danger" onclick="remove('${row.guid}')">
-                        <span>
-                            <i class="ti ti-trash"></i>
-                        </span>
                     </button>`
                 }
             }
@@ -75,14 +78,13 @@ $(document).ready(() => {
     element3.classList.remove('dt-button', 'buttons-colvis');
 
     $(".btn-input").on("click", function () {
-        $('#form-district')[0].reset();
-        $("#modal-district .modal-title").html("Add New District");
+        $('#form-packages')[0].reset();
+        //$("#modal-packages .modal-title").html("Add New Event Packages");
 
-        $("#modal-district button[type=submit]").removeClass("btn-edit");
+        $("#modal-packages button[type=submit]").removeClass("btn-edit");
     });
 
     edit = function (id) {
-        console.log(id);
         $.ajax({
             url: baseUrl + id,
             type: "GET",
@@ -92,13 +94,14 @@ $(document).ready(() => {
         }).done((result) => {
 
             $("#guid").val(result.data.guid);
-            $("#wName2").val(result.data.name);
-            $("#wCity2").val(result.data.cityGuid).change();
-            console.log(result.data.cityGuid);
+            $("#wProvince2").val(result.data.province);
+            $("#wCity2").val(result.data.city);
+            $("#wDistrict2").val(result.data.district);
+            $("#wSubDistrict2").val(result.data.subDistrict);
 
-            $("#modal-district .modal-title").html("Edit District");
+            //$("#modal-packages .modal-title").html("Edit Event Packages");
 
-            $("#modal-district button[type=submit]").addClass("btn-edit");
+            //$("#modal-packages button[type=submit]").addClass("btn-edit");
         }).fail((error) => {
             console.log(error);
         })
@@ -132,19 +135,20 @@ $(document).ready(() => {
         })
     }
 
-    const form = document.querySelector('#form-district');
+    const form = document.querySelector('#form-packages');
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const lastElement = e.srcElement[e.srcElement.length - 1];
 
         const data = {};
         data.name = $("#wName2").val();
-        data.cityGuid = $("#wCity2").val();
-        console.log(data);
+        data.capacity = $("#wCapacity2").val();
+        data.description = $("#wdescription2").val();
+        data.price = $("#wPrice2").val();
 
+        console.log(lastElement);
         if ($(lastElement).hasClass('btn-edit')) {
             data.guid = $("#guid").val();
-            console.log(data, 'update');
             const stringData = JSON.stringify(data);
             $.ajax({
                 url: baseUrl,
@@ -155,8 +159,8 @@ $(document).ready(() => {
                 data: stringData
             }).done((result) => {
                 console.log(result);
-                $('#form-district')[0].reset();
-                $('#modal-district').modal('hide');
+                $('#form-packages')[0].reset();
+                $('#modal-packages').modal('hide');
                 messageSuccess("Data berhasil Diupdate");
 
                 table.ajax.reload();
@@ -178,8 +182,8 @@ $(document).ready(() => {
                 data: stringData
             }).done((result) => {
                 console.log(result);
-                $('#form-district')[0].reset();
-                $('#modal-district').modal('hide');
+                $('#form-packages')[0].reset();
+                $('#modal-packages').modal('hide');
                 table.ajax.reload();
                 messageSuccess("Data berhasil disimpan");
             }).fail((error) => {
@@ -208,22 +212,5 @@ $(document).ready(() => {
             timer: 1500
         })
     }
-    $.ajax({
-        url: "https://localhost:50969/api/city/",
-    }).done((result) => {
-        console.log(result);
-        optionCity = "";
-        result.data.forEach(data => {
-            optionCity += `<option value="${data.guid}">${data.name}</li>`;
-        });
-        $('#wCity2').html(optionCity);
-    });
-
-
-    $('#wCity2').select2({
-        theme: 'bootstrap-5',
-        multiple: false,
-        dropdownParent: $("#modal-district"),
-    });
 
 });

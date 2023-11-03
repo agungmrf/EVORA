@@ -4,6 +4,7 @@ namespace API.Utilities.Enums
     {
         Canceled,
         Complete,
-        OnGoing
+        Pending,
+        Approved
     }
 }

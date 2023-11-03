@@ -1,6 +1,7 @@
-﻿
+﻿@model IEnumerable<API.DTOs.PackageEvents.PackageEventDto>
+
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Order";
     Layout = "_DashboardUser";
 }
 <div class="row px-4">
@@ -17,78 +18,37 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <span class="fw-bolder d-block mb-7">
-                        <h5>Birthday Parties</h5>
-                    </span>
-                    <div class="text-center my-4">
-                        <img src="~/dashboard/assets/images/birthday.jpg" alt="" class="img-fluid" width="250" height="250">
+    <div class="row" id="list-package">
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-6 col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="fw-bolder d-block mb-7">
+                            <h5>@Html.DisplayFor(modelItem => item.Name)</h5>
+                        </div>
+                        <div class="text-center my-4">
+                            <img src="~/dashboard/assets/images/family.jpg" alt="" class="img-fluid" width="250" height="250">
+                        </div>
+                        <h4 class="fw-bolder fs-12 mb-3">Rp. @string.Format("{0:#,0}", item.Price),00</h4>
+                        <ul class="list-unstyled mb-7">
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <span class="text-dark">@Html.DisplayFor(modelItem => item.Description)</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <span class="text-dark">@Html.DisplayFor(modelItem => item.Capacity) Capacity</span>
+                            </li>
+                            <li class="d-flex align-items-center gap-2 py-2">
+                                <i class="ti ti-check text-primary fs-4"></i>
+                                <span class="text-dark">Photo</span>
+                            </li>
+                        </ul>
+                        <a asp-action="AddOrder" asp-controller="User" asp-route-id="@item.Guid" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Order</a>
                     </div>
-                    <h2 class="fw-bolder fs-12 mb-3">1499k</h2>
-                    <ul class="list-unstyled mb-7">
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Capacity</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Photo</span>
-                        </li>
-                    </ul>
-                    <a asp-action="Checkout" asp-controller="User" class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Order</a>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <span class="fw-bolder d-block mb-7">
-                        <h5>Birthday Parties</h5>
-                    </span>
-                    <div class="text-center my-4">
-                        <img src="~/dashboard/assets/images/birthday.jpg" alt="" class="img-fluid" width="250" height="250">
-                    </div>
-                    <h2 class="fw-bolder fs-12 mb-3">1499k</h2>
-                    <ul class="list-unstyled mb-7">
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Capacity</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Photo</span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Order</button>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6 col-lg-4">
-            <div class="card">
-                <div class="card-body">
-                    <span class="fw-bolder d-block mb-7">
-                        <h5>Birthday Parties</h5>
-                    </span>
-                    <div class="text-center my-4">
-                        <img src="~/dashboard/assets/images/birthday.jpg" alt="" class="img-fluid" width="250" height="250">
-                    </div>
-                    <h2 class="fw-bolder fs-12 mb-3">1499k</h2>
-                    <ul class="list-unstyled mb-7">
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Capacity</span>
-                        </li>
-                        <li class="d-flex align-items-center gap-2 py-2">
-                            <i class="ti ti-check text-primary fs-4"></i>
-                            <span class="text-dark">Photo</span>
-                        </li>
-                    </ul>
-                    <button class="btn btn-primary fw-bolder rounded-2 py-6 w-100 text-capitalize">Order</button>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>

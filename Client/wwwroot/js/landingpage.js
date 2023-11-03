@@ -85,12 +85,77 @@
 
     const navHeight = $('.nav-container').outerHeight(true);
     console.log(navHeight);
-    $('#about').css("margin-top", "-" + (navHeight-25) + "px");
+    $('#about').css("margin-top", "-" + (navHeight - 25) + "px");
     $('#why').css("margin-top", "-" + navHeight + "px");
     $('#gallery').css("margin-top", "-" + navHeight + "px");
     $('#pricing').css("margin-top", "-" + navHeight + "px");
     $('#contact').css("margin-top", "-" + navHeight + "px");
 
+
+    $.ajax({
+        url: "https://localhost:60107/api/packageevent/best-deal",
+        type: "GET",
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }).done((result) => {
+        console.log(result);
+        console.log(result.data);
+        let packageEl = "";
+        if (result.data.length > 0) {
+            result.data.forEach(data => {
+                const price = data.price.toLocaleString('id-ID');;
+                const descArray = data.description.split(", ");
+
+                let liDesc = "";
+                descArray.forEach(i => { liDesc += `<li>${i}</li>` })
+
+                packageEl += `
+
+            <div class="col-lg-3 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                <div class="service-item position-relative h-100 rounded">
+                    <div class="service-text h-100 rounded">
+                        <div class="price-block-header pt-4 pb-4 rounded-top" style="background-color: #eeeeee;">
+                            <h4 class="m-0">${data.name}</h4>
+                        </div>
+                        <div class="price-block-body pb-3 pt-4">
+                            <h4 class="text-primary mb-4 mt-3">Rp.${price}</h4>
+                            <ul class="price-list p-0" style="list-style: none;">
+                                <li>Up to ${data.capacity}</li>
+                                ${liDesc}
+                            </ul>
+                            <a href="Auth/Login" class="btn btn-outline-primary rounded-pill py-2 px-3 mt-3 mb-5">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            `;
+            });
+        } else {
+            packageEl = `
+            <div class="col-lg-12 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                <h4 class="text-center">Data Not Found</h4>
+            </div>
+            `
+        }
+
+
+        $('#package-container').html(packageEl);
+        $('.price-list').each(function (index, element) {
+            $(this).find("li").slice(4).hide();
+        });
+
+
+    }).fail((error) => {
+        let packageEl = `
+            <div class="col-lg-12 col-md-6 wow fadeInUp rounded" data-wow-delay="0.1s">
+                <h4 class="text-center">Data Not Found</h4>
+            </div>
+            `;
+        $('#package-container').html(packageEl);
+        console.log(error);
+    })
 
 })(jQuery);
 

@@ -1,5 +1,6 @@
 using API.Contracts;
 using API.DTOs.PackageEvents;
+using API.DTOs.TransactionEvents;
 using API.Models;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,17 @@ public class PackageEventController : ControllerBase
 
         return Ok(new ResponseOKHandler<IEnumerable<PackageEventDto>>(data));
     }
-    
+    [HttpGet("best-deal")]
+    public IActionResult GetByBestDeal()
+    {
+        var packages = _packageEventRepository.GetAll();
+        var firstFourData = packages.Take(4);
+        if (!firstFourData.Any())
+            return NotFound(new ResponseNotFoundHandler("Data Not Found"));
+        var data = firstFourData.Select(x => (PackageEventDto)x);
+
+        return Ok(new ResponseOKHandler<IEnumerable<PackageEventDto>>(data));
+    }
     [HttpGet("{guid}")]
     public IActionResult GetByGuid(Guid guid)
     {

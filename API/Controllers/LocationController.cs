@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
-[ApiController] 
+[ApiController]
 [Route("api/[controller]")]
 public class LocationController : ControllerBase
 {
@@ -16,7 +16,7 @@ public class LocationController : ControllerBase
     {
         _locationRepository = locationRepository;
     }
-    
+
     [HttpGet]
     public IActionResult GetAll()
     {
@@ -33,7 +33,7 @@ public class LocationController : ControllerBase
         var result = _locationRepository.GetAllDetailLocation();
         if (!result.Any())
             return NotFound(new ResponseNotFoundHandler("Data Not Found"));
-        var data = result.Select(x => (DetailLocationDto)x);
+        var data = result.Select(x => x);
 
         return Ok(new ResponseOKHandler<IEnumerable<DetailLocationDto>>(data));
     }
@@ -62,7 +62,7 @@ public class LocationController : ControllerBase
             var result = _locationRepository.Create(locationDto);
 
             return Ok(new ResponseOKHandler<LocationDto>("Data has been created successfully")
-                { Data = (LocationDto)result });
+            { Data = (LocationDto)result });
         }
         catch (ExceptionHandler ex)
         {
@@ -81,11 +81,11 @@ public class LocationController : ControllerBase
                 return NotFound(new ResponseNotFoundHandler("Data Not Found"));
 
             Location toUpdate = locationDto;
-            
+
             _locationRepository.Update(toUpdate);
 
             return Ok(new ResponseOKHandler<LocationDto>("Data has been updated successfully")
-                { Data = (LocationDto)toUpdate });
+            { Data = (LocationDto)toUpdate });
         }
         catch (ExceptionHandler ex)
         {

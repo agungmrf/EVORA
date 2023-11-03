@@ -28,11 +28,10 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Email</th>
-                                    <th>Invoice</th>
-                                    <th>City</th>
+                                    <th>SubDistrict</th>
                                     <th>District</th>
-                                    <th>Street</th>
+                                    <th>City</th>
+                                    <th>Province</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,7 +49,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add New Locations</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Detail Locations</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="form-packages">
@@ -59,28 +58,18 @@
                         <section>
                             <input type="hidden" class="form-control" name="guid" id="guid">
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="wStreet2">
-                                            Street : <span class="text-danger">*</span>
-                                        </label>
-                                        <textarea class="form-control" rows="2" id="wstreet2"></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="wProvince2">
                                             Province : <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control required" id="wProvince2" name="province">
+                                        <input type="text" class="form-control required" readonly id="wProvince2" name="province">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="wCity2">City : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="wCity2">
+                                        <input type="text" class="form-control" id="wCity2" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -90,13 +79,13 @@
                                         <label for="wDistrict2">
                                             District : <span class="text-danger">*</span>
                                         </label>
-                                        <input type="text" class="form-control required" id="wDistrict2" name="district">
+                                        <input type="text" class="form-control required" id="wDistrict2" readonly name="district">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="wSubDistrict2">Sub District : <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" id="wSubDistrict2">
+                                        <input type="text" class="form-control" id="wSubDistrict2" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -105,7 +94,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        @* <button type="submit" class="btn btn-primary">Save changes</button> *@
                     </div>
                 </form>
             </div>
@@ -125,6 +114,6 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="~/dashboard/assets/js/location.js"></script>
+    <script src="~/dashboard/assets/js/locations.js"></script>
     
 }

@@ -71,7 +71,7 @@
                                     <label for="wName2">
                                         Name : <span class="text-danger">*</span>
                                     </label>
-                                    <input type="text" class="form-control required" id="wName2" name="name">
+                                    <input type="text" class="form-control required" id="wName2" name="name" placeholder="Masukan nama package">
                                 </div>
                             </div>
                         </div>
@@ -81,13 +81,13 @@
                                     <label for="wCapacity2">
                                         Capacity : <span class="text-danger">*</span>
                                     </label>
-                                    <input type="number" class="form-control required" id="wCapacity2" name="capacity">
+                                    <input type="number" class="form-control required" id="wCapacity2" name="capacity" placeholder="Masukan jumlah capacity">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="mb-3">
                                     <label for="wPrice2">Price : <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" id="wPrice2">
+                                    <input type="text" class="form-control" id="wPrice2" placeholder="Masukan harga package">
                                 </div>
                             </div>
                         </div>
@@ -97,7 +97,7 @@
                                     <label for="wdescription2">
                                         Description : <span class="text-danger">*</span>
                                     </label>
-                                    <textarea class="form-control" rows="5" id="wdescription2"></textarea>
+                                    <select id="wdescription2" class="form-control" multiple="multiple"></select>
                                 </div>
                             </div>
                         </div>
@@ -125,6 +125,7 @@
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.colVis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="~/dashboard/assets/js/packages.js"></script>
     
 }

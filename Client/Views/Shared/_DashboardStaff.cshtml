@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewData["Title"] - Staff</title>
     <link rel="shortcut icon" type="image/png" href="~/dashboard/assets/images/logos/logo.png" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.4.2/css/buttons.dataTables.min.css" />
     <link rel="stylesheet" href="~/dashboard/assets/css/styles.min.css" />
+    @* <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/5.5.0/main.min.css" rel="stylesheet"> *@
 </head>
 
 <body>
@@ -42,11 +45,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link" asp-action="Packages" asp-controller="Staff" aria-expanded="false">
+                            <a class="sidebar-link" asp-action="ListEvent" asp-controller="Staff" aria-expanded="false">
                                 <span>
-                                    <i class="ti ti-shopping-cart"></i>
+                                    <i class="ti ti-calendar"></i>
                                 </span>
-                                <span class="hide-menu">Packages</span>
+                                <span class="hide-menu">Calendar Event</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
@@ -71,27 +74,7 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
-                <div class="fixed-profile p-3 bg-light-secondary rounded sidebar-ad mt-3">
-                    <form>
-                        <input type="hidden" name="csrfmiddlewaretoken"
-                               value="Tjwso6ueGMOK20JkTAvXIoqsjSUwzg1SI6VIFnaxnhC8RPqBCRRorUt0VOLspgnQ">
-                        <div class="hstack gap-3">
-                            <div class="john-img">
-                                <img src="~/dashboard/assets/images/profile/user-1.jpg" class="rounded-circle" width="40" height="40" alt="">
-                            </div>
-                            <div class="john-title">
-                                <h6 class="mb-0 fs-4 fw-semibold">Yazid</h6>
-                                <span class="fs-2 text-dark">Administrator</span>
-                            </div>
-                            <a href="/" class="border-0 bg-transparent text-primary ms-auto" tabindex="0"
-                               type="submit" aria-label="logout" data-bs-toggle="tooltip" data-bs-placement="top"
-                               data-bs-title="logout">
-                                <i class="ti ti-power fs-6"></i>
-                            </a>
-                        </div>
-                    </form>
-                </div>
+                   <!-- End Sidebar navigation -->
             </div>
             <!-- End Sidebar scroll-->
         </aside>
@@ -113,8 +96,11 @@
                         <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
                             <li class="nav-item">
                                 <a style="font-size: small;" class="nav-link" id="todaydate" aria-disabled="true">
-                                    Wednesday, 25
-                                    October 2023
+                                    @{
+                                        DateTime sekarang = DateTime.Now;
+                                        string tanggalDiformat = sekarang.ToString("dddd, dd MMMM yyyy");
+                                    }
+                                    @tanggalDiformat
                                 </a>
                             </li>
                             <li class="nav-item dropdown">
@@ -124,11 +110,11 @@
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                                     <div class="message-body">
-                                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                                         <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
                                             <i class="ti ti-user fs-6"></i>
-                                            <p class="mb-0 fs-3">My Profile</p>
-                                        </a>
-                                        <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                                             <p class="mb-0 fs-3">Staff</p>
+                                        </a> 
+                                        <a asp-action="Logout" asp-controller="Auth" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
                                     </div>
                                 </div>
                             </li>
@@ -140,7 +126,7 @@
             <div class="container-fluid">
                 <!--  Body -->
                 @RenderBody()
-                
+
                 @* <div class="py-9 px-6 text-center">
                 <p class="mb-0 fs-4">
                 Design and Developed by <a href="https://adminmart.com/" target="_blank"
@@ -154,9 +140,9 @@
     <script src="~/dashboard/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/dashboard/assets/js/sidebarmenu.js"></script>
     <script src="~/dashboard/assets/js/app.min.js"></script>
-    <script src="~/dashboard/assets/libs/apexcharts/dist/apexcharts.min.js"></script>
+
     <script src="~/dashboard/assets/libs/simplebar/dist/simplebar.js"></script>
-    <script src="~/dashboard/assets/js/dashboard.js"></script>
+    @* <script src="~/dashboard/assets/js/dashboard.js"></script> *@
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

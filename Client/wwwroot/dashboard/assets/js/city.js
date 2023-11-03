@@ -1,5 +1,5 @@
 
-const baseUrl = "https://localhost:50969/api/city/";
+const baseUrl = "https://localhost:60107/api/city/";
 
 $(document).ready(() => {
 
@@ -10,7 +10,7 @@ $(document).ready(() => {
             dataSrc: 'data',
             'error': function (jqXHR, textStatus, errorThrown) {
                 $('#city-table').DataTable().clear().draw();
-            } 
+            }
         },
         columns: [
             {
@@ -210,7 +210,7 @@ $(document).ready(() => {
     }
 
     $.ajax({
-        url: "https://localhost:50969/api/province/",
+        url: "https://localhost:60107/api/province/",
     }).done((result) => {
         console.log(result);
         optionProvince = "";

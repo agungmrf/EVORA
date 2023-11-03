@@ -1,0 +1,108 @@
+﻿welcome
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "_DashboardUser";
+}
+<div class="row px-4">
+    <div class="card bg-light-info shadow-none position-relative overflow-hidden">
+        <div class="card-body px-4">
+            <div class="col-9">
+                <h4 class="fw-semibold mb-8">Order Now</h4>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a class="text-muted" href="#">Overview</a></li>
+                        <li class="breadcrumb-item" aria-current="page">Order Now</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="card ">
+        <div class="card-body p-4 ">
+            <div class="row">
+                <div class="col-lg-4">
+                    <img src="/dashboard/assets/images/family.jpg" alt="" class="img-fluid" style="width: 480px;">
+                </div>
+                <div class="col-lg-4">
+                    <div class="shop-content">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <span class="fs-3">Package</span>
+                        </div>
+                        <h2 class="fw-semibold">Birthday Parties</h2>
+                        <h4 class="fw-semibold mb-3">Rp. 1499k</h4>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="d-flex align-items-center gap-2 mb-2">
+                        <span class="fs-3">Details Packages</span>
+                    </div>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-center gap-2 py-2">
+                            <i class="ti ti-check text-primary fs-4"></i>
+                            <span class="text-dark">Capacity</span>
+                        </li>
+                        <li class="d-flex align-items-center gap-2 py-2">
+                            <i class="ti ti-check text-primary fs-4"></i>
+                            <span class="text-dark">Photo</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <div class="shop-content">
+                        <label class="fw-semibold mt-2">Pick Date Event</label>
+                        <!-- <label class="fw-semibold mt-1">Pick Date Event</label> -->
+                        <form class="mt-2 col-10 mb-2">
+                            <div class="form-group">
+                                <input type="date" class="form-control" value="2018-05-13">
+                            </div>
+                        </form>
+                        <label class="fw-semibold mt-2">Street</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control mt-2" id="street" name="street">
+                        </div>
+                        <div class="mt-3 d-sm-flex align-items-center gap-3 pt-8 mb-7">
+                            <a href="overview.html" class="btn d-block btn-primary px-5 py-8 mb-2 mb-sm-0">Order Now</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="shop-content">
+                        <label class="fw-semibold mt-2">District</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control mt-2" id="street" name="street">
+                        </div>
+                        <label class="fw-semibold mt-3">Sub District</label>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control mt-2" id="street" name="street">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="shop-content">
+                        <label class="fw-semibold mt-1">Province</label>
+                        <form class="mt-1 col-10 mb-4">
+                            <div class="form-group">
+                                <select class="form-select mr-sm-2" id="inlineFormCustomSelect">
+                                    <option selected="">Choose...</option>
+                                </select>
+                            </div>
+                        </form>
+                        <!-- <div class="d-flex align-items-center gap-2 mb-2">
+                          <span class="fs-3 mt-1">City</span>
+                        </div> -->
+                        <div id="city">
+                            <label class="fw-semibold mt-1">City</label>
+                            <form class="mt-1 col-10">
+                                <div class="form-group">
+                                    <select class="form-select mr-sm-2" id="inlineFormCustomSelect">
+                                        <option selected="">Choose...</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

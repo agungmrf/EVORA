@@ -29,7 +29,7 @@ public class GenerateTokenHandler : IGenerateTokenHandler
             _configuration["JWTService:Issuer"], // Penerbit token (dalam hal ini, server)
             _configuration["JWTService:Audience"], // Penerima token (dalam hal ini, aplikasi yang menggunakan token)
             claims, // Data claims yang akan disertakan dalam token
-            expires: DateTime.Now.AddMinutes(10), // Token akan kedaluwarsa dalam 10 menit
+            expires: DateTime.Now.AddMinutes(50), // Token akan kedaluwarsa dalam 10 menit
             signingCredentials: sigingCredentials); // Kunci untuk penerbit token
 
         // Encode token JWT ke dalam string yang dapat dikirimkan sebagai respons
@@ -39,17 +39,17 @@ public class GenerateTokenHandler : IGenerateTokenHandler
     
     public ClaimsDto ExtractClaimsFromJwt(string token)
     {
-        if (String.IsNullOrEmpty(null)) return new ClaimsDto(); // If the JWT token is empty, return an empty dictionary
+        if (token == null) return new ClaimsDto(); // If the JWT token is empty, return an empty dictionary
 
         try {
             // Configure the token validation parameters
             var tokenValidationParameters = new TokenValidationParameters {
                 ValidateAudience = true,
-                ValidAudience = _configuration["JWT:Audience"],
+                ValidAudience = _configuration["JWTService:Audience"],
                 ValidateIssuer = true,
-                ValidIssuer = _configuration["JWT:Issuer"],
+                ValidIssuer = _configuration["JWTService:Issuer"],
                 ValidateLifetime = true,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtService:SecretKey"]))
             };
 
             // Parse and validate the JWT token
@@ -59,7 +59,6 @@ public class GenerateTokenHandler : IGenerateTokenHandler
             // Extract the claims from the JWT token
             if (securityToken != null && claimsPrincipal.Identity is ClaimsIdentity identity) {
                 var claims = new ClaimsDto() {
-                    NameIdentifier = identity.FindFirst(ClaimTypes.NameIdentifier)!.Value,
                     Name = identity.FindFirst(ClaimTypes.Name)!.Value,
                     Email = identity.FindFirst(ClaimTypes.Email)!.Value
                 };

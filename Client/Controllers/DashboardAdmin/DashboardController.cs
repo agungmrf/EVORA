@@ -1,9 +1,11 @@
 ﻿using Client.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
 namespace Client.Controllers.DashboardAdmin
 {
+    [Authorize(Roles = "Admin")]
     public class DashboardController : Controller
     {
         private readonly ILogger<DashboardController> _logger;
@@ -34,14 +36,6 @@ namespace Client.Controllers.DashboardAdmin
             return View();
         }
         public IActionResult City()
-        {
-            return View();
-        }
-        public IActionResult District()
-        {
-            return View();
-        }
-        public IActionResult SubDistrict()
         {
             return View();
         }
