@@ -2,11 +2,8 @@ using API.Contracts;
 using API.Data;
 using API.DTOs.Employees;
 using API.Models;
-using API.Repositories;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 
 namespace API.Controllers;
 

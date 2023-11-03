@@ -1,6 +1,5 @@
 using API.Contracts;
 using API.DTOs.PackageEvents;
-using API.DTOs.TransactionEvents;
 using API.Models;
 using API.Utilities.Handler;
 using Microsoft.AspNetCore.Mvc;

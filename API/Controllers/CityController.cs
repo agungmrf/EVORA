@@ -1,6 +1,5 @@
 using API.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using API.Utilities.Handlers;
 using API.Utilities.Handler;
 using API.DTOs.Cities;
 using API.Models;

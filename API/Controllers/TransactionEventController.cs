@@ -1,19 +1,10 @@
 using API.Contracts;
-using API.DTOs.Accounts;
-using API.DTOs.Employees;
 using API.DTOs.Locations;
 using API.DTOs.TransactionEvents;
 using API.Models;
-using API.Repositories;
 using API.Utilities.Enums;
 using API.Utilities.Handler;
-using API.Utilities.Handlers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-using System;
-using System.Net;
-using System.Runtime.ConstrainedExecution;
-using static System.Net.WebRequestMethods;
 
 namespace API.Controllers;
 
