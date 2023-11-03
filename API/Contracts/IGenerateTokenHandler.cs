@@ -1,5 +1,5 @@
-using System.Security.Claims;
 using API.DTOs.Accounts;
+using System.Security.Claims;
 
 namespace API.Contracts;
 
