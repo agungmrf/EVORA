@@ -54,6 +54,8 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @if (Model.Count() > 0)
+                                {
                                     @foreach (var item in Model)
                                     {
                                         if (item.Status.ToString() == "Pending")
@@ -86,17 +88,18 @@
                                                 </td>
                                                 <td class="text-end ps-0">
                                                     <a asp-action="StatusApprove" asp-controller="Staff" asp-route-id=@item.Guid type="button"
-                                                            class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-success">
+                                                       class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-success">
                                                         Approve
                                                     </a>
                                                     <a asp-action="StatusDecline" asp-controller="Staff" asp-route-id=@item.Guid type="button"
-                                                            class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-warning">
+                                                       class="btn btn-sm ps-3 pe-3 mb-1 waves-effect waves-light btn-warning">
                                                         Decline
                                                     </a>
                                                 </td>
                                             </tr>
                                         }
                                     }
+                                }
                                 </tbody>
                             </table>
                         </div>

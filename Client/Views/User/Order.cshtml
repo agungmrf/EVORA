@@ -30,7 +30,7 @@
                         <div class="text-center my-4">
                             <img src="~/dashboard/assets/images/family.jpg" alt="" class="img-fluid" width="250" height="250">
                         </div>
-                        <h2 class="fw-bolder fs-12 mb-3">@Html.DisplayFor(modelItem => item.Price)</h2>
+                        <h4 class="fw-bolder fs-12 mb-3">Rp. @string.Format("{0:#,0}", item.Price),00</h4>
                         <ul class="list-unstyled mb-7">
                             <li class="d-flex align-items-center gap-2 py-2">
                                 <i class="ti ti-check text-primary fs-4"></i>
